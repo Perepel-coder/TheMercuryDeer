@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class NpcEntity : MonoBehaviour
 {
@@ -27,7 +26,7 @@ public class NpcEntity : MonoBehaviour
 
     public void DetectDeath()
     {
-        if(_currentHealth <= 0)
+        if (_currentHealth <= 0)
             Destroy(gameObject);
     }
 }

@@ -119,7 +119,7 @@ GameObject:
   - component: {fileID: 7876994070586651227}
   - component: {fileID: 7433045155016829335}
   - component: {fileID: 1291489691526687542}
-  - component: {fileID: 7962682111232257823}
+  - component: {fileID: 3933299508427468624}
   m_Layer: 0
   m_Name: Seraphim
   m_TagString: Untagged
@@ -239,14 +239,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bdf28ea3b40edeb4dbe3842c8d4efdb8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _state: 0
+  _currentState: 0
   _roamingDistanceMin: 1
   _roamingDistanceMax: 2
-  _roamingTimerMax: 1
+  _roamingTimeMax: 2
   _roamingSpeed: 1
-  _chasingDistance: 4
-  _chasingSpeedMultiplayer: 2
---- !u!114 &7962682111232257823
+--- !u!114 &3933299508427468624
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -255,6 +253,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 6363583794730455755}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 91f5f26c08f30f249801363428f6c11b, type: 3}
+  m_Script: {fileID: 11500000, guid: e41f1553eabae6e489155172fd9dd2ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
