@@ -1,9 +1,11 @@
 ﻿using TheMercuryDeer.Scripts.Enemy;
 
-public class SeraphimAI : EnemyAI
+public class SeraphimAI : NpcAI
 {
-    public override int MaxHealth { get; } = 20;
-    public override bool IsChasingEnemy { get; } = true;
+    public override int MaxHealth => 20;
+    public override bool IsChasingEnemy => true;
+
+    public override bool IsEnemy => true;
 
     protected override void Start()
     {
