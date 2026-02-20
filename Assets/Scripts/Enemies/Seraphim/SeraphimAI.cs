@@ -9,6 +9,6 @@ public class SeraphimAI : EnemyAI
     {
         base.Start();
 
-        _state = State.Roaming;
+        _currentState = State.Roaming;
     }
 }
