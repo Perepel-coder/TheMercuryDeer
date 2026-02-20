@@ -1021,6 +1021,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2529456599920251300, guid: 7bb2bfa1fd1cb234aa555db23a2eb65b, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
     - target: {fileID: 3488039916783775866, guid: 7bb2bfa1fd1cb234aa555db23a2eb65b, type: 3}
       propertyPath: m_LocalPosition.x
       value: -3.1987972
@@ -1140,17 +1144,33 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1291489691526687542, guid: eac398fbbcb552e4f90d8e744b6fe5a0, type: 3}
+      propertyPath: _roamingTimerMax
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1291489691526687542, guid: eac398fbbcb552e4f90d8e744b6fe5a0, type: 3}
+      propertyPath: _roamingDistanceMax
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1291489691526687542, guid: eac398fbbcb552e4f90d8e744b6fe5a0, type: 3}
+      propertyPath: _roamingDistanceMin
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 6363583794730455755, guid: eac398fbbcb552e4f90d8e744b6fe5a0, type: 3}
       propertyPath: m_Name
       value: Seraphim
       objectReference: {fileID: 0}
+    - target: {fileID: 7433045155016829335, guid: eac398fbbcb552e4f90d8e744b6fe5a0, type: 3}
+      propertyPath: m_Speed
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 8402533514575966695, guid: eac398fbbcb552e4f90d8e744b6fe5a0, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.06
+      value: 1.37
       objectReference: {fileID: 0}
     - target: {fileID: 8402533514575966695, guid: eac398fbbcb552e4f90d8e744b6fe5a0, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.62
+      value: -0.09
       objectReference: {fileID: 0}
     - target: {fileID: 8402533514575966695, guid: eac398fbbcb552e4f90d8e744b6fe5a0, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1184,7 +1204,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7259974530458342841, guid: eac398fbbcb552e4f90d8e744b6fe5a0, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []

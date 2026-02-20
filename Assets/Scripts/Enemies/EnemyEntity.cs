@@ -3,18 +3,18 @@ using UnityEngine;
 
 public class EnemyEntity : MonoBehaviour
 {
-    private Enemy _enemy;
+    private EnemyAI _enemyAI;
     private int _maxHealth;
     private int _currentHealth;
 
     private void Awake()
     {
-        _enemy = GetComponent<Enemy>();
+        _enemyAI = GetComponent<EnemyAI>();
     }
 
     private void Start()
     {
-        _maxHealth = _enemy.MaxHealth;
+        _maxHealth = _enemyAI.MaxHealth;
         _currentHealth = _maxHealth;
     }
 
