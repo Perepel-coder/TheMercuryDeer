@@ -2,7 +2,7 @@
 
 public class SwordView: View
 {
-    private const string IS_ATTACK = "isAttack";
+    private const string ATTACK = "Attack";
     private Sword _sword;
 
     protected override void Awake()
@@ -16,7 +16,7 @@ public class SwordView: View
         _sword.OnSwing += Sword_OnSwing;
     }
 
-    private void Sword_OnSwing(object sender, System.EventArgs e) => _animator.SetTrigger(IS_ATTACK);
+    private void Sword_OnSwing(object sender, System.EventArgs e) => _animator.SetTrigger(ATTACK);
 
     public void OnAttackAnimationExit()=>_sword.TurnOnCollider(false);
 }

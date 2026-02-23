@@ -72,6 +72,7 @@ public abstract class NpcAI : MonoBehaviour
                 break;
             default:
             case State.Idle:
+                _navMeshAgent.speed = 0;
                 break;
         }
 

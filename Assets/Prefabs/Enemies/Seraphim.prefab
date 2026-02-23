@@ -215,7 +215,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.42
-  m_Speed: 0.3
+  m_Speed: 0.5
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
@@ -240,8 +240,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _currentState: 0
-  _roamingDistanceMin: 1
-  _roamingDistanceMax: 2
+  _roamingDistanceMin: 3
+  _roamingDistanceMax: 7
   _roamingTimeMax: 2
   _roamingSpeed: 1
 --- !u!114 &3933299508427468624
