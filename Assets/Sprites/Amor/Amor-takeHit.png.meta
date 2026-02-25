@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 61c6c19f88fe2f644aa8557266971394
+guid: 48c36350ea63bd844a84f53bd3954a31
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -110,7 +110,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Amor-run-8_0
+      name: Amor-takeHit_0
       rect:
         serializedVersion: 2
         x: 0
@@ -124,122 +124,17 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8010f3ecab9054f4781c10a240995115
-      internalID: 2004553933
+      spriteID: 61661fae04786e941bac582efaca6167
+      internalID: -1152525788
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Amor-run-8_1
+      name: Amor-takeHit_1
       rect:
         serializedVersion: 2
         x: 64
-        y: 0
-        width: 64
-        height: 64
-      alignment: 9
-      pivot: {x: 0.5, y: 0.21}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 10e26a988dcc07646996ca63c84402fe
-      internalID: 883997079
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Amor-run-8_2
-      rect:
-        serializedVersion: 2
-        x: 128
-        y: 0
-        width: 64
-        height: 64
-      alignment: 9
-      pivot: {x: 0.51, y: 0.23}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 7aad70e4d63584544898e1596bd868ff
-      internalID: -126113820
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Amor-run-8_3
-      rect:
-        serializedVersion: 2
-        x: 192
-        y: 0
-        width: 64
-        height: 64
-      alignment: 9
-      pivot: {x: 0.5, y: 0.24}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: ca2da7c8353e6f04488baf0f169bf9c1
-      internalID: 742974490
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Amor-run-8_4
-      rect:
-        serializedVersion: 2
-        x: 256
-        y: 0
-        width: 64
-        height: 64
-      alignment: 9
-      pivot: {x: 0.5, y: 0.23}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 47e649c51a456db47b1bff1c76f8f3da
-      internalID: -1230248871
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Amor-run-8_5
-      rect:
-        serializedVersion: 2
-        x: 320
-        y: 0
-        width: 64
-        height: 64
-      alignment: 9
-      pivot: {x: 0.5, y: 0.22}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 44ba39d36d58d16478bc66a3fff7472b
-      internalID: -1529436186
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Amor-run-8_6
-      rect:
-        serializedVersion: 2
-        x: 384
         y: 0
         width: 64
         height: 64
@@ -250,29 +145,71 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4fe314299ff7e5f45984ebc247169f3d
-      internalID: 1828242056
+      spriteID: 7e1c5e68c315cb2489db9877b4f64052
+      internalID: -674847828
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Amor-run-8_7
+      name: Amor-takeHit_2
       rect:
         serializedVersion: 2
-        x: 448
+        x: 128
         y: 0
         width: 64
         height: 64
       alignment: 9
-      pivot: {x: 0.5, y: 0.18}
+      pivot: {x: 0.5, y: 0.2}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 236d227b5b48f1744af73a34f0957b7b
-      internalID: -2145748060
+      spriteID: 3129ccd2fd9e6614f82de63fdc466f45
+      internalID: 909039126
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Amor-takeHit_3
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 0
+        width: 64
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a0d02f9622e32bf429e349464fb6ed21
+      internalID: 855328766
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Amor-takeHit_4
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 0
+        width: 64
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2afd32c5a45ccf34e8ad3b5db576be3b
+      internalID: -1876366979
       vertices: []
       indices: 
       edges: []
@@ -288,14 +225,11 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Amor-run-8_0: 2004553933
-      Amor-run-8_1: 883997079
-      Amor-run-8_2: -126113820
-      Amor-run-8_3: 742974490
-      Amor-run-8_4: -1230248871
-      Amor-run-8_5: -1529436186
-      Amor-run-8_6: 1828242056
-      Amor-run-8_7: -2145748060
+      Amor-takeHit_0: -1152525788
+      Amor-takeHit_1: -674847828
+      Amor-takeHit_2: 909039126
+      Amor-takeHit_3: 855328766
+      Amor-takeHit_4: -1876366979
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

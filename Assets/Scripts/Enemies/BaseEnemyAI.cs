@@ -4,33 +4,32 @@ using TheMercuryDeer.Scripts.Utils;
 using UnityEngine;
 using UnityEngine.AI;
 
-public abstract class NpcAI : MonoBehaviour
+public abstract class BaseEnemyAI : MonoBehaviour
 {
     #region private
     private NavMeshAgent _navMeshAgent;
     private float _roamingCurrentTime;
+    private Vector3 _lastSteeringTarget;
     #endregion
 
     #region characteristics
-    [SerializeField] protected State _currentState = State.Idle;
+    protected State _currentState = State.Idle;
 
-    [SerializeField] protected float _roamingDistanceMin = 3f;
-    [SerializeField] protected float _roamingDistanceMax = 7f;
-    [SerializeField] protected float _roamingTimeMax = 2f;
-    [SerializeField] protected float _roamingSpeed = 1.0f;
+    protected float _roamingDistanceMin = 3f;
+    protected float _roamingDistanceMax = 7f;
+    protected float _roamingTimeMax = 2f;
+    protected float _roamingSpeed = 3f;
 
-    protected float _chasingDistance = 4f;
-    protected float _chasingSpeedMultiplayer = 2f;
+    protected float _chasingDistance = 15f;
+    protected float _chasingSpeedMultiplier = 2f;
 
-    protected float _attackingDistance = 2f;
+    protected float _attackingDistance = 7f;
     protected float _attackRate = 2f;
     protected float _nextAttackTime = 0f;
     #endregion
 
-    protected float ChasingSpeed => _roamingSpeed * 2.0f;
-    protected Vector3 _movementVector;
-
     public bool IsRunning => _navMeshAgent.velocity != Vector3.zero;
+    public float ChasingSpeedMultiplier => _chasingSpeedMultiplier;
     public event EventHandler OnEnemyAttacked;
 
     public abstract int MaxHealth { get; }
@@ -44,11 +43,6 @@ public abstract class NpcAI : MonoBehaviour
 
         _navMeshAgent.updateRotation = false;
         _navMeshAgent.updateUpAxis = false;
-    }
-
-    protected virtual void Start()
-    {
-        _roamingSpeed = _navMeshAgent.speed;
     }
 
     private void Update() => StateHandler();
@@ -72,11 +66,11 @@ public abstract class NpcAI : MonoBehaviour
                 break;
             default:
             case State.Idle:
-                _navMeshAgent.speed = 0;
                 break;
         }
 
         CheckCurrentState();
+        TrackingDirectionMovement();
     }
 
     private void ChangeFacingDirection(Vector3 currentPosition, Vector3 targetPosition) =>
@@ -84,20 +78,36 @@ public abstract class NpcAI : MonoBehaviour
         Quaternion.Euler(0, 180, 0) :
         Quaternion.Euler(0, 0, 0);
 
-    private void HandleRoamingState()
+    private void TrackingDirectionMovement()
+    {
+        if (_lastSteeringTarget == _navMeshAgent.steeringTarget)
+            return;
+
+        switch (_currentState)
+        {
+            case State.Roaming or State.Chasing:
+                ChangeFacingDirection(transform.position, _navMeshAgent.steeringTarget);
+                break;
+            case State.Attacking:
+                ChangeFacingDirection(transform.position, Player.Instance.transform.position);
+                break;
+        }
+
+        _lastSteeringTarget = _navMeshAgent.steeringTarget;
+    }
+
+    protected virtual void HandleRoamingState()
     {
         _roamingCurrentTime = _roamingTimeMax;
 
         var targetPosition = transform.position + Utils.GetRandomDirection() * UnityEngine.Random.Range(_roamingDistanceMin, _roamingDistanceMax);
 
-        ChangeFacingDirection(transform.position, targetPosition);
-
         _navMeshAgent.SetDestination(targetPosition);
     }
 
-    private void HandleChasingState() => _navMeshAgent.SetDestination(Player.Instance.transform.position);
+    protected virtual void HandleChasingState() => _navMeshAgent.SetDestination(Player.Instance.transform.position);
 
-    private void HandleAttackingState()
+    protected virtual void HandleAttackingState()
     {
         if (Time.time > _nextAttackTime)
         {
@@ -121,7 +131,7 @@ public abstract class NpcAI : MonoBehaviour
             {
                 case State.Chasing:
                     _navMeshAgent.ResetPath();
-                    _navMeshAgent.speed = ChasingSpeed;
+                    _navMeshAgent.speed = _roamingSpeed * _chasingSpeedMultiplier;
                     break;
                 case State.Roaming:
                     _roamingCurrentTime = 0f;

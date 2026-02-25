@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 6980366387886553006}
   - component: {fileID: -222213348770568489}
   - component: {fileID: -1013504387453356355}
-  - component: {fileID: 3501297660025850279}
   - component: {fileID: 3453475190386848513}
+  - component: {fileID: 6610162289126106840}
   m_Layer: 0
   m_Name: Amor
   m_TagString: Untagged
@@ -31,7 +31,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 1.498, y: -1.288, z: 0}
-  m_LocalScale: {x: 3, y: 3, z: 1}
+  m_LocalScale: {x: 4, y: 4, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8441181819684139417}
@@ -121,18 +121,6 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &3501297660025850279
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1061380763204170812}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e41f1553eabae6e489155172fd9dd2ef, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &3453475190386848513
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -150,6 +138,18 @@ MonoBehaviour:
   _roamingDistanceMax: 7
   _roamingTimeMax: 2
   _roamingSpeed: 1
+--- !u!114 &6610162289126106840
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1061380763204170812}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f324ae4fa0c4ae4aba7fac527c04fdf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3961179434174724866
 GameObject:
   m_ObjectHideFlags: 0
@@ -161,6 +161,7 @@ GameObject:
   - component: {fileID: 8441181819684139417}
   - component: {fileID: 3978644071202660220}
   - component: {fileID: 8056117004857918453}
+  - component: {fileID: 1069166498820136130}
   m_Layer: 0
   m_Name: AmorView
   m_TagString: Untagged
@@ -177,7 +178,7 @@ Transform:
   m_GameObject: {fileID: 3961179434174724866}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.75, y: 0.25, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -256,3 +257,15 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1069166498820136130
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3961179434174724866}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 739202defdd52224187a134ec6eeecdc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -1,8 +1,7 @@
-﻿using UnityEngine;
+﻿using TheMercuryDeer.Scripts.Utils;
 
-public class SwordView: View
+public class SwordView : View
 {
-    private const string ATTACK = "Attack";
     private Sword _sword;
 
     protected override void Awake()
@@ -16,7 +15,7 @@ public class SwordView: View
         _sword.OnSwing += Sword_OnSwing;
     }
 
-    private void Sword_OnSwing(object sender, System.EventArgs e) => _animator.SetTrigger(ATTACK);
+    private void Sword_OnSwing(object sender, System.EventArgs e) => _animator.SetTrigger(Utils.ATTACK);
 
-    public void OnAttackAnimationExit()=>_sword.TurnOnCollider(false);
+    public void OnAttackAnimationExit() => _sword.TurnOnCollider(false);
 }

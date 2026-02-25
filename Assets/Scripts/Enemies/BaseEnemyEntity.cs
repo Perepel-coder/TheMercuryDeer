@@ -1,19 +1,19 @@
 ﻿using UnityEngine;
 
-public class NpcEntity : MonoBehaviour
+public class BaseEnemyEntity : MonoBehaviour
 {
-    private NpcAI _npcAI;
+    private BaseEnemyAI _enemyAI;
     private int _maxHealth;
     private int _currentHealth;
 
     private void Awake()
     {
-        _npcAI = GetComponent<NpcAI>();
+        _enemyAI = GetComponent<BaseEnemyAI>();
     }
 
     private void Start()
     {
-        _maxHealth = _npcAI.MaxHealth;
+        _maxHealth = _enemyAI.MaxHealth;
         _currentHealth = _maxHealth;
     }
 
