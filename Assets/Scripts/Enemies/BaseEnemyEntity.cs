@@ -3,7 +3,6 @@
 public class BaseEnemyEntity : MonoBehaviour
 {
     private BaseEnemyAI _enemyAI;
-    private int _maxHealth;
     private int _currentHealth;
 
     private void Awake()
@@ -13,8 +12,13 @@ public class BaseEnemyEntity : MonoBehaviour
 
     private void Start()
     {
-        _maxHealth = _enemyAI.MaxHealth;
-        _currentHealth = _maxHealth;
+        _currentHealth = _enemyAI.MaxHealth;
+    }
+
+    private void DetectDeath()
+    {
+        if (_currentHealth <= 0)
+            Destroy(gameObject);
     }
 
     public void TakeDamage(int damage)
@@ -22,11 +26,5 @@ public class BaseEnemyEntity : MonoBehaviour
         _currentHealth -= damage;
 
         DetectDeath();
-    }
-
-    public void DetectDeath()
-    {
-        if (_currentHealth <= 0)
-            Destroy(gameObject);
     }
 }

@@ -1,5 +1,5 @@
-﻿
-using TheMercuryDeer.Scripts.Utils;
+﻿using TheMercuryDeer.Scripts.Utils;
+using UnityEngine;
 
 public class BaseEnemyView: View
 {

@@ -15,10 +15,10 @@ public abstract class BaseEnemyAI : MonoBehaviour
     #region characteristics
     protected State _currentState = State.Idle;
 
-    protected float _roamingDistanceMin = 3f;
-    protected float _roamingDistanceMax = 7f;
-    protected float _roamingTimeMax = 2f;
-    protected float _roamingSpeed = 3f;
+    protected float _roamingDistanceMin = 4f;
+    protected float _roamingDistanceMax = 6f;
+    protected float _roamingTimeMax = 4f;
+    protected float _roamingSpeed = 3.5f;
 
     protected float _chasingDistance = 15f;
     protected float _chasingSpeedMultiplier = 2f;
@@ -44,6 +44,8 @@ public abstract class BaseEnemyAI : MonoBehaviour
         _navMeshAgent.updateRotation = false;
         _navMeshAgent.updateUpAxis = false;
     }
+
+    protected virtual void Start() {}
 
     private void Update() => StateHandler();
 
@@ -96,27 +98,6 @@ public abstract class BaseEnemyAI : MonoBehaviour
         _lastSteeringTarget = _navMeshAgent.steeringTarget;
     }
 
-    protected virtual void HandleRoamingState()
-    {
-        _roamingCurrentTime = _roamingTimeMax;
-
-        var targetPosition = transform.position + Utils.GetRandomDirection() * UnityEngine.Random.Range(_roamingDistanceMin, _roamingDistanceMax);
-
-        _navMeshAgent.SetDestination(targetPosition);
-    }
-
-    protected virtual void HandleChasingState() => _navMeshAgent.SetDestination(Player.Instance.transform.position);
-
-    protected virtual void HandleAttackingState()
-    {
-        if (Time.time > _nextAttackTime)
-        {
-            OnEnemyAttacked.Invoke(this, EventArgs.Empty);
-
-            _nextAttackTime = Time.time + _attackRate;
-        }
-    }
-
     private void CheckCurrentState()
     {
         float distanceToPlayer = Vector3.Distance(transform.position, Player.Instance.transform.position);
@@ -143,6 +124,27 @@ public abstract class BaseEnemyAI : MonoBehaviour
             }
 
             _currentState = newState;
+        }
+    }
+
+    protected virtual void HandleRoamingState()
+    {
+        _roamingCurrentTime = _roamingTimeMax;
+
+        var targetPosition = transform.position + Utils.GetRandomDirection() * UnityEngine.Random.Range(_roamingDistanceMin, _roamingDistanceMax);
+
+        _navMeshAgent.SetDestination(targetPosition);
+    }
+
+    protected virtual void HandleChasingState() => _navMeshAgent.SetDestination(Player.Instance.transform.position);
+
+    protected virtual void HandleAttackingState()
+    {
+        if (Time.time > _nextAttackTime)
+        {
+            OnEnemyAttacked.Invoke(this, EventArgs.Empty);
+
+            _nextAttackTime = Time.time + _attackRate;
         }
     }
 }

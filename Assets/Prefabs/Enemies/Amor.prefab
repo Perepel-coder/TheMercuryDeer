@@ -133,11 +133,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4107cfdfc2e8f8c49b711d5d7e770130, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _currentState: 1
-  _roamingDistanceMin: 3
-  _roamingDistanceMax: 7
-  _roamingTimeMax: 2
-  _roamingSpeed: 1
 --- !u!114 &6610162289126106840
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -178,7 +173,7 @@ Transform:
   m_GameObject: {fileID: 3961179434174724866}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.75, y: 0.25, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

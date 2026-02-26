@@ -1,4 +1,3 @@
-using TheMercuryDeer.Scripts.Enemy;
 
 public class AmorAI : BaseEnemyAI
 {
@@ -10,5 +9,7 @@ public class AmorAI : BaseEnemyAI
     protected override void Start()
     {
         base.Start();
+        _roamingDistanceMax = 7f;
+        _nextAttackTime = 0f;
     }
 }
