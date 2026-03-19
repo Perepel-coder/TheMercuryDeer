@@ -1,8 +1,7 @@
-﻿using UnityEngine;
+﻿using TheMercuryDeer.Scripts.Utils;
 
 public class SwordSlashView : View
 {
-    private const string IS_ATTACK = "isAttack";
     private Sword _sword;
 
     protected override void Awake()
@@ -16,5 +15,5 @@ public class SwordSlashView : View
         _sword.OnSwing += Sword_OnSwing;
     }
 
-    private void Sword_OnSwing(object sender, System.EventArgs e) => _animator.SetTrigger(IS_ATTACK);
+    private void Sword_OnSwing(object sender, System.EventArgs e) => _animator.SetTrigger(Utils.ATTACK);
 }

@@ -1,9 +1,7 @@
-using UnityEngine;
+using TheMercuryDeer.Scripts.Utils;
 
 public class PlayerView : View
 {
-    private const string IS_RUNNING = "isRunning";
-
     protected override void Awake()
     {
         base.Awake();
@@ -11,7 +9,7 @@ public class PlayerView : View
 
     private void Update()
     {
-        _animator.SetBool(IS_RUNNING, Player.Instance.IsRunning);
+        _animator.SetBool(Utils.IS_RUNNING, Player.Instance.IsRunning);
 
         //LookWhereGoing();
 
