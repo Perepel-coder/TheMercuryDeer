@@ -1,9 +1,15 @@
-﻿using UnityEngine;
+﻿using Assets.Scripts.Interfaces;
+using UnityEngine;
+using UnityEngine.EventSystems;
 
-public class BaseEnemyEntity : MonoBehaviour
+public class BaseEnemyEntity : MonoBehaviour, IDamageable
 {
     private BaseEnemyAI _enemyAI;
     private int _currentHealth;
+
+    //public event EventHandle OnEnemyTakedDamage;
+
+    public bool IsAlive { get; private set; } = true;
 
     private void Awake()
     {
@@ -18,7 +24,7 @@ public class BaseEnemyEntity : MonoBehaviour
     private void DetectDeath()
     {
         if (_currentHealth <= 0)
-            Destroy(gameObject);
+            Die();
     }
 
     public void TakeDamage(int damage)
@@ -26,5 +32,11 @@ public class BaseEnemyEntity : MonoBehaviour
         _currentHealth -= damage;
 
         DetectDeath();
+    }
+
+    public void Die()
+    {
+        Destroy(gameObject);
+        IsAlive = false;
     }
 }

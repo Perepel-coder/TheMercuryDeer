@@ -1,7 +1,6 @@
 ﻿using TheMercuryDeer.Scripts.Utils;
-using UnityEngine;
 
-public class BaseEnemyView: View
+public class BaseEnemyView : View
 {
     private BaseEnemyAI _enemyAI;
 
@@ -13,12 +12,16 @@ public class BaseEnemyView: View
     private void Start()
     {
         _enemyAI = GetComponentInParent<BaseEnemyAI>();
+        _enemyAI.OnEnemyAttacked += _enemyAI_OnEnemyAttacked;
     }
+
+    private void OnDestroy() => _enemyAI.OnEnemyAttacked -= _enemyAI_OnEnemyAttacked;
+
+    private void _enemyAI_OnEnemyAttacked(object sender, System.EventArgs e) => _animator.SetTrigger(Utils.ATTACK);
 
     private void Update()
     {
         _animator.SetBool(Utils.IS_RUNNING, _enemyAI.IsRunning);
-        //_animator.SetBool(Utils.IS_DIE, _enemy.IsDie);
 
         _animator.SetFloat(Utils.CHASING_SPEED_MULTIPLIER, _enemyAI.ChasingSpeedMultiplier);
     }

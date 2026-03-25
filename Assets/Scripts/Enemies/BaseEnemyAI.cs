@@ -1,73 +1,82 @@
+using Assets.Scripts.Enemies.StateHandler;
+using Assets.Scripts.Interfaces;
 using System;
 using TheMercuryDeer.Scripts.Enemy;
-using TheMercuryDeer.Scripts.Utils;
 using UnityEngine;
 using UnityEngine.AI;
 
-public abstract class BaseEnemyAI : MonoBehaviour
+public abstract partial class BaseEnemyAI
 {
-    #region private
-    private NavMeshAgent _navMeshAgent;
+    [SerializeField] protected State _currentState = State.Idle;
+
     private float _roamingCurrentTime;
     private Vector3 _lastSteeringTarget;
+    private NavMeshAgent _navMeshAgent;
+    private Rigidbody2D _rigidbody;
+    private Collider2D _collider;
+
+    private const float MIN_DISTANCE_TO_DAMAGEABLE = 1f;
+
+    #region state heandlers
+    protected IRoamingStateHandler<BaseEnemyAI> _roamingStateHandler = new BaseRoamingStateHandler();
+    protected IChasingStateHandler<BaseEnemyAI> _chasingStateHandler = new BaseChasingStateHandler();
+    protected IAttackingStateHandler<BaseEnemyAI> _attackingStateHandler = new BaseAttackingStateHandler();
     #endregion
 
     #region characteristics
-    protected State _currentState = State.Idle;
+    public float RoamingDistanceMin { get; protected set; } = 2f;
+    public float RoamingDistanceMax { get; protected set; } = 6f;
+    public float RoamingTimeMax { get; protected set; } = 4f;
+    public float RoamingSpeed { get; protected set; } = 1f;
 
-    protected float _roamingDistanceMin = 4f;
-    protected float _roamingDistanceMax = 6f;
-    protected float _roamingTimeMax = 4f;
-    protected float _roamingSpeed = 3.5f;
+    public float ChasingDistance { get; protected set; } = 5f;
+    public float ChasingSpeedMultiplier { get; protected set; } = 2f;
 
-    protected float _chasingDistance = 15f;
-    protected float _chasingSpeedMultiplier = 2f;
-
-    protected float _attackingDistance = 7f;
-    protected float _attackRate = 2f;
-    protected float _nextAttackTime = 0f;
+    public float AttackingDistance { get; protected set; } = 0.5f;
+    public float AttackRate { get; protected set; } = 2f;
+    public float NextAttackTime { get; protected set; } = 0f;
     #endregion
 
+    #region inventory
+    public ActiveWeapon ActiveWeapon { get; protected set; }
+    #endregion
+}
+
+public abstract partial class BaseEnemyAI : MonoBehaviour, IHasState
+{
     public bool IsRunning => _navMeshAgent.velocity != Vector3.zero;
-    public float ChasingSpeedMultiplier => _chasingSpeedMultiplier;
     public event EventHandler OnEnemyAttacked;
+
+    public Vector3 CurrentPoison => transform.position;
 
     public abstract int MaxHealth { get; }
     public abstract bool IsEnemy { get; }
     public abstract bool IsChasingEnemy { get; }
 
-
-    protected virtual void Awake()
-    {
-        _navMeshAgent = GetComponent<NavMeshAgent>();
-
-        _navMeshAgent.updateRotation = false;
-        _navMeshAgent.updateUpAxis = false;
-    }
-
-    protected virtual void Start() {}
-
-    private void Update() => StateHandler();
-
-    private void StateHandler()
+    public void StateHandler()
     {
         switch (_currentState)
         {
             case State.Roaming:
                 _roamingCurrentTime -= Time.deltaTime;
                 if (_roamingCurrentTime < 0f)
-                    HandleRoamingState();
+                {
+                    _roamingCurrentTime = RoamingTimeMax;
+                    _roamingStateHandler.Run(this);
+                    _navMeshAgent.SetDestination(_roamingStateHandler.TargetPosition);
+                }
                 break;
             case State.Chasing:
-                HandleChasingState();
+                _chasingStateHandler.Run(this);
+                _navMeshAgent.SetDestination(_chasingStateHandler.TargetPosition);
                 break;
             case State.Attacking:
-                HandleAttackingState();
-                break;
-            case State.Death:
-                break;
-            default:
-            case State.Idle:
+                if (Time.time > NextAttackTime)
+                {
+                    OnEnemyAttacked?.Invoke(this, EventArgs.Empty);
+                    _attackingStateHandler.Run(this);
+                    NextAttackTime = _attackingStateHandler.NextAttackTime;
+                }
                 break;
         }
 
@@ -75,7 +84,55 @@ public abstract class BaseEnemyAI : MonoBehaviour
         TrackingDirectionMovement();
     }
 
-    private void ChangeFacingDirection(Vector3 currentPosition, Vector3 targetPosition) =>
+    public void CheckCurrentState()
+    {
+        float distanceToPlayer = Vector3.Distance(transform.position, Player.Instance.transform.position);
+
+        State newState = IsEnemy && distanceToPlayer <= AttackingDistance ? State.Attacking :
+            IsChasingEnemy && distanceToPlayer <= ChasingDistance ? State.Chasing : State.Roaming;
+
+        if (newState != _currentState)
+        {
+            switch (newState)
+            {
+                case State.Chasing:
+                    _navMeshAgent.ResetPath();
+                    _navMeshAgent.speed = RoamingSpeed * ChasingSpeedMultiplier;
+                    break;
+                case State.Roaming:
+                    _roamingCurrentTime = 0f;
+                    _navMeshAgent.speed = RoamingSpeed;
+                    break;
+                case State.Attacking:
+                    _navMeshAgent.ResetPath();
+                    break;
+            }
+
+            _currentState = newState;
+        }
+    }
+
+
+    protected virtual void Awake()
+    {
+        _navMeshAgent = GetComponent<NavMeshAgent>();
+        _rigidbody = GetComponent<Rigidbody2D>();
+        _collider = GetComponent<Collider2D>();
+
+        _navMeshAgent.speed = RoamingSpeed;
+        _navMeshAgent.updateRotation = false;
+        _navMeshAgent.updateUpAxis = false;
+    }
+
+    protected virtual void Start()
+    {
+        ActiveWeapon = GetComponentInChildren<ActiveWeapon>();
+    }
+
+    private void Update() => StateHandler();
+
+
+    protected virtual void ChangeFacingDirection(Vector3 currentPosition, Vector3 targetPosition) =>
         transform.rotation = currentPosition.x < targetPosition.x ?
         Quaternion.Euler(0, 180, 0) :
         Quaternion.Euler(0, 0, 0);
@@ -98,53 +155,14 @@ public abstract class BaseEnemyAI : MonoBehaviour
         _lastSteeringTarget = _navMeshAgent.steeringTarget;
     }
 
-    private void CheckCurrentState()
+    protected virtual void OnTriggerEnter2D(Collider2D collision)
     {
-        float distanceToPlayer = Vector3.Distance(transform.position, Player.Instance.transform.position);
-
-        State newState =
-            IsChasingEnemy && distanceToPlayer <= _chasingDistance ? State.Chasing :
-            IsEnemy && distanceToPlayer <= _attackingDistance ? State.Attacking : State.Roaming;
-
-        if (newState != _currentState)
+        if (collision.IsTouching(_collider) && collision.transform.TryGetComponent(out IDamageable _))
         {
-            switch (newState)
-            {
-                case State.Chasing:
-                    _navMeshAgent.ResetPath();
-                    _navMeshAgent.speed = _roamingSpeed * _chasingSpeedMultiplier;
-                    break;
-                case State.Roaming:
-                    _roamingCurrentTime = 0f;
-                    _navMeshAgent.speed = _roamingSpeed;
-                    break;
-                case State.Attacking:
-                    _navMeshAgent.ResetPath();
-                    break;
-            }
+            Vector2 direction = (transform.position - collision.transform.position).normalized;
+            _rigidbody.MovePosition(_rigidbody.position + direction * MIN_DISTANCE_TO_DAMAGEABLE);
 
-            _currentState = newState;
-        }
-    }
-
-    protected virtual void HandleRoamingState()
-    {
-        _roamingCurrentTime = _roamingTimeMax;
-
-        var targetPosition = transform.position + Utils.GetRandomDirection() * UnityEngine.Random.Range(_roamingDistanceMin, _roamingDistanceMax);
-
-        _navMeshAgent.SetDestination(targetPosition);
-    }
-
-    protected virtual void HandleChasingState() => _navMeshAgent.SetDestination(Player.Instance.transform.position);
-
-    protected virtual void HandleAttackingState()
-    {
-        if (Time.time > _nextAttackTime)
-        {
-            OnEnemyAttacked.Invoke(this, EventArgs.Empty);
-
-            _nextAttackTime = Time.time + _attackRate;
+            _navMeshAgent.ResetPath();
         }
     }
 }
