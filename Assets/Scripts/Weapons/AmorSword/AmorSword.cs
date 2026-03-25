@@ -9,7 +9,7 @@ namespace Assets.Scripts.Weapons.AmorSword
 
         public Vector3 PositionStart { get; set; }
 
-        public event EventHandler OnFallAttack;
+        public event EventHandler? OnFallAttack;
 
         private void FixedUpdate()
         {
@@ -25,10 +25,9 @@ namespace Assets.Scripts.Weapons.AmorSword
 
         public override void Attack()
         {
+            IsAttacking = true;
             gameObject.SetActive(true);
             gameObject.transform.position = PositionStart;
-
-            Debug.Log($"Sword position: {gameObject.transform.position}");
 
             OnFallAttack?.Invoke(this, EventArgs.Empty);
         }

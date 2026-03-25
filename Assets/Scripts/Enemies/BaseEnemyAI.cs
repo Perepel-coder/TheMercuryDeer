@@ -38,14 +38,14 @@ public abstract partial class BaseEnemyAI
     #endregion
 
     #region inventory
-    public ActiveWeapon ActiveWeapon { get; protected set; }
+    public ActiveWeapon? ActiveWeapon { get; protected set; }
     #endregion
 }
 
 public abstract partial class BaseEnemyAI : MonoBehaviour, IHasState
 {
     public bool IsRunning => _navMeshAgent.velocity != Vector3.zero;
-    public event EventHandler OnEnemyAttacked;
+    public event EventHandler? OnEnemyAttacked;
 
     public Vector3 CurrentPoison => transform.position;
 
@@ -84,12 +84,23 @@ public abstract partial class BaseEnemyAI : MonoBehaviour, IHasState
         TrackingDirectionMovement();
     }
 
+    protected virtual bool CheckAttackingState(float distanceToPlayer) =>
+        IsEnemy && distanceToPlayer <= AttackingDistance;
+
+    protected virtual bool CheckChasingState(float distanceToPlayer) =>
+        IsChasingEnemy && distanceToPlayer <= ChasingDistance;
+
+
     public void CheckCurrentState()
     {
         float distanceToPlayer = Vector3.Distance(transform.position, Player.Instance.transform.position);
 
-        State newState = IsEnemy && distanceToPlayer <= AttackingDistance ? State.Attacking :
-            IsChasingEnemy && distanceToPlayer <= ChasingDistance ? State.Chasing : State.Roaming;
+        State newState = 
+            CheckAttackingState(distanceToPlayer) ? 
+            State.Attacking :
+            CheckChasingState(distanceToPlayer) ? 
+            State.Chasing : 
+            State.Roaming;
 
         if (newState != _currentState)
         {
@@ -111,7 +122,6 @@ public abstract partial class BaseEnemyAI : MonoBehaviour, IHasState
             _currentState = newState;
         }
     }
-
 
     protected virtual void Awake()
     {

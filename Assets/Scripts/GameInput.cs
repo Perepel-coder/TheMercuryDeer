@@ -10,7 +10,7 @@ public class GameInput : MonoBehaviour
     public Vector2 PlayerMovementVector => _inputActions.Player.Move.ReadValue<Vector2>();
     public Vector3 MousePosition => Mouse.current.position.ReadValue();
 
-    public event EventHandler OnPlayerAttack;
+    public event EventHandler? OnPlayerAttack;
 
     private void Awake()
     {

@@ -7,7 +7,7 @@ public class Player : MonoBehaviour, IDamageable
 {
     private Rigidbody2D _rigidbody;
 
-    [SerializeField] private float _speedMoveing = 3f;
+    [SerializeField] private float _speedMoveing = 2f;
     private float _speedMoveingMin = 0.1f;
     private ActiveWeapon _activeWeapon;
 

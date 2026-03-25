@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.Interfaces;
+using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -7,7 +8,7 @@ public class BaseEnemyEntity : MonoBehaviour, IDamageable
     private BaseEnemyAI _enemyAI;
     private int _currentHealth;
 
-    //public event EventHandle OnEnemyTakedDamage;
+    public event EventHandler? OnEnemyTakedDamage;
 
     public bool IsAlive { get; private set; } = true;
 
@@ -29,6 +30,8 @@ public class BaseEnemyEntity : MonoBehaviour, IDamageable
 
     public void TakeDamage(int damage)
     {
+        OnEnemyTakedDamage?.Invoke(this, EventArgs.Empty);
+
         _currentHealth -= damage;
 
         DetectDeath();

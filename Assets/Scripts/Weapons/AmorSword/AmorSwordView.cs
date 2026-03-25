@@ -21,6 +21,7 @@ namespace Assets.Scripts.Weapons.AmorSword
 
         private void _sword_OnFallAttack(object sender, EventArgs e) => _animator.SetTrigger(Utils.ATTACK);
 
+
         public void OnAttackAnimationEnter()
         {
             _sword.TurnOnCollider(true);

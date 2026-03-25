@@ -4,6 +4,9 @@ using UnityEngine;
 public abstract class Weapon : MonoBehaviour
 {
     protected Collider2D _collider;
+
+    public bool IsAttacking { get; protected set; }
+
     public abstract int DamageAmount { get; protected set; }
 
     public abstract void Attack();
@@ -25,5 +28,9 @@ public abstract class Weapon : MonoBehaviour
             enemy.TakeDamage(DamageAmount);
     }
 
-    public void TurnOnCollider(bool enable) => _collider.enabled = enable;
+    public void TurnOnCollider(bool enable)
+    {
+        _collider.enabled = enable;
+        IsAttacking = enable;
+    }
 }

@@ -4,7 +4,7 @@ public class Sword : Weapon
 {
     public override int DamageAmount { get; protected set; } = 5;
 
-    public event EventHandler OnSwing;
+    public event EventHandler? OnSwing;
 
     public override void Attack()
     {
