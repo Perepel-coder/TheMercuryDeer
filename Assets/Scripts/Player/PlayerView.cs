@@ -9,7 +9,7 @@ public class PlayerView : View
 
     private void Update()
     {
-        _animator.SetBool(Utils.IS_RUNNING, Player.Instance.IsRunning);
+        _animator.SetBool(Utils.AnimatorParameters.IS_RUNNING, Player.Instance.IsRunning);
 
         //LookWhereGoing();
 

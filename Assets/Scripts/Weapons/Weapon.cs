@@ -1,8 +1,12 @@
+using Assets.Scripts.Interfaces.Npc;
 using UnityEngine;
 
 public abstract class Weapon : MonoBehaviour
 {
-    protected PolygonCollider2D _attackCollider;
+    protected Collider2D _collider;
+
+    public bool IsAttacking { get; protected set; }
+
     public abstract int DamageAmount { get; protected set; }
 
     public abstract void Attack();
@@ -10,7 +14,7 @@ public abstract class Weapon : MonoBehaviour
 
     protected virtual void Awake()
     {
-        _attackCollider = GetComponent<PolygonCollider2D>();
+        _collider = GetComponent<Collider2D>();
     }
 
     protected virtual void Start()
@@ -20,9 +24,13 @@ public abstract class Weapon : MonoBehaviour
 
     protected virtual void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.transform.TryGetComponent(out BaseEnemyEntity enemyEntity))
-            enemyEntity.TakeDamage(DamageAmount);
+        if (collision.transform.TryGetComponent(out IDamageable enemy))
+            enemy.TakeDamage(DamageAmount);
     }
 
-    public void TurnOnCollider(bool enable) => _attackCollider.enabled = enable;
+    public void TurnOnCollider(bool enable)
+    {
+        _collider.enabled = enable;
+        IsAttacking = enable;
+    }
 }

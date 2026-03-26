@@ -12,10 +12,10 @@ public class SwordView : View
 
     private void Start()
     {
-        _sword.OnSwing += Sword_OnSwing;
+        _sword.OnSwing += _sword_OnSwing;
     }
 
-    private void Sword_OnSwing(object sender, System.EventArgs e) => _animator.SetTrigger(Utils.ATTACK);
+    private void _sword_OnSwing(object sender, System.EventArgs e) => _animator.SetTrigger(Utils.AnimatorParameters.ATTACK);
 
     public void OnAttackAnimationExit() => _sword.TurnOnCollider(false);
 }
