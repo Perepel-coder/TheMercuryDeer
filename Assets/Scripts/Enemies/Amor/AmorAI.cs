@@ -1,11 +1,12 @@
 using Assets.Scripts.Enemies.StateHandler.AmorStateHandler;
+using Assets.Scripts.Interfaces.Weapon;
 using Assets.Scripts.Weapons.AmorSword;
 using TheMercuryDeer.Scripts.Enemy;
 using UnityEngine;
 
 public class AmorAI : BaseEnemyAI
 {
-    public override int MaxHealth => 20;
+    public override int MaxHealth => 50;
     public override bool IsChasingEnemy => true;
 
     public override bool IsEnemy => true;
@@ -16,6 +17,7 @@ public class AmorAI : BaseEnemyAI
         _currentState = State.Roaming;
 
         AttackingDistance = 2.5f;
+        InherentDamage = 5;
 
         _attackingStateHandler = new AmorAttackingStateHandler((AmorSword)ActiveWeapon!.Weapon, 2f);
     }
@@ -25,7 +27,7 @@ public class AmorAI : BaseEnemyAI
 
     protected override void ChangeFacingDirection(Vector3 currentPosition, Vector3 targetPosition)
     {
-        if(!ActiveWeapon!.Weapon.IsAttacking)
+        if (!ActiveWeapon!.Weapon.IsAttacking)
             base.ChangeFacingDirection(currentPosition, targetPosition);
     }
 }

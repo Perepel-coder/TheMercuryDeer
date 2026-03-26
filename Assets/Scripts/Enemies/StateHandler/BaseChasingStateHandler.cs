@@ -1,4 +1,4 @@
-﻿using Assets.Scripts.Interfaces;
+﻿using Assets.Scripts.Interfaces.IStateHandler;
 using UnityEngine;
 
 namespace Assets.Scripts.Enemies.StateHandler

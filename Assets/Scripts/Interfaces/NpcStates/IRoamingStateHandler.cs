@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Assets.Scripts.Interfaces
+namespace Assets.Scripts.Interfaces.IStateHandler
 {
     public interface IRoamingStateHandler<T> : IStateHandler<T> where T : IHasState
     {

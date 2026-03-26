@@ -1,45 +1,57 @@
-﻿using Assets.Scripts.Interfaces;
+﻿using Assets.Scripts.Interfaces.Npc;
+using Assets.Scripts.Interfaces.NpcEntity;
 using System;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
-public class BaseEnemyEntity : MonoBehaviour, IDamageable
+public class BaseEnemyEntity : MonoBehaviour, IDamageable, IHealable
 {
-    private BaseEnemyAI _enemyAI;
+    private BaseEnemyAI _ownerAI;
     private int _currentHealth;
 
-    public event EventHandler? OnEnemyTakedDamage;
+    public event EventHandler? OnTakedDamage;
+    public event EventHandler? OnDeath;
 
     public bool IsAlive { get; private set; } = true;
 
     private void Awake()
     {
-        _enemyAI = GetComponent<BaseEnemyAI>();
+        _ownerAI = GetComponent<BaseEnemyAI>();
     }
 
     private void Start()
     {
-        _currentHealth = _enemyAI.MaxHealth;
+        _currentHealth = _ownerAI.MaxHealth;
     }
 
     private void DetectDeath()
     {
         if (_currentHealth <= 0)
+        {
+            OnDeath?.Invoke(this, EventArgs.Empty);
+
             Die();
+        }
     }
 
     public void TakeDamage(int damage)
     {
-        OnEnemyTakedDamage?.Invoke(this, EventArgs.Empty);
+        OnTakedDamage?.Invoke(this, EventArgs.Empty);
 
         _currentHealth -= damage;
+
+        _ownerAI.ReactionToTakingHit?.Weapon.Attack();
 
         DetectDeath();
     }
 
+    public void RestoreHealth(int health)
+    {
+        _currentHealth += health;
+    }
+
     public void Die()
     {
-        Destroy(gameObject);
+        //Destroy(gameObject);
         IsAlive = false;
     }
 }

@@ -1,9 +1,10 @@
-﻿using System;
+﻿using Assets.Scripts.Interfaces.Weapon;
+using System;
 using UnityEngine;
 
 namespace Assets.Scripts.Weapons.AmorSword
 {
-    public class AmorSword : Weapon
+    public class AmorSword : Weapon, IFallingWeapon, IMainWeapon
     {
         public override int DamageAmount { get; protected set; } = 10;
 

@@ -1,4 +1,4 @@
-using Assets.Scripts.Interfaces;
+using Assets.Scripts.Interfaces.Npc;
 using UnityEngine;
 
 public abstract class Weapon : MonoBehaviour

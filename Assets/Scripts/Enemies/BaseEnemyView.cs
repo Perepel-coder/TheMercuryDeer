@@ -2,27 +2,40 @@
 
 public class BaseEnemyView : View
 {
-    private BaseEnemyAI _enemyAI;
+    protected BaseEnemyAI _ownerAI;
+    protected BaseEnemyEntity _ownerEntity;
 
     protected override void Awake()
     {
         base.Awake();
     }
 
-    private void Start()
+    protected virtual void Start()
     {
-        _enemyAI = GetComponentInParent<BaseEnemyAI>();
-        _enemyAI.OnEnemyAttacked += _enemyAI_OnEnemyAttacked;
+        _ownerAI = GetComponentInParent<BaseEnemyAI>();
+        _ownerEntity = GetComponentInParent<BaseEnemyEntity>();
+
+        _ownerAI.OnEnemyAttacked += _enemyAI_OnEnemyAttacked;
+        _ownerEntity.OnTakedDamage += _enemyEntity_OnTakedDamage;
+        _ownerEntity.OnDeath += _ownerEntity_OnDeath;
     }
 
-    private void OnDestroy() => _enemyAI.OnEnemyAttacked -= _enemyAI_OnEnemyAttacked;
+    protected virtual void Update()
+    {
+        _animator.SetBool(Utils.IS_RUNNING, _ownerAI.IsRunning);
+
+        _animator.SetFloat(Utils.CHASING_SPEED_MULTIPLIER, _ownerAI.ChasingSpeedMultiplier);
+    }
+
+    protected virtual void OnDestroy()
+    {
+        _ownerAI.OnEnemyAttacked -= _enemyAI_OnEnemyAttacked;
+        _ownerEntity.OnTakedDamage -= _enemyEntity_OnTakedDamage;
+    }
 
     private void _enemyAI_OnEnemyAttacked(object sender, System.EventArgs e) => _animator.SetTrigger(Utils.ATTACK);
 
-    private void Update()
-    {
-        _animator.SetBool(Utils.IS_RUNNING, _enemyAI.IsRunning);
+    private void _enemyEntity_OnTakedDamage(object sender, System.EventArgs e) => _animator.SetTrigger(Utils.TAKE_HIT);
 
-        _animator.SetFloat(Utils.CHASING_SPEED_MULTIPLIER, _enemyAI.ChasingSpeedMultiplier);
-    }
+    private void _ownerEntity_OnDeath(object sender, System.EventArgs e) => _animator.SetBool(Utils.IS_DIE, true);
 }

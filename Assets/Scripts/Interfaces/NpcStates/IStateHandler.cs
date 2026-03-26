@@ -1,4 +1,4 @@
-﻿namespace Assets.Scripts.Interfaces
+﻿namespace Assets.Scripts.Interfaces.IStateHandler
 {
     public interface IStateHandler<T> where T : IHasState
     {

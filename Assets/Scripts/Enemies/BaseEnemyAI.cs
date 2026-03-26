@@ -1,6 +1,9 @@
 using Assets.Scripts.Enemies.StateHandler;
-using Assets.Scripts.Interfaces;
+using Assets.Scripts.Interfaces.IStateHandler;
+using Assets.Scripts.Interfaces.Npc;
+using Assets.Scripts.Interfaces.Weapon;
 using System;
+using System.Linq;
 using TheMercuryDeer.Scripts.Enemy;
 using UnityEngine;
 using UnityEngine.AI;
@@ -15,7 +18,7 @@ public abstract partial class BaseEnemyAI
     private Rigidbody2D _rigidbody;
     private Collider2D _collider;
 
-    private const float MIN_DISTANCE_TO_DAMAGEABLE = 1f;
+    private const float JUMP_DISTANCE = 0.5f;
 
     #region state heandlers
     protected IRoamingStateHandler<BaseEnemyAI> _roamingStateHandler = new BaseRoamingStateHandler();
@@ -35,10 +38,12 @@ public abstract partial class BaseEnemyAI
     public float AttackingDistance { get; protected set; } = 0.5f;
     public float AttackRate { get; protected set; } = 2f;
     public float NextAttackTime { get; protected set; } = 0f;
+    public int InherentDamage { get; protected set; } = 1;
     #endregion
 
     #region inventory
     public ActiveWeapon? ActiveWeapon { get; protected set; }
+    public ActiveWeapon? ReactionToTakingHit { get; protected set; }
     #endregion
 }
 
@@ -136,7 +141,10 @@ public abstract partial class BaseEnemyAI : MonoBehaviour, IHasState
 
     protected virtual void Start()
     {
-        ActiveWeapon = GetComponentInChildren<ActiveWeapon>();
+        var weapons = GetComponentsInChildren<ActiveWeapon>();
+
+        ActiveWeapon = weapons.SingleOrDefault(w => w.Weapon is IMainWeapon);
+        ReactionToTakingHit = weapons.SingleOrDefault(w => w.Weapon is IDamageReaction);
     }
 
     private void Update() => StateHandler();
@@ -167,10 +175,12 @@ public abstract partial class BaseEnemyAI : MonoBehaviour, IHasState
 
     protected virtual void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.IsTouching(_collider) && collision.transform.TryGetComponent(out IDamageable _))
+        if (!collision.IsTouching(_collider)) return;
+
+        if (collision.transform.TryGetComponent(out IDamageable _))
         {
             Vector2 direction = (transform.position - collision.transform.position).normalized;
-            _rigidbody.MovePosition(_rigidbody.position + direction * MIN_DISTANCE_TO_DAMAGEABLE);
+            _rigidbody.MovePosition(_rigidbody.position + direction * JUMP_DISTANCE);
 
             _navMeshAgent.ResetPath();
         }
