@@ -18,12 +18,21 @@ namespace TheMercuryDeer.Scripts.Utils
             return (T)values.GetValue(Random.Range(0, values.Length));
         }
 
-        public const string IS_RUNNING = "isRunning";
-        public const string IS_DIE = "isDie";
+        public static class AnimatorParameters
+        {
 
-        public const string ATTACK = "attack";
-        public const string TAKE_HIT = "takeHit";
+            public const string IS_RUNNING = "isRunning";
+            public const string IS_DIE = "isDie";
 
-        public const string CHASING_SPEED_MULTIPLIER = "chasingSpeedMultiplier";
+            public const string ATTACK = "attack";
+            public const string TAKE_HIT = "takeHit";
+
+            public const string CHASING_SPEED_MULTIPLIER = "chasingSpeedMultiplier";
+        }
+
+        public static class AnimationNames
+        {
+            public const string TAKE_HIT = "TakeHit";
+        }
     }
 }

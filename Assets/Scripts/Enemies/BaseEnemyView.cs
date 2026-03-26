@@ -1,4 +1,5 @@
 ﻿using TheMercuryDeer.Scripts.Utils;
+using UnityEngine;
 
 public class BaseEnemyView : View
 {
@@ -22,20 +23,32 @@ public class BaseEnemyView : View
 
     protected virtual void Update()
     {
-        _animator.SetBool(Utils.IS_RUNNING, _ownerAI.IsRunning);
+        _animator.SetBool(Utils.AnimatorParameters.IS_RUNNING, _ownerAI.IsRunning);
 
-        _animator.SetFloat(Utils.CHASING_SPEED_MULTIPLIER, _ownerAI.ChasingSpeedMultiplier);
+        _animator.SetFloat(Utils.AnimatorParameters.CHASING_SPEED_MULTIPLIER, _ownerAI.ChasingSpeedMultiplier);
     }
 
     protected virtual void OnDestroy()
     {
         _ownerAI.OnEnemyAttacked -= _enemyAI_OnEnemyAttacked;
         _ownerEntity.OnTakedDamage -= _enemyEntity_OnTakedDamage;
+        _ownerEntity.OnDeath -= _ownerEntity_OnDeath;
     }
 
-    private void _enemyAI_OnEnemyAttacked(object sender, System.EventArgs e) => _animator.SetTrigger(Utils.ATTACK);
+    private void _enemyAI_OnEnemyAttacked(object sender, System.EventArgs e) => _animator.SetTrigger(Utils.AnimatorParameters.ATTACK);
 
-    private void _enemyEntity_OnTakedDamage(object sender, System.EventArgs e) => _animator.SetTrigger(Utils.TAKE_HIT);
+    private void _enemyEntity_OnTakedDamage(object sender, System.EventArgs e)
+    {
+        AnimatorStateInfo stateInfo = _animator.GetCurrentAnimatorStateInfo(0);
+        if (stateInfo.IsName(Utils.AnimationNames.TAKE_HIT) && stateInfo.normalizedTime < 1f)
+            return;
 
-    private void _ownerEntity_OnDeath(object sender, System.EventArgs e) => _animator.SetBool(Utils.IS_DIE, true);
+        _animator.SetTrigger(Utils.AnimatorParameters.TAKE_HIT);
+    }
+
+    private void _ownerEntity_OnDeath(object sender, System.EventArgs e)
+    {
+        _spriteRenderer.sortingOrder = -1;
+        _animator.SetBool(Utils.AnimatorParameters.IS_DIE, true);
+    }
 }

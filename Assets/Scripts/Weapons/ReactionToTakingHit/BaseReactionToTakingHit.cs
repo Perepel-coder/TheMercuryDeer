@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.Interfaces.Weapon;
+﻿using Assets.Scripts.Interfaces.Npc;
+using Assets.Scripts.Interfaces.Weapon;
 using TheMercuryDeer.Scripts.Utils;
 using UnityEngine;
 
@@ -52,7 +53,8 @@ namespace Assets.Scripts.Weapons.ReactionToTakingHit
         {
             base.OnTriggerEnter2D(collision);
 
-            if (_currentReaction is Reaction.HealthRecovery)
+            if (collision.transform.TryGetComponent(out IDamageable enemy) &&
+                _currentReaction is Reaction.HealthRecovery)
                 _ownerEntity.RestoreHealth(HealthAmount);
         }
     }

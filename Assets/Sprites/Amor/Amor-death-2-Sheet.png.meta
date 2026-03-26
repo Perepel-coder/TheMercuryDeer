@@ -1,9 +1,9 @@
 fileFormatVersion: 2
-guid: 48c36350ea63bd844a84f53bd3954a31
+guid: 43b66a3433ade9140a9a7d41cb69a02d
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
-  serializedVersion: 12
+  serializedVersion: 13
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -67,7 +67,7 @@ TextureImporter:
   swizzle: 50462976
   cookieLightType: 0
   platformSettings:
-  - serializedVersion: 3
+  - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -80,7 +80,7 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
+  - serializedVersion: 4
     buildTarget: Standalone
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -93,7 +93,7 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
+  - serializedVersion: 4
     buildTarget: Server
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -110,7 +110,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Amor-takeHit_0
+      name: Amor-death-2-Sheet_0
       rect:
         serializedVersion: 2
         x: 0
@@ -118,20 +118,21 @@ TextureImporter:
         width: 64
         height: 64
       alignment: 9
-      pivot: {x: 0.5, y: 0.2}
+      pivot: {x: 0.5, y: 0.19}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 61661fae04786e941bac582efaca6167
-      internalID: -1152525788
+      spriteID: 34ec05aa3d1b07d4d8afe7d1e53fb320
+      internalID: 387714763
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Amor-takeHit_1
+      name: Amor-death-2-Sheet_1
       rect:
         serializedVersion: 2
         x: 64
@@ -139,20 +140,21 @@ TextureImporter:
         width: 64
         height: 64
       alignment: 9
-      pivot: {x: 0.5, y: 0.2}
+      pivot: {x: 0.5, y: 0.19}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7e1c5e68c315cb2489db9877b4f64052
-      internalID: -674847828
+      spriteID: 6c62299f85be55f4d86dfafa1fe2c708
+      internalID: 1362266822
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Amor-takeHit_2
+      name: Amor-death-2-Sheet_2
       rect:
         serializedVersion: 2
         x: 128
@@ -160,20 +162,21 @@ TextureImporter:
         width: 64
         height: 64
       alignment: 9
-      pivot: {x: 0.5, y: 0.2}
+      pivot: {x: 0.5, y: 0.19}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3129ccd2fd9e6614f82de63fdc466f45
-      internalID: 909039126
+      spriteID: 4b492e4e59d926c4bb9440a7fbe97f10
+      internalID: 202856113
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Amor-takeHit_3
+      name: Amor-death-2-Sheet_3
       rect:
         serializedVersion: 2
         x: 192
@@ -181,20 +184,21 @@ TextureImporter:
         width: 64
         height: 64
       alignment: 9
-      pivot: {x: 0.5, y: 0.2}
+      pivot: {x: 0.5, y: 0.19}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a0d02f9622e32bf429e349464fb6ed21
-      internalID: 855328766
+      spriteID: d0773497ce6684145b56761685d36f15
+      internalID: 1915902716
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Amor-takeHit_4
+      name: Amor-death-2-Sheet_4
       rect:
         serializedVersion: 2
         x: 256
@@ -202,19 +206,109 @@ TextureImporter:
         width: 64
         height: 64
       alignment: 9
-      pivot: {x: 0.5, y: 0.2}
+      pivot: {x: 0.5, y: 0.19}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2afd32c5a45ccf34e8ad3b5db576be3b
-      internalID: -1876366979
+      spriteID: 82a21c39c078b0649b059287a3f89d72
+      internalID: 478722195
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Amor-death-2-Sheet_5
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 0
+        width: 64
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.19}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a591702fc8ddde246b0011632dda640a
+      internalID: 277813410
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Amor-death-2-Sheet_6
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 0
+        width: 64
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.19}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ea675e5668f07574eb13c325ff37ca07
+      internalID: -1385862871
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Amor-death-2-Sheet_7
+      rect:
+        serializedVersion: 2
+        x: 448
+        y: 0
+        width: 64
+        height: 64
+      alignment: 9
+      pivot: {x: 0.46, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7d4fd0ca78517df4c9780f1f1a2142f3
+      internalID: -1761660863
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Amor-death-2-Sheet_8
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 0
+        width: 64
+        height: 64
+      alignment: 9
+      pivot: {x: 0.46, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ccbe2aa71ed12dc45b60f58e59155f58
+      internalID: 975305257
       vertices: []
       indices: 
       edges: []
       weights: []
     outline: []
+    customData: 
     physicsShape: []
     bones: []
     spriteID: 5e97eb03825dee720800000000000000
@@ -224,12 +318,20 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    spriteCustomMetadata:
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":9.0,"y":1.0},"gridSpriteSize":{"x":64.0,"y":64.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.1899999976158142},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":9,"pivotUnitMode":0,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
-      Amor-takeHit_0: -1152525788
-      Amor-takeHit_1: -674847828
-      Amor-takeHit_2: 909039126
-      Amor-takeHit_3: 855328766
-      Amor-takeHit_4: -1876366979
+      Amor-death-2-Sheet_0: 387714763
+      Amor-death-2-Sheet_1: 1362266822
+      Amor-death-2-Sheet_2: 202856113
+      Amor-death-2-Sheet_3: 1915902716
+      Amor-death-2-Sheet_4: 478722195
+      Amor-death-2-Sheet_5: 277813410
+      Amor-death-2-Sheet_6: -1385862871
+      Amor-death-2-Sheet_7: -1761660863
+      Amor-death-2-Sheet_8: 975305257
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

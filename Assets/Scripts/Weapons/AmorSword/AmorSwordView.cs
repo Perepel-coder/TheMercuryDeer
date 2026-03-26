@@ -19,7 +19,7 @@ namespace Assets.Scripts.Weapons.AmorSword
             _sword.OnFallAttack += _sword_OnFallAttack;
         }
 
-        private void _sword_OnFallAttack(object sender, EventArgs e) => _animator.SetTrigger(Utils.ATTACK);
+        private void _sword_OnFallAttack(object sender, EventArgs e) => _animator.SetTrigger(Utils.AnimatorParameters.ATTACK);
 
 
         public void OnAttackAnimationEnter()

@@ -18,6 +18,8 @@ public abstract partial class BaseEnemyAI
     private Rigidbody2D _rigidbody;
     private Collider2D _collider;
 
+    protected BaseEnemyEntity _ownerEntity;
+
     private const float JUMP_DISTANCE = 0.5f;
 
     #region state heandlers
@@ -100,7 +102,8 @@ public abstract partial class BaseEnemyAI : MonoBehaviour, IHasState
     {
         float distanceToPlayer = Vector3.Distance(transform.position, Player.Instance.transform.position);
 
-        State newState = 
+        State newState = !_ownerEntity.IsAlive ? 
+            State.Death :
             CheckAttackingState(distanceToPlayer) ? 
             State.Attacking :
             CheckChasingState(distanceToPlayer) ? 
@@ -122,6 +125,12 @@ public abstract partial class BaseEnemyAI : MonoBehaviour, IHasState
                 case State.Attacking:
                     _navMeshAgent.ResetPath();
                     break;
+                case State.Death:
+                    _navMeshAgent.ResetPath();
+                    _navMeshAgent.enabled = false;
+                    _collider.enabled = false;
+                    
+                    break;
             }
 
             _currentState = newState;
@@ -141,6 +150,8 @@ public abstract partial class BaseEnemyAI : MonoBehaviour, IHasState
 
     protected virtual void Start()
     {
+        _ownerEntity = GetComponent<BaseEnemyEntity>();
+
         var weapons = GetComponentsInChildren<ActiveWeapon>();
 
         ActiveWeapon = weapons.SingleOrDefault(w => w.Weapon is IMainWeapon);

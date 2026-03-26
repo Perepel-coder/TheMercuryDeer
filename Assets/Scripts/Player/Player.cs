@@ -56,7 +56,7 @@ public class Player : MonoBehaviour, IDamageable
 
     public void TakeDamage(int damage)
     {
-        //Debug.Log($"Player took {damage} damage");
+        Debug.Log($"Player took {damage} damage");
     }
 
     public void Die()

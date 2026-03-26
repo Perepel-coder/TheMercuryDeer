@@ -25,12 +25,7 @@ public class BaseEnemyEntity : MonoBehaviour, IDamageable, IHealable
 
     private void DetectDeath()
     {
-        if (_currentHealth <= 0)
-        {
-            OnDeath?.Invoke(this, EventArgs.Empty);
-
-            Die();
-        }
+        if (_currentHealth <= 0) Die();
     }
 
     public void TakeDamage(int damage)
@@ -47,11 +42,15 @@ public class BaseEnemyEntity : MonoBehaviour, IDamageable, IHealable
     public void RestoreHealth(int health)
     {
         _currentHealth += health;
+
+        if(_currentHealth > _ownerAI.MaxHealth)   
+            _currentHealth = _ownerAI.MaxHealth;
     }
 
     public void Die()
     {
-        //Destroy(gameObject);
+        OnDeath?.Invoke(this, EventArgs.Empty);
+
         IsAlive = false;
     }
 }
