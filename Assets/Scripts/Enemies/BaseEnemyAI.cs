@@ -128,8 +128,8 @@ public abstract partial class BaseEnemyAI : MonoBehaviour, IHasState
                 case State.Death:
                     _navMeshAgent.ResetPath();
                     _navMeshAgent.enabled = false;
-                    _collider.enabled = false;
-                    
+                    foreach (var c in GetComponentsInChildren<Collider2D>())
+                        c.enabled = false;
                     break;
             }
 
