@@ -53,6 +53,7 @@ public abstract partial class BaseEnemyAI : MonoBehaviour, IHasState
 {
     public bool IsRunning => _navMeshAgent.velocity != Vector3.zero;
     public event EventHandler? OnEnemyAttacked;
+    public Vector3 GetTopTransformPosition => new(transform.position.x, _collider.bounds.max.y, transform.position.z);
 
     public Vector3 CurrentPoison => transform.position;
 
