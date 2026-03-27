@@ -54,7 +54,7 @@ public class Player : MonoBehaviour, IDamageable
 
     private void GameInput_OnPlayerAttack(object sender, EventArgs args) => _activeWeapon.Weapon.Attack();
 
-    public void TakeDamage(int damage)
+    public void TakeDamage(int damage, Vector3? enemyPosition = null)
     {
         Debug.Log($"Player took {damage} damage");
     }
