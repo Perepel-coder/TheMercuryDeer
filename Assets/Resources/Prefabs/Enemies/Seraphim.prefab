@@ -140,14 +140,14 @@ GameObject:
   - component: {fileID: 7876994070586651227}
   - component: {fileID: 7433045155016829335}
   - component: {fileID: 1291489691526687542}
-  - component: {fileID: 1520325506888067811}
+  - component: {fileID: 6858119262567309091}
   m_Layer: 0
   m_Name: Seraphim
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &8402533514575966695
 Transform:
   m_ObjectHideFlags: 0
@@ -263,7 +263,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _currentState: 0
---- !u!114 &1520325506888067811
+--- !u!114 &6858119262567309091
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -272,6 +272,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 6363583794730455755}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7f324ae4fa0c4ae4aba7fac527c04fdf, type: 3}
+  m_Script: {fileID: 11500000, guid: 9e84572a1cea8c641989e56a95b544d4, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::BaseEnemyEntity
+  m_EditorClassIdentifier: Assembly-CSharp::Assets.Scripts.Enemies.BaseEnemyEntity

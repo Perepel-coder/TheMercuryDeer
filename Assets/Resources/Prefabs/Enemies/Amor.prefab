@@ -157,7 +157,7 @@ GameObject:
   - component: {fileID: -222213348770568489}
   - component: {fileID: -1013504387453356355}
   - component: {fileID: 3453475190386848513}
-  - component: {fileID: 6610162289126106840}
+  - component: {fileID: 5270228837228923737}
   m_Layer: 0
   m_Name: Amor
   m_TagString: Untagged
@@ -282,7 +282,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _currentState: 0
---- !u!114 &6610162289126106840
+--- !u!114 &5270228837228923737
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -291,9 +291,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1061380763204170812}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7f324ae4fa0c4ae4aba7fac527c04fdf, type: 3}
+  m_Script: {fileID: 11500000, guid: 9e84572a1cea8c641989e56a95b544d4, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: Assembly-CSharp::Assets.Scripts.Enemies.BaseEnemyEntity
 --- !u!1 &1700807409018437370
 GameObject:
   m_ObjectHideFlags: 0

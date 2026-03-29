@@ -8,7 +8,9 @@ namespace Assets.Scripts.Weapons.ReactionToTakingHit
     public class BaseReactionToTakingHit : Weapon, IDamageReaction
     {
         private BaseEnemyAI _ownerAI;
-        private BaseEnemyEntity _ownerEntity;
+        private BaseEntity _ownerEntity;
+
+        public override bool IsContinuousDamage => false;
 
         private enum Reaction
         {
@@ -22,7 +24,7 @@ namespace Assets.Scripts.Weapons.ReactionToTakingHit
         {
             base.Start();
             _ownerAI = GetComponentInParent<BaseEnemyAI>();
-            _ownerEntity = GetComponentInParent<BaseEnemyEntity>();
+            _ownerEntity = GetComponentInParent<BaseEntity>();
         }
 
         public override int DamageAmount { get; protected set; } = 0;
