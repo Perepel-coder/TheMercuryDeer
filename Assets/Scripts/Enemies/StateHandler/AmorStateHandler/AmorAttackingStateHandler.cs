@@ -16,7 +16,7 @@ namespace Assets.Scripts.Enemies.StateHandler.AmorStateHandler
 
         public override void Run(BaseEnemyAI owner)
         {
-            Vector3 currentPlayerPosition = Player.Instance.transform.position;
+            Vector3 currentPlayerPosition = global::Player.Instance.transform.position;
             _amorSword.PositionStart = currentPlayerPosition + _dropHeight;
             _amorSword.Attack();
             base.Run(owner);

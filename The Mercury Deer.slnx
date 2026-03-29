@@ -1,4 +1,6 @@
 ﻿<Solution>
+  <Project Path="SuperTiled2Unity.csproj" />
+  <Project Path="Super Tiled2Unity Editor.csproj" />
   <Project Path="NavMeshPlusEditor.csproj" />
   <Project Path="Assembly-CSharp.csproj" />
   <Project Path="NavMeshPlus.csproj" />

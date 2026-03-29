@@ -8,6 +8,8 @@ namespace Assets.Scripts.Weapons.AmorSword
     {
         public override int DamageAmount { get; protected set; } = 10;
 
+        public override bool IsContinuousDamage => false;
+
         public Vector3 PositionStart { get; set; }
 
         public event EventHandler? OnFallAttack;

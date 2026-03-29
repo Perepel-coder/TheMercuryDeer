@@ -1,4 +1,5 @@
 using Assets.Scripts.Enemies.StateHandler;
+using Assets.Scripts.Interfaces.Entity;
 using Assets.Scripts.Interfaces.IStateHandler;
 using Assets.Scripts.Interfaces.Npc;
 using Assets.Scripts.Interfaces.Weapon;
@@ -18,9 +19,14 @@ public abstract partial class BaseEnemyAI
     private Rigidbody2D _rigidbody;
     private Collider2D _collider;
 
-    protected BaseEnemyEntity _ownerEntity;
+    protected BaseEntity _ownerEntity;
 
-    private const float JUMP_DISTANCE = 0.5f;
+    private const float JUMP_POWER = 0.5f;
+
+    #region IHasHealth
+    public abstract int MaxHealth { get; }
+    public int CurrentHealth { get; set; }
+    #endregion
 
     #region state heandlers
     protected IRoamingStateHandler<BaseEnemyAI> _roamingStateHandler = new BaseRoamingStateHandler();
@@ -49,15 +55,13 @@ public abstract partial class BaseEnemyAI
     #endregion
 }
 
-public abstract partial class BaseEnemyAI : MonoBehaviour, IHasState
+public abstract partial class BaseEnemyAI : MonoBehaviour, IHasState, IHasHealth
 {
     public bool IsRunning => _navMeshAgent.velocity != Vector3.zero;
     public event EventHandler? OnEnemyAttacked;
+    public Vector3 CurrentPoison => transform.position;
     public Vector3 GetTopTransformPosition => new(transform.position.x, _collider.bounds.max.y, transform.position.z);
 
-    public Vector3 CurrentPoison => transform.position;
-
-    public abstract int MaxHealth { get; }
     public abstract bool IsEnemy { get; }
     public abstract bool IsChasingEnemy { get; }
 
@@ -98,17 +102,16 @@ public abstract partial class BaseEnemyAI : MonoBehaviour, IHasState
     protected virtual bool CheckChasingState(float distanceToPlayer) =>
         IsChasingEnemy && distanceToPlayer <= ChasingDistance;
 
-
     public void CheckCurrentState()
     {
         float distanceToPlayer = Vector3.Distance(transform.position, Player.Instance.transform.position);
 
-        State newState = !_ownerEntity.IsAlive ? 
+        State newState = !_ownerEntity.IsAlive ?
             State.Death :
-            CheckAttackingState(distanceToPlayer) ? 
+            CheckAttackingState(distanceToPlayer) ?
             State.Attacking :
-            CheckChasingState(distanceToPlayer) ? 
-            State.Chasing : 
+            CheckChasingState(distanceToPlayer) ?
+            State.Chasing :
             State.Roaming;
 
         if (newState != _currentState)
@@ -151,7 +154,7 @@ public abstract partial class BaseEnemyAI : MonoBehaviour, IHasState
 
     protected virtual void Start()
     {
-        _ownerEntity = GetComponent<BaseEnemyEntity>();
+        _ownerEntity = GetComponent<BaseEntity>();
 
         var weapons = GetComponentsInChildren<ActiveWeapon>();
 
@@ -160,7 +163,6 @@ public abstract partial class BaseEnemyAI : MonoBehaviour, IHasState
     }
 
     private void Update() => StateHandler();
-
 
     protected virtual void ChangeFacingDirection(Vector3 currentPosition, Vector3 targetPosition) =>
         transform.rotation = currentPosition.x < targetPosition.x ?
@@ -192,7 +194,7 @@ public abstract partial class BaseEnemyAI : MonoBehaviour, IHasState
         if (collision.transform.TryGetComponent(out IDamageable _))
         {
             Vector2 direction = (transform.position - collision.transform.position).normalized;
-            _rigidbody.MovePosition(_rigidbody.position + direction * JUMP_DISTANCE);
+            _rigidbody.MovePosition((_rigidbody.position + direction * JUMP_POWER) / _rigidbody.mass);
 
             _navMeshAgent.ResetPath();
         }

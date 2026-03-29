@@ -7,6 +7,6 @@ namespace Assets.Scripts.Enemies.StateHandler
     {
         public Vector3 TargetPosition { get; private set; }
 
-        public void Run(BaseEnemyAI owner) => TargetPosition = Player.Instance.transform.position;
+        public void Run(BaseEnemyAI owner) => TargetPosition = global::Player.Instance.transform.position;
     }
 }

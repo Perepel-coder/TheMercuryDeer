@@ -4,7 +4,7 @@ using UnityEngine;
 public class BaseEnemyView : View
 {
     protected BaseEnemyAI _ownerAI;
-    protected BaseEnemyEntity _ownerEntity;
+    protected BaseEntity _ownerEntity;
 
     protected override void Awake()
     {
@@ -14,7 +14,7 @@ public class BaseEnemyView : View
     protected virtual void Start()
     {
         _ownerAI = GetComponentInParent<BaseEnemyAI>();
-        _ownerEntity = GetComponentInParent<BaseEnemyEntity>();
+        _ownerEntity = GetComponentInParent<BaseEntity>();
 
         _ownerAI.OnEnemyAttacked += _enemyAI_OnEnemyAttacked;
         _ownerEntity.OnTakedDamage += _enemyEntity_OnTakedDamage;

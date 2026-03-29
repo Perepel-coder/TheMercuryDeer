@@ -1,24 +1,32 @@
-using Assets.Scripts.Interfaces.Npc;
+using Assets.Scripts.Interfaces.Entity;
 using System;
 using UnityEngine;
 
 [SelectionBase]
-public class Player : MonoBehaviour, IDamageable
+public partial class Player
 {
     private Rigidbody2D _rigidbody;
 
+    #region characteristics
+    public int CurrentHealth { get; set; }
+    public int MaxHealth { get; private set; } = 100;
+
     [SerializeField] private float _speedMoveing = 2f;
     private float _speedMoveingMin = 0.1f;
+    #endregion
+
+    #region inventory
     private ActiveWeapon _activeWeapon;
-
-
-    public static Player Instance { get; private set; }
+    #endregion
+}
+public partial class Player : MonoBehaviour, IHasHealth
+{
     public bool IsRunning { get; private set; }
-    public Vector2 MovementVector { get; private set; }
-
     public Vector3 ScreenPosition => Camera.main.WorldToScreenPoint(transform.position);
 
-    public bool IsAlive => throw new NotImplementedException();
+    public static Player Instance { get; private set; }
+    public Vector2 MovementVector { get; private set; }
+
 
     private void Awake()
     {
@@ -33,6 +41,10 @@ public class Player : MonoBehaviour, IDamageable
     {
         GameInput.Instance.OnPlayerAttack += GameInput_OnPlayerAttack;
         _activeWeapon.UseFollowMousePosition = true;
+    }
+    private void OnDestroy()
+    {
+        GameInput.Instance.OnPlayerAttack -= GameInput_OnPlayerAttack;
     }
 
     private void Update()
@@ -53,14 +65,4 @@ public class Player : MonoBehaviour, IDamageable
     }
 
     private void GameInput_OnPlayerAttack(object sender, EventArgs args) => _activeWeapon.Weapon.Attack();
-
-    public void TakeDamage(int damage, Vector3? enemyPosition = null)
-    {
-        Debug.Log($"Player took {damage} damage");
-    }
-
-    public void Die()
-    {
-
-    }
 }

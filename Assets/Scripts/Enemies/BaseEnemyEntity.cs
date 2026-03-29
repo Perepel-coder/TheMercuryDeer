@@ -1,67 +1,45 @@
-﻿using Assets.Scripts.Interfaces.Npc;
-using Assets.Scripts.Interfaces.NpcEntity;
-using Assets.Scripts.Tools;
-using System;
+﻿using Assets.Scripts.Tools;
+using TheMercuryDeer.Scripts.Utils;
 using UnityEngine;
 
-public class BaseEnemyEntity : MonoBehaviour, IDamageable, IHealable
+namespace Assets.Scripts.Enemies
 {
-    private BaseEnemyAI _ownerAI;
-    private int _currentHealth;
-    private PopUpDamage _popUpDamage;
-    private PopUpDamage _popUpHealth;
-
-    public event EventHandler? OnTakedDamage;
-    public event EventHandler? OnDeath;
-
-    public bool IsAlive { get; private set; } = true;
-
-    private void Awake()
+    public class BaseEnemyEntity : BaseEntity
     {
-        _ownerAI = GetComponent<BaseEnemyAI>();
-        _popUpDamage = Resources.Load<PopUpDamage>("Prefabs/Tools/PopUpDamage");
-        _popUpHealth = Resources.Load<PopUpDamage>("Prefabs/Tools/PopUpHealth");
-    }
+        private new BaseEnemyAI _ownerAI;
+        private PopUpDamage _popUpDamage;
+        private PopUpDamage _popUpHealth;
 
-    private void Start()
-    {
-        _currentHealth = _ownerAI.MaxHealth;
-    }
+        protected override void Awake()
+        {
+            _popUpDamage = Resources.Load<PopUpDamage>(Utils.UI.DAMAGE_POP_UP);
+            _popUpHealth = Resources.Load<PopUpDamage>(Utils.UI.HEALTH_POP_UP);
 
-    private void DetectDeath()
-    {
-        if (_currentHealth <= 0) Die();
-    }
+            base.Awake();
+        }
 
-    public void TakeDamage(int damage, Vector3? enemyPosition = null)
-    {
-        OnTakedDamage?.Invoke(this, EventArgs.Empty);
+        protected override void Start()
+        {
+            base.Start();
+            _ownerAI = base._ownerAI as BaseEnemyAI;
+        }
 
-        _currentHealth -= damage;
+        public override void TakeDamage(int damage, Vector3? enemyPosition = null)
+        {
+            _ownerAI.ReactionToTakingHit?.Weapon.Attack();
 
-        _ownerAI.ReactionToTakingHit?.Weapon.Attack();
+            Instantiate(_popUpDamage, _ownerAI.GetTopTransformPosition, Quaternion.identity)
+                .DrawDamage(damage, transform.position.x <= enemyPosition?.x ? Vector2.one : new Vector2(-1, 1));
 
-        Instantiate(_popUpDamage, _ownerAI.GetTopTransformPosition, Quaternion.identity)
-            .DrawDamage(damage,  transform.position.x <= enemyPosition?.x ? Vector2.one : new Vector2(-1, 1));
+            base.TakeDamage(damage, enemyPosition);
+        }
 
-        DetectDeath();
-    }
+        public override void RestoreHealth(int health)
+        {
+            Instantiate(_popUpHealth, _ownerAI.GetTopTransformPosition, Quaternion.identity)
+                .DrawDamage(health, Vector2.one);
 
-    public void RestoreHealth(int health)
-    {
-        _currentHealth += health;
-
-        if(_currentHealth > _ownerAI.MaxHealth)   
-            _currentHealth = _ownerAI.MaxHealth;
-
-        Instantiate(_popUpHealth, _ownerAI.GetTopTransformPosition, Quaternion.identity)
-            .DrawDamage(health, Vector2.one);
-    }
-
-    public void Die()
-    {
-        OnDeath?.Invoke(this, EventArgs.Empty);
-
-        IsAlive = false;
+            base.RestoreHealth(health);
+        }
     }
 }

@@ -9,6 +9,8 @@ public abstract class Weapon : MonoBehaviour
 
     public abstract int DamageAmount { get; protected set; }
 
+    public abstract bool IsContinuousDamage { get; }
+
     public abstract void Attack();
 
 
@@ -21,10 +23,16 @@ public abstract class Weapon : MonoBehaviour
     {
         TurnOnCollider(false);
     }
+    
+    protected virtual void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision.transform.TryGetComponent(out IDamageable enemy) && IsContinuousDamage)
+            enemy.TakeDamage(DamageAmount);
+    }
 
     protected virtual void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.transform.TryGetComponent(out IDamageable enemy))
+        if (collision.transform.TryGetComponent(out IDamageable enemy) && !IsContinuousDamage)
             enemy.TakeDamage(DamageAmount);
     }
 
