@@ -33,8 +33,10 @@ namespace TheMercuryDeer.Scripts.Utils
 
         public static class AnimatorParameters
         {
-
+            public const string IS_RUNNING_FORWARD = "isRunningForward";
+            public const string IS_RUNNING_SIDE = "isRunningSide";
             public const string IS_RUNNING = "isRunning";
+            public const string IS_ATTACKING = "isAttacking";
             public const string IS_DIE = "isDie";
 
             public const string ATTACK = "attack";

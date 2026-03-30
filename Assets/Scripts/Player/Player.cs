@@ -11,7 +11,7 @@ public partial class Player
     public int CurrentHealth { get; set; }
     public int MaxHealth { get; private set; } = 100;
 
-    [SerializeField] private float _speedMoveing = 2f;
+    [SerializeField] private float _speedMoveing = 1f;
     private float _speedMoveingMin = 0.1f;
     #endregion
 
@@ -21,7 +21,9 @@ public partial class Player
 }
 public partial class Player : MonoBehaviour, IHasHealth
 {
-    public bool IsRunning { get; private set; }
+    public bool IsRunningForward { get; private set; }
+    public bool IsRunningSide { get; private set; }
+    public bool IsAttacking => _activeWeapon.Weapon.IsAttacking;
     public Vector3 ScreenPosition => Camera.main.WorldToScreenPoint(transform.position);
 
     public static Player Instance { get; private set; }
@@ -31,7 +33,8 @@ public partial class Player : MonoBehaviour, IHasHealth
     private void Awake()
     {
         Instance = this;
-        IsRunning = false;
+        IsRunningForward = false;
+        IsRunningSide = false;
 
         _rigidbody = GetComponent<Rigidbody2D>();
         _activeWeapon = GetComponentInChildren<ActiveWeapon>();
@@ -61,8 +64,12 @@ public partial class Player : MonoBehaviour, IHasHealth
     {
         _rigidbody.MovePosition(_rigidbody.position + MovementVector * (Time.fixedDeltaTime * _speedMoveing));
 
-        IsRunning = Math.Abs(MovementVector.x) > _speedMoveingMin || Math.Abs(MovementVector.y) > _speedMoveingMin;
+        IsRunningForward = Math.Abs(MovementVector.y) > _speedMoveingMin;
+        IsRunningSide = Math.Abs(MovementVector.x) > _speedMoveingMin;
     }
 
-    private void GameInput_OnPlayerAttack(object sender, EventArgs args) => _activeWeapon.Weapon.Attack();
+    private void GameInput_OnPlayerAttack(object sender, EventArgs args)
+    {
+        _activeWeapon.Weapon.Attack();
+    }
 }

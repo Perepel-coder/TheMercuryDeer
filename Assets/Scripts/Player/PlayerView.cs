@@ -9,7 +9,9 @@ public class PlayerView : View
 
     private void Update()
     {
-        _animator.SetBool(Utils.AnimatorParameters.IS_RUNNING, Player.Instance.IsRunning);
+        _animator.SetBool(Utils.AnimatorParameters.IS_RUNNING_FORWARD, Player.Instance.IsRunningForward);
+        _animator.SetBool(Utils.AnimatorParameters.IS_RUNNING_SIDE, Player.Instance.IsRunningSide);
+        _animator.SetBool(Utils.AnimatorParameters.IS_ATTACKING, Player.Instance.IsAttacking);
 
         //LookWhereGoing();
 
@@ -23,5 +25,5 @@ public class PlayerView : View
         else if(Player.Instance.MovementVector.x > 0)
             _spriteRenderer.flipX = false;
     }
-    private void AdjustPlayerFacingDirection() => _spriteRenderer.flipX = GameInput.Instance.MousePosition.x < Player.Instance.ScreenPosition.x;
+    private void AdjustPlayerFacingDirection() => _spriteRenderer.flipX = GameInput.Instance.MousePosition.x > Player.Instance.ScreenPosition.x;
 }

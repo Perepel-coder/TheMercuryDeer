@@ -1,5 +1,4 @@
 using Assets.Scripts.Enemies.StateHandler.AmorStateHandler;
-using Assets.Scripts.Interfaces.Weapon;
 using Assets.Scripts.Weapons.AmorSword;
 using TheMercuryDeer.Scripts.Enemy;
 using UnityEngine;

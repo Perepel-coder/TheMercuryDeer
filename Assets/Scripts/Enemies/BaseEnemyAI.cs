@@ -104,6 +104,8 @@ public abstract partial class BaseEnemyAI : MonoBehaviour, IHasState, IHasHealth
 
     public void CheckCurrentState()
     {
+        if(_currentState == State.Death) return;
+
         float distanceToPlayer = Vector3.Distance(transform.position, Player.Instance.transform.position);
 
         State newState = !_ownerEntity.IsAlive ?
@@ -132,6 +134,7 @@ public abstract partial class BaseEnemyAI : MonoBehaviour, IHasState, IHasHealth
                 case State.Death:
                     _navMeshAgent.ResetPath();
                     _navMeshAgent.enabled = false;
+                    _collider.enabled = false;
                     foreach (var c in GetComponentsInChildren<Collider2D>())
                         c.enabled = false;
                     break;
