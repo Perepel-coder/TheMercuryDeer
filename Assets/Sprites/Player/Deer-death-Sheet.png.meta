@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: fb3fcf475a1975b44b92e7a3c12e3806
+guid: c9fa86a8486d52349b0bd431c5d223d3
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -110,7 +110,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Deer-idl-top-Sheet_0
+      name: Deer-death-Sheet_0
       rect:
         serializedVersion: 2
         x: 0
@@ -125,14 +125,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ed752dfc258b15249b11547c6d29c05a
-      internalID: -541312305
+      spriteID: 445cc8d388c96884bbaa7bb4517f2bd2
+      internalID: 705362334
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Deer-idl-top-Sheet_1
+      name: Deer-death-Sheet_1
       rect:
         serializedVersion: 2
         x: 64
@@ -147,14 +147,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1d640ff7af86d054090a607683d3b95f
-      internalID: -404939753
+      spriteID: bf347a3bc83c17141858ec47cbe186d3
+      internalID: -322738782
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Deer-idl-top-Sheet_2
+      name: Deer-death-Sheet_2
       rect:
         serializedVersion: 2
         x: 128
@@ -169,14 +169,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3fb5ba3a5a58e484696cc6cf26a7a508
-      internalID: -747093810
+      spriteID: 66fc25c211b1c8e4d9c7136179d8bb2c
+      internalID: 1657415617
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Deer-idl-top-Sheet_3
+      name: Deer-death-Sheet_3
       rect:
         serializedVersion: 2
         x: 192
@@ -191,8 +191,118 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6808b32791a0b5f498d558c023268b39
-      internalID: -2100906168
+      spriteID: b986fe18d2a1c824a836eb4802bbbfaa
+      internalID: 967435104
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Deer-death-Sheet_4
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 0
+        width: 64
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.09}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 648bb30c564966c4bb1025867efcfc20
+      internalID: -1940656605
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Deer-death-Sheet_5
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 0
+        width: 64
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.09}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c7698d5f41941964ea776093e3f9e18b
+      internalID: -1744166688
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Deer-death-Sheet_6
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 0
+        width: 64
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.09}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0548ea1d8d3fef74b91911430c9f886b
+      internalID: -1775220649
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Deer-death-Sheet_7
+      rect:
+        serializedVersion: 2
+        x: 448
+        y: 0
+        width: 64
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.09}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e2d89acd81db4284695df3315d801fbb
+      internalID: -1710804939
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Deer-death-Sheet_8
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 0
+        width: 64
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.09}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 54bd3f173ee8eb94e98b4bb196c731aa
+      internalID: 787185661
       vertices: []
       indices: 
       edges: []
@@ -213,10 +323,15 @@ TextureImporter:
       - key: SpriteEditor.SliceSettings
         value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":64.0,"y":64.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.09000000357627869},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":9,"pivotUnitMode":0,"slicingType":1,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
-      Deer-idl-top-Sheet_0: -541312305
-      Deer-idl-top-Sheet_1: -404939753
-      Deer-idl-top-Sheet_2: -747093810
-      Deer-idl-top-Sheet_3: -2100906168
+      Deer-death-Sheet_0: 705362334
+      Deer-death-Sheet_1: -322738782
+      Deer-death-Sheet_2: 1657415617
+      Deer-death-Sheet_3: 967435104
+      Deer-death-Sheet_4: -1940656605
+      Deer-death-Sheet_5: -1744166688
+      Deer-death-Sheet_6: -1775220649
+      Deer-death-Sheet_7: -1710804939
+      Deer-death-Sheet_8: 787185661
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
