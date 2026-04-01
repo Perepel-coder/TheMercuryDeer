@@ -1,4 +1,5 @@
-﻿using TheMercuryDeer.Scripts.Utils;
+﻿using Assets.Scripts.Paths;
+using Assets.Scripts.Tools;
 
 public class SwordView : View
 {
@@ -15,7 +16,7 @@ public class SwordView : View
         _sword.OnSwing += _sword_OnSwing;
     }
 
-    private void _sword_OnSwing(object sender, System.EventArgs e) => _animator.SetTrigger(Utils.AnimatorParameters.ATTACK);
+    private void _sword_OnSwing(object sender, System.EventArgs e) => _animator.SetTrigger(AnimatorParameters.ATTACK);
 
     public void OnAttackAnimationExit() => _sword.TurnOnCollider(false);
 }

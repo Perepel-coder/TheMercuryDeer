@@ -1,9 +1,9 @@
 fileFormatVersion: 2
-guid: 83ef46e296f1f094080c6c4b2f6c227d
+guid: fb3fcf475a1975b44b92e7a3c12e3806
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
-  serializedVersion: 12
+  serializedVersion: 13
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -50,7 +50,7 @@ TextureImporter:
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 32
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
-  spriteGenerateFallbackPhysicsShape: 1
+  spriteGenerateFallbackPhysicsShape: 0
   alphaUsage: 1
   alphaIsTransparency: 1
   spriteTessellationDetail: -1
@@ -67,7 +67,7 @@ TextureImporter:
   swizzle: 50462976
   cookieLightType: 0
   platformSettings:
-  - serializedVersion: 3
+  - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -80,7 +80,7 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
+  - serializedVersion: 4
     buildTarget: Standalone
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -93,7 +93,7 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
+  - serializedVersion: 4
     buildTarget: Server
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -110,174 +110,95 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Deer-suite-run_2-8-storyboard_0
+      name: Deer-idl-top-Sheet_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 32
-        height: 32
+        width: 64
+        height: 64
       alignment: 9
-      pivot: {x: 0.45718986, y: 0.03531211}
+      pivot: {x: 0.5, y: 0.09}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e46260ea3becf8e42b308ba5ad4e79b0
-      internalID: -1899978419
+      spriteID: ed752dfc258b15249b11547c6d29c05a
+      internalID: -541312305
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Deer-suite-run_2-8-storyboard_1
-      rect:
-        serializedVersion: 2
-        x: 32
-        y: 0
-        width: 32
-        height: 32
-      alignment: 9
-      pivot: {x: 0.47089493, y: 0.063696586}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 3b2ba291974291442b734b8d121f733a
-      internalID: 733243509
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Deer-suite-run_2-8-storyboard_2
+      name: Deer-idl-top-Sheet_1
       rect:
         serializedVersion: 2
         x: 64
         y: 0
-        width: 32
-        height: 32
+        width: 64
+        height: 64
       alignment: 9
-      pivot: {x: 0.49109197, y: 0.13727161}
+      pivot: {x: 0.5, y: 0.09}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 62062ce2750a1974cbb12cdc8bd70a46
-      internalID: 1492739261
+      spriteID: 1d640ff7af86d054090a607683d3b95f
+      internalID: -404939753
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Deer-suite-run_2-8-storyboard_3
-      rect:
-        serializedVersion: 2
-        x: 96
-        y: 0
-        width: 32
-        height: 32
-      alignment: 9
-      pivot: {x: 0.49731684, y: 0.13304412}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 49f9b6baf862b6345a92755c09bff5e9
-      internalID: -1463019982
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Deer-suite-run_2-8-storyboard_4
+      name: Deer-idl-top-Sheet_2
       rect:
         serializedVersion: 2
         x: 128
         y: 0
-        width: 32
-        height: 32
+        width: 64
+        height: 64
       alignment: 9
-      pivot: {x: 0.47392082, y: 0.13796376}
+      pivot: {x: 0.5, y: 0.09}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 95c50d6a0fb7acc47a10425e82f21b44
-      internalID: -1168275082
+      spriteID: 3fb5ba3a5a58e484696cc6cf26a7a508
+      internalID: -747093810
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Deer-suite-run_2-8-storyboard_5
-      rect:
-        serializedVersion: 2
-        x: 160
-        y: 0
-        width: 32
-        height: 32
-      alignment: 9
-      pivot: {x: 0.48147583, y: 0.100237444}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 8d1e34406f3e41f43979e6a0c40d4035
-      internalID: -678569171
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Deer-suite-run_2-8-storyboard_6
+      name: Deer-idl-top-Sheet_3
       rect:
         serializedVersion: 2
         x: 192
         y: 0
-        width: 32
-        height: 32
+        width: 64
+        height: 64
       alignment: 9
-      pivot: {x: 0.5074854, y: 0.07220259}
+      pivot: {x: 0.5, y: 0.09}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7bd815691c1489d4a91d8aad2af6a3d1
-      internalID: 179068314
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Deer-suite-run_2-8-storyboard_7
-      rect:
-        serializedVersion: 2
-        x: 224
-        y: 0
-        width: 32
-        height: 32
-      alignment: 9
-      pivot: {x: 0.53300095, y: 0.042203534}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 75f9d624bd8216545a98b18357fd1628
-      internalID: -1726275804
+      spriteID: 6808b32791a0b5f498d558c023268b39
+      internalID: -2100906168
       vertices: []
       indices: 
       edges: []
       weights: []
     outline: []
+    customData: 
     physicsShape: []
     bones: []
     spriteID: 5e97eb03825dee720800000000000000
@@ -287,15 +208,15 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    spriteCustomMetadata:
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":64.0,"y":64.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.09000000357627869},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":9,"pivotUnitMode":0,"slicingType":1,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
-      Deer-suite-run_2-8-storyboard_0: -1899978419
-      Deer-suite-run_2-8-storyboard_1: 733243509
-      Deer-suite-run_2-8-storyboard_2: 1492739261
-      Deer-suite-run_2-8-storyboard_3: -1463019982
-      Deer-suite-run_2-8-storyboard_4: -1168275082
-      Deer-suite-run_2-8-storyboard_5: -678569171
-      Deer-suite-run_2-8-storyboard_6: 179068314
-      Deer-suite-run_2-8-storyboard_7: -1726275804
+      Deer-idl-top-Sheet_0: -541312305
+      Deer-idl-top-Sheet_1: -404939753
+      Deer-idl-top-Sheet_2: -747093810
+      Deer-idl-top-Sheet_3: -2100906168
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

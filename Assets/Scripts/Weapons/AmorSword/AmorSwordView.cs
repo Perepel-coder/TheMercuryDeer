@@ -1,5 +1,5 @@
-﻿using System;
-using TheMercuryDeer.Scripts.Utils;
+﻿using Assets.Scripts.Paths;
+using System;
 using UnityEngine;
 
 namespace Assets.Scripts.Weapons.AmorSword
@@ -19,7 +19,7 @@ namespace Assets.Scripts.Weapons.AmorSword
             _sword.OnFallAttack += _sword_OnFallAttack;
         }
 
-        private void _sword_OnFallAttack(object sender, EventArgs e) => _animator.SetTrigger(Utils.AnimatorParameters.ATTACK);
+        private void _sword_OnFallAttack(object sender, EventArgs e) => _animator.SetTrigger(AnimatorParameters.ATTACK);
 
 
         public void OnAttackAnimationEnter()

@@ -1,4 +1,6 @@
-using TheMercuryDeer.Scripts.Utils;
+using Assets.Scripts.Paths;
+using Assets.Scripts.Player;
+using Assets.Scripts.Tools;
 
 public class PlayerView : View
 {
@@ -7,13 +9,21 @@ public class PlayerView : View
         base.Awake();
     }
 
+    private void Start()
+    {
+        PlayerEntity.Instance.OnDeath += PlayerEntity_OnDeath;
+    }
+
+    private void PlayerEntity_OnDeath(object sender, System.EventArgs e) => _animator.SetTrigger(AnimatorParameters.DEATH);
+
     private void Update()
     {
-        _animator.SetBool(Utils.AnimatorParameters.IS_RUNNING, Player.Instance.IsRunning);
+        _animator.SetBool(AnimatorParameters.IS_RUNNING_FORWARD, Player.Instance.IsRunningForward);
+        _animator.SetBool(AnimatorParameters.IS_RUNNING_SIDE, Player.Instance.IsRunningSide);
+        _animator.SetBool(AnimatorParameters.IS_ATTACKING, Player.Instance.IsAttacking);
 
-        //LookWhereGoing();
-
-        AdjustPlayerFacingDirection();
+        if(PlayerEntity.Instance.IsAlive)
+            AdjustPlayerFacingDirection();
     }
 
     private void LookWhereGoing()
@@ -23,5 +33,6 @@ public class PlayerView : View
         else if(Player.Instance.MovementVector.x > 0)
             _spriteRenderer.flipX = false;
     }
-    private void AdjustPlayerFacingDirection() => _spriteRenderer.flipX = GameInput.Instance.MousePosition.x < Player.Instance.ScreenPosition.x;
+
+    private void AdjustPlayerFacingDirection() => _spriteRenderer.flipX = GameInput.Instance.MousePosition.x > Player.Instance.ScreenPosition.x;
 }

@@ -5,6 +5,14 @@ namespace Assets.Scripts.Player
 {
     public class PlayerEntity : BaseEntity
     {
+        public static PlayerEntity Instance { get; private set; }
+
+        protected override void Awake()
+        {
+            base.Awake();
+            Instance = this;
+        }
+
         protected override void Start()
         {
             base.Start();
