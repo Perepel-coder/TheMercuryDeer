@@ -1,9 +1,9 @@
 fileFormatVersion: 2
-guid: 3ecd8ea575ba37248a1135a926dceba1
+guid: 76a11f114463c6e4497ffb85b0c463fe
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
-  serializedVersion: 12
+  serializedVersion: 13
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -67,7 +67,7 @@ TextureImporter:
   swizzle: 50462976
   cookieLightType: 0
   platformSettings:
-  - serializedVersion: 3
+  - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -80,7 +80,7 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
+  - serializedVersion: 4
     buildTarget: Standalone
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -93,7 +93,7 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
+  - serializedVersion: 4
     buildTarget: Server
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -110,111 +110,51 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Angel-run-6-storyboard_0
+      name: Angel-in-crown-Idle-1_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 59
-        height: 80
+        width: 64
+        height: 64
       alignment: 9
-      pivot: {x: 0.4112389, y: 0.42342266}
+      pivot: {x: 0.3944034, y: 0.26387426}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 582d6821aabb2854f8cfa1a64478819d
-      internalID: -139609820
+      spriteID: f391447b683cb6140bf4313eb3b715df
+      internalID: 2056040246
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Angel-run-6-storyboard_1
+      name: Angel-in-crown-Idle-1_1
       rect:
         serializedVersion: 2
-        x: 59
+        x: 64
         y: 0
-        width: 61
-        height: 80
+        width: 64
+        height: 64
       alignment: 9
-      pivot: {x: 0.48380178, y: 0.4333036}
+      pivot: {x: 0.39586997, y: 0.26094103}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 64f59a86eba2b714f935013c5f0323a5
-      internalID: -403576234
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Angel-run-6-storyboard_2
-      rect:
-        serializedVersion: 2
-        x: 120
-        y: 0
-        width: 72
-        height: 80
-      alignment: 9
-      pivot: {x: 0.45339775, y: 0.44563064}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: cdafe382b3a9db94d85c163fc6b11147
-      internalID: 1781212290
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Angel-run-6-storyboard_3
-      rect:
-        serializedVersion: 2
-        x: 192
-        y: 0
-        width: 75
-        height: 80
-      alignment: 9
-      pivot: {x: 0.5283795, y: 0.43538707}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 93a68ffa15567c84a93718674d55f161
-      internalID: -542431758
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Angel-run-6-storyboard_4
-      rect:
-        serializedVersion: 2
-        x: 267
-        y: 0
-        width: 53
-        height: 80
-      alignment: 9
-      pivot: {x: 0.5581538, y: 0.42294675}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: f9c0136020c2f0d4d8edbc4c1b94a6da
-      internalID: 1127202209
+      spriteID: c0cd364d89e0351459dcd5f597e46caa
+      internalID: -101402924
       vertices: []
       indices: 
       edges: []
       weights: []
     outline: []
+    customData: 
     physicsShape: []
     bones: []
     spriteID: 5e97eb03825dee720800000000000000
@@ -224,12 +164,11 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
     nameFileIdTable:
-      Angel-run-6-storyboard_0: -139609820
-      Angel-run-6-storyboard_1: -403576234
-      Angel-run-6-storyboard_2: 1781212290
-      Angel-run-6-storyboard_3: -542431758
-      Angel-run-6-storyboard_4: 1127202209
+      Angel-in-crown-Idle-1_0: 2056040246
+      Angel-in-crown-Idle-1_1: -101402924
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

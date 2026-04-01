@@ -18,5 +18,11 @@
         {
             public const string FLASH_BLINK_MATERIAL = PATH_TO_MATERIALS + "FlashBlink";
         }
+
+        public static class VFX
+        {
+            private const string PATH_TO_VFX_PREFABS = PATH_TO_PREFABS + "VFX/";
+            public const string DESTRUCTION_EFFECT = PATH_TO_VFX_PREFABS + "BaseDestructionEffectVFX";
+        }
     }
 }
