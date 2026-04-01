@@ -1,5 +1,5 @@
-﻿using Assets.Scripts.Tools;
-using TheMercuryDeer.Scripts.Utils;
+﻿using Assets.Scripts.Paths;
+using Assets.Scripts.Tools;
 using UnityEngine;
 
 namespace Assets.Scripts.Enemies
@@ -12,8 +12,8 @@ namespace Assets.Scripts.Enemies
 
         protected override void Awake()
         {
-            _popUpDamage = Resources.Load<PopUpDamage>(Utils.UI.DAMAGE_POP_UP);
-            _popUpHealth = Resources.Load<PopUpDamage>(Utils.UI.HEALTH_POP_UP);
+            _popUpDamage = Resources.Load<PopUpDamage>(ResourcePaths.UI.DAMAGE_POP_UP);
+            _popUpHealth = Resources.Load<PopUpDamage>(ResourcePaths.UI.HEALTH_POP_UP);
 
             base.Awake();
         }

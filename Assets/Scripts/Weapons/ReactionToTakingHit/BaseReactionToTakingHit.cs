@@ -1,6 +1,6 @@
 ﻿using Assets.Scripts.Interfaces.Npc;
 using Assets.Scripts.Interfaces.Weapon;
-using TheMercuryDeer.Scripts.Utils;
+using Assets.Scripts.Tools;
 using UnityEngine;
 
 namespace Assets.Scripts.Weapons.ReactionToTakingHit

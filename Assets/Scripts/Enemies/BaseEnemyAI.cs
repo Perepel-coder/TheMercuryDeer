@@ -3,6 +3,7 @@ using Assets.Scripts.Interfaces.Entity;
 using Assets.Scripts.Interfaces.IStateHandler;
 using Assets.Scripts.Interfaces.Npc;
 using Assets.Scripts.Interfaces.Weapon;
+using Assets.Scripts.Player;
 using System;
 using System.Linq;
 using TheMercuryDeer.Scripts.Enemy;
@@ -105,6 +106,12 @@ public abstract partial class BaseEnemyAI : MonoBehaviour, IHasState, IHasHealth
     public void CheckCurrentState()
     {
         if(_currentState == State.Death) return;
+
+        if(!PlayerEntity.Instance.IsAlive) 
+        {
+            _currentState = State.Roaming; 
+            return; 
+        }
 
         float distanceToPlayer = Vector3.Distance(transform.position, Player.Instance.transform.position);
 

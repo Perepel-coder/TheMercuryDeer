@@ -1,4 +1,4 @@
-﻿using TheMercuryDeer.Scripts.Utils;
+﻿using Assets.Scripts.Paths;
 
 public class SwordSlashView : View
 {
@@ -15,5 +15,5 @@ public class SwordSlashView : View
         _sword.OnSwing += Sword_OnSwing;
     }
 
-    private void Sword_OnSwing(object sender, System.EventArgs e) => _animator.SetTrigger(Utils.AnimatorParameters.ATTACK);
+    private void Sword_OnSwing(object sender, System.EventArgs e) => _animator.SetTrigger(AnimatorParameters.ATTACK);
 }

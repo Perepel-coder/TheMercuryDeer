@@ -1,5 +1,5 @@
 ﻿using Assets.Scripts.Interfaces.IStateHandler;
-using TheMercuryDeer.Scripts.Utils;
+using Assets.Scripts.Tools;
 using UnityEngine;
 
 namespace Assets.Scripts.Enemies.StateHandler

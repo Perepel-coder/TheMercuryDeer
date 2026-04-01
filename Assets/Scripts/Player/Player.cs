@@ -1,4 +1,5 @@
 using Assets.Scripts.Interfaces.Entity;
+using Assets.Scripts.Player;
 using System;
 using UnityEngine;
 
@@ -37,17 +38,36 @@ public partial class Player : MonoBehaviour, IHasHealth
         IsRunningSide = false;
 
         _rigidbody = GetComponent<Rigidbody2D>();
-        _activeWeapon = GetComponentInChildren<ActiveWeapon>();
     }
 
     private void Start()
     {
+        _activeWeapon = GetComponentInChildren<ActiveWeapon>();
+
         GameInput.Instance.OnPlayerAttack += GameInput_OnPlayerAttack;
+        PlayerEntity.Instance.OnDeath += _ownerEntity_OnDeath;
+
         _activeWeapon.UseFollowMousePosition = true;
     }
+
+    private void _ownerEntity_OnDeath(object sender, EventArgs e)
+    {
+        //TODO: add death logic
+        foreach (var collider in GetComponents<Collider2D>()) 
+            collider.enabled = false;
+
+        foreach (var c in GetComponentsInChildren<Collider2D>())
+            c.enabled = false;
+
+        _speedMoveing = _speedMoveingMin;
+
+        OnDestroy();
+    }
+
     private void OnDestroy()
     {
         GameInput.Instance.OnPlayerAttack -= GameInput_OnPlayerAttack;
+        PlayerEntity.Instance.OnDeath -= _ownerEntity_OnDeath;
     }
 
     private void Update()
@@ -57,7 +77,8 @@ public partial class Player : MonoBehaviour, IHasHealth
 
     private void FixedUpdate()
     {
-        HandleMovement();
+        if(PlayerEntity.Instance.IsAlive)
+            HandleMovement();
     }
 
     private void HandleMovement()
