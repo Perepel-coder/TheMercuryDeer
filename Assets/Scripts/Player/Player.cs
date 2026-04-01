@@ -61,6 +61,8 @@ public partial class Player : MonoBehaviour, IHasHealth
 
         _speedMoveing = _speedMoveingMin;
 
+        _activeWeapon.UseFollowMousePosition = false;
+
         OnDestroy();
     }
 
@@ -89,8 +91,5 @@ public partial class Player : MonoBehaviour, IHasHealth
         IsRunningSide = Math.Abs(MovementVector.x) > _speedMoveingMin;
     }
 
-    private void GameInput_OnPlayerAttack(object sender, EventArgs args)
-    {
-        _activeWeapon.Weapon.Attack();
-    }
+    private void GameInput_OnPlayerAttack(object sender, EventArgs args) => _activeWeapon.Weapon.Attack();
 }
