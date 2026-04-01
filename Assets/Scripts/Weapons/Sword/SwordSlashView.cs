@@ -15,5 +15,10 @@ public class SwordSlashView : View
         _sword.OnSwing += Sword_OnSwing;
     }
 
+    private void OnDestroy()
+    {
+        _sword.OnSwing -= Sword_OnSwing;
+    }
+
     private void Sword_OnSwing(object sender, System.EventArgs e) => _animator.SetTrigger(AnimatorParameters.ATTACK);
 }

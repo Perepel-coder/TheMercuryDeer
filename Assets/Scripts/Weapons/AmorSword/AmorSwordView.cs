@@ -19,6 +19,11 @@ namespace Assets.Scripts.Weapons.AmorSword
             _sword.OnFallAttack += _sword_OnFallAttack;
         }
 
+        private void OnDestroy()
+        {
+            _sword.OnFallAttack -= _sword_OnFallAttack;
+        }
+
         private void _sword_OnFallAttack(object sender, EventArgs e) => _animator.SetTrigger(AnimatorParameters.ATTACK);
 
 

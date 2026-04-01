@@ -1,5 +1,4 @@
 ﻿using Assets.Scripts.Paths;
-using Assets.Scripts.Tools;
 
 public class SwordView : View
 {
@@ -14,6 +13,11 @@ public class SwordView : View
     private void Start()
     {
         _sword.OnSwing += _sword_OnSwing;
+    }
+
+    private void OnDestroy()
+    {
+        _sword.OnSwing -= _sword_OnSwing;
     }
 
     private void _sword_OnSwing(object sender, System.EventArgs e) => _animator.SetTrigger(AnimatorParameters.ATTACK);

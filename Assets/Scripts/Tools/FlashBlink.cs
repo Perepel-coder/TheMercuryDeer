@@ -22,12 +22,11 @@ namespace Assets.Scripts.Tools
             _propBlock = new MaterialPropertyBlock();
         }
 
-        private void Start()
-        {
-            _damageableObject.OnTakedDamage += (sender, args) => StartBlinking();
-        }
+        private void Start() => _damageableObject.OnTakedDamage += _damageableObject_OnTakedDamage;
 
-        private void OnDestroy() => _damageableObject.OnTakedDamage -= (sender, args) => StartBlinking();
+        private void OnDestroy() => _damageableObject.OnTakedDamage -= _damageableObject_OnTakedDamage;
+
+        private void _damageableObject_OnTakedDamage(object sender, System.EventArgs e) => StartBlinking();
 
         private void Update()
         {

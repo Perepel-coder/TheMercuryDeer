@@ -1,5 +1,4 @@
 using Assets.Scripts.Paths;
-using Assets.Scripts.Player;
 
 namespace Assets.Scripts.Player
 {
@@ -13,6 +12,11 @@ namespace Assets.Scripts.Player
         private void Start()
         {
             PlayerEntity.Instance.OnDeath += PlayerEntity_OnDeath;
+        }
+
+        private void OnDestroy()
+        {
+            PlayerEntity.Instance.OnDeath -= PlayerEntity_OnDeath;
         }
 
         private void PlayerEntity_OnDeath(object sender, System.EventArgs e) => _animator.SetTrigger(AnimatorParameters.DEATH);
