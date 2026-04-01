@@ -1,7 +1,7 @@
 ﻿using Assets.Scripts.Interfaces.Npc;
 using UnityEngine;
 
-namespace Assets.Scripts.Tools
+namespace Assets.Scripts.VisualEffects
 {
     class FlashBlink : MonoBehaviour
     {

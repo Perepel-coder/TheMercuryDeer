@@ -8,10 +8,30 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 407852070361358990, guid: 4f0430774da627c41aa044f83fc46ad8, type: 3}
+      propertyPath: m_Size.x
+      value: 0.17423159
+      objectReference: {fileID: 0}
+    - target: {fileID: 407852070361358990, guid: 4f0430774da627c41aa044f83fc46ad8, type: 3}
+      propertyPath: m_Size.y
+      value: 0.17423159
+      objectReference: {fileID: 0}
+    - target: {fileID: 407852070361358990, guid: 4f0430774da627c41aa044f83fc46ad8, type: 3}
+      propertyPath: m_Offset.x
+      value: -0.042857304
+      objectReference: {fileID: 0}
+    - target: {fileID: 407852070361358990, guid: 4f0430774da627c41aa044f83fc46ad8, type: 3}
+      propertyPath: m_Offset.y
+      value: 0.008994885
+      objectReference: {fileID: 0}
     - target: {fileID: 1463766031666225953, guid: 4f0430774da627c41aa044f83fc46ad8, type: 3}
       propertyPath: m_Name
       value: BushView_1.0
       objectReference: {fileID: 0}
+    - target: {fileID: 2108698671109083098, guid: 4f0430774da627c41aa044f83fc46ad8, type: 3}
+      propertyPath: _destructionEffectVFX
+      value: 
+      objectReference: {fileID: 8011096686165697959, guid: 6c5696c40d199124fa93051508aa0548, type: 3}
     - target: {fileID: 2902347858054871772, guid: 4f0430774da627c41aa044f83fc46ad8, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -67,5 +87,65 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 5665799379503980982, guid: 4f0430774da627c41aa044f83fc46ad8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3662729659475147872}
+    - targetCorrespondingSourceObject: {fileID: 5665799379503980982, guid: 4f0430774da627c41aa044f83fc46ad8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -2350835967388821807}
   m_SourcePrefab: {fileID: 100100000, guid: 4f0430774da627c41aa044f83fc46ad8, type: 3}
+--- !u!1 &2520371133577257838 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5665799379503980982, guid: 4f0430774da627c41aa044f83fc46ad8, type: 3}
+  m_PrefabInstance: {fileID: 7807797773255033560}
+  m_PrefabAsset: {fileID: 0}
+--- !u!70 &3662729659475147872
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2520371133577257838}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: -0.038446352, y: 0.009417288}
+  m_Size: {x: 0.14539409, y: 0.16764377}
+  m_Direction: 0
+--- !u!114 &-2350835967388821807
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2520371133577257838}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6264d35635ea7d48bed8eee42129887, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Assets.Scripts.VisualEffects.DestructionHandler
