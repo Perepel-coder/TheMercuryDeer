@@ -4,6 +4,7 @@
     {
         public const string IS_RUNNING_FORWARD = "isRunningForward";
         public const string IS_RUNNING_SIDE = "isRunningSide";
+        public const string SIDE_RUN_SPEED = "sideRunSpeed";
         public const string IS_RUNNING = "isRunning";
         public const string IS_ATTACKING = "isAttacking";
         public const string IS_DIE = "isDie";

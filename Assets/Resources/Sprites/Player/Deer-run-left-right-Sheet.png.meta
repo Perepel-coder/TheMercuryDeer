@@ -118,15 +118,15 @@ TextureImporter:
         width: 64
         height: 64
       alignment: 9
-      pivot: {x: 0.5, y: 0.07}
+      pivot: {x: 0.5, y: 0.09}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 258d292b3798b4d46a466a3570da564b
-      internalID: -879776320
+      spriteID: a8355a8987940974abde3b55a00e867b
+      internalID: 1764531938
       vertices: []
       indices: 
       edges: []
@@ -140,15 +140,15 @@ TextureImporter:
         width: 64
         height: 64
       alignment: 9
-      pivot: {x: 0.5, y: 0.088}
+      pivot: {x: 0.5, y: 0.09}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 49ed6dc2fbaa5814497d203b0a30939d
-      internalID: -545219377
+      spriteID: 5b68efe597e19c34ca34f32d66f07aa3
+      internalID: 579697362
       vertices: []
       indices: 
       edges: []
@@ -162,15 +162,15 @@ TextureImporter:
         width: 64
         height: 64
       alignment: 9
-      pivot: {x: 0.5, y: 0.07}
+      pivot: {x: 0.5, y: 0.09}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1fb49af6f387a304ca1096255af79185
-      internalID: 725805083
+      spriteID: 0e721c192beb86c4984868e656158e57
+      internalID: 1913158178
       vertices: []
       indices: 
       edges: []
@@ -184,15 +184,59 @@ TextureImporter:
         width: 64
         height: 64
       alignment: 9
-      pivot: {x: 0.5, y: 0.088}
+      pivot: {x: 0.5, y: 0.09}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 337d3b423f8431944a291ade3ff227a3
-      internalID: -312442749
+      spriteID: ba8dc1d97315b6c48af9bf259b63bf64
+      internalID: 445626345
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Deer-run-left-right-Sheet_4
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 0
+        width: 64
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.09}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c5941d3dc5b81404ea9f071e1c266c30
+      internalID: 928937159
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Deer-run-left-right-Sheet_5
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 0
+        width: 64
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.09}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 67d8cf6c5065e1247bf0bbfb7f7d8bbd
+      internalID: -494824417
       vertices: []
       indices: 
       edges: []
@@ -211,12 +255,14 @@ TextureImporter:
     spriteCustomMetadata:
       entries:
       - key: SpriteEditor.SliceSettings
-        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":64.0,"y":64.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.07000000029802323},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":9,"pivotUnitMode":0,"slicingType":1,"keepEmptyRects":false,"isAlternate":false}'
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":64.0,"y":64.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.09000000357627869},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":9,"pivotUnitMode":0,"slicingType":1,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
-      Deer-run-left-right-Sheet_0: -879776320
-      Deer-run-left-right-Sheet_1: -545219377
-      Deer-run-left-right-Sheet_2: 725805083
-      Deer-run-left-right-Sheet_3: -312442749
+      Deer-run-left-right-Sheet_0: 1764531938
+      Deer-run-left-right-Sheet_1: 579697362
+      Deer-run-left-right-Sheet_2: 1913158178
+      Deer-run-left-right-Sheet_3: 445626345
+      Deer-run-left-right-Sheet_4: 928937159
+      Deer-run-left-right-Sheet_5: -494824417
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

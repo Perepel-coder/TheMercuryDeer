@@ -27,14 +27,17 @@ namespace Assets.Scripts.Player
 
         private void Update()
         {
-            _animator.SetBool(AnimatorParameters.IS_RUNNING_FORWARD, global::Player.Instance.IsRunningForward);
-            _animator.SetBool(AnimatorParameters.IS_RUNNING_SIDE, global::Player.Instance.IsRunningSide);
-            _animator.SetBool(AnimatorParameters.IS_ATTACKING, global::Player.Instance.IsAttacking);
-
-            _traceOfDash.emitting = global::Player.Instance.IsDashing;
-
             if (PlayerEntity.Instance.IsAlive)
+            {
                 AdjustPlayerFacingDirection();
+
+                _animator.SetBool(AnimatorParameters.IS_RUNNING_FORWARD, global::Player.Instance.IsRunningForward);
+                _animator.SetBool(AnimatorParameters.IS_RUNNING_SIDE, global::Player.Instance.IsRunningSide);
+                _animator.SetFloat(AnimatorParameters.SIDE_RUN_SPEED, GetSideRunSpeed());
+                _animator.SetBool(AnimatorParameters.IS_ATTACKING, global::Player.Instance.IsAttacking);
+
+                _traceOfDash.emitting = global::Player.Instance.IsDashing;
+            }    
         }
 
         private void LookWhereGoing()
@@ -44,6 +47,8 @@ namespace Assets.Scripts.Player
             else if (global::Player.Instance.MovementVector.x > 0)
                 _spriteRenderer.flipX = false;
         }
+
+        private float GetSideRunSpeed() => _spriteRenderer.flipX != global::Player.Instance.MovementVector.x > 0 ? -1f : 1f;
 
         private void AdjustPlayerFacingDirection() => _spriteRenderer.flipX = GameInput.Instance.MousePosition.x > global::Player.Instance.ScreenPosition.x;
     }
