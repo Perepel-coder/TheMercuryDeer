@@ -11,6 +11,7 @@ public class GameInput : MonoBehaviour
     public Vector3 MousePosition => Mouse.current.position.ReadValue();
 
     public event EventHandler? OnPlayerAttack;
+    public event EventHandler? OnPlayerDash;
 
     private void Awake()
     {
@@ -20,10 +21,16 @@ public class GameInput : MonoBehaviour
         _inputActions.Enable();
 
         _inputActions.Combat.Attack.started += PalyerAttackStarted;
+        _inputActions.Player.Dash.performed += PlayerDashPerformed;
     }
 
     private void PalyerAttackStarted(InputAction.CallbackContext obj)
     {
         OnPlayerAttack?.Invoke(this, EventArgs.Empty);
+    }
+
+    private void PlayerDashPerformed(InputAction.CallbackContext obj)
+    {
+        OnPlayerDash?.Invoke(this, EventArgs.Empty);
     }
 }

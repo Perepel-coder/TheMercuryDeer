@@ -1,12 +1,16 @@
 using Assets.Scripts.Paths;
+using UnityEngine;
 
 namespace Assets.Scripts.Player
 {
     public class PlayerView : View
     {
+        private TrailRenderer _traceOfDash;
+
         protected override void Awake()
         {
             base.Awake();
+            _traceOfDash = GetComponentInChildren<TrailRenderer>();
         }
 
         private void Start()
@@ -26,6 +30,8 @@ namespace Assets.Scripts.Player
             _animator.SetBool(AnimatorParameters.IS_RUNNING_FORWARD, global::Player.Instance.IsRunningForward);
             _animator.SetBool(AnimatorParameters.IS_RUNNING_SIDE, global::Player.Instance.IsRunningSide);
             _animator.SetBool(AnimatorParameters.IS_ATTACKING, global::Player.Instance.IsAttacking);
+
+            _traceOfDash.emitting = global::Player.Instance.IsDashing;
 
             if (PlayerEntity.Instance.IsAlive)
                 AdjustPlayerFacingDirection();
