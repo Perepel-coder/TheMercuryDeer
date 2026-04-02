@@ -9,6 +9,8 @@ namespace Assets.Scripts.VisualEffects
         private ParticleSystem _destructionEffectVFX;
         private BaseDestructibleObject _destructibleObject;
 
+        [SerializeField] private float _destructionEffectDuration = 0.5f;
+
         private void Awake()
         {
             _destructibleObject = GetComponent<BaseDestructibleObject>();
@@ -30,7 +32,9 @@ namespace Assets.Scripts.VisualEffects
 
         private void _destructibleObject_OnObjectTakeDamage(object sender, EventArgs e)
         {
-            Instantiate(_destructionEffectVFX, _destructibleObject.transform.position, Quaternion.identity);
+            var destructionEffect = Instantiate(_destructionEffectVFX, _destructibleObject.transform.position, Quaternion.identity);
+
+            Destroy(destructionEffect.gameObject, _destructionEffectDuration);
         }
     }
 }
