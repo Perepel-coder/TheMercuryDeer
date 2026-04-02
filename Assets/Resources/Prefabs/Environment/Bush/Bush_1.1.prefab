@@ -28,17 +28,21 @@ PrefabInstance:
       propertyPath: m_Offset.y
       value: 0.027035266
       objectReference: {fileID: 0}
+    - target: {fileID: 3662729659475147872, guid: e9e9c5b55fde31c418fb356f50c2374b, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4908337876074903556, guid: e9e9c5b55fde31c418fb356f50c2374b, type: 3}
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: -491096132, guid: 8527d349cfa4f374298dcae9e228c896, type: 3}
     - target: {fileID: 6643618038005658274, guid: e9e9c5b55fde31c418fb356f50c2374b, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -25.52
       objectReference: {fileID: 0}
     - target: {fileID: 6643618038005658274, guid: e9e9c5b55fde31c418fb356f50c2374b, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -2.61
       objectReference: {fileID: 0}
     - target: {fileID: 6643618038005658274, guid: e9e9c5b55fde31c418fb356f50c2374b, type: 3}
       propertyPath: m_LocalPosition.z

@@ -1,6 +1,7 @@
 using Assets.Scripts.Interfaces.Entity;
 using Assets.Scripts.Player;
 using System;
+using System.Collections;
 using UnityEngine;
 
 [SelectionBase]
@@ -12,8 +13,12 @@ public partial class Player
     public int CurrentHealth { get; set; }
     public int MaxHealth { get; private set; } = 100;
 
-    [SerializeField] private float _speedMoveing = 1f;
+    [SerializeField] private float _baseSpeedMoveing = 3f;
+    private float _speedCurrrentMoveing;
     private float _speedMoveingMin = 0.1f;
+    private int _dashSpeedMultiplier = 4;
+    private float _dashDuration = 0.2f;
+    private float _dashCooldown = 2f;
     #endregion
 
     #region inventory
@@ -22,6 +27,7 @@ public partial class Player
 }
 public partial class Player : MonoBehaviour, IHasHealth
 {
+    public bool IsDashing { get; private set; }
     public bool IsRunningForward { get; private set; }
     public bool IsRunningSide { get; private set; }
     public bool IsAttacking => _activeWeapon.Weapon.IsAttacking;
@@ -42,12 +48,14 @@ public partial class Player : MonoBehaviour, IHasHealth
 
     private void Start()
     {
-        _activeWeapon = GetComponentInChildren<ActiveWeapon>();
+        _speedCurrrentMoveing = _baseSpeedMoveing;
 
+        _activeWeapon = GetComponentInChildren<ActiveWeapon>();
+        _activeWeapon.UseFollowMousePosition = true;
+
+        GameInput.Instance.OnPlayerDash += GameInput_OnPlayerDash;
         GameInput.Instance.OnPlayerAttack += GameInput_OnPlayerAttack;
         PlayerEntity.Instance.OnDeath += _ownerEntity_OnDeath;
-
-        _activeWeapon.UseFollowMousePosition = true;
     }
 
     private void _ownerEntity_OnDeath(object sender, EventArgs e)
@@ -59,7 +67,7 @@ public partial class Player : MonoBehaviour, IHasHealth
         foreach (var c in GetComponentsInChildren<Collider2D>())
             c.enabled = false;
 
-        _speedMoveing = _speedMoveingMin;
+        _speedCurrrentMoveing = _speedMoveingMin;
 
         _activeWeapon.UseFollowMousePosition = false;
 
@@ -85,11 +93,28 @@ public partial class Player : MonoBehaviour, IHasHealth
 
     private void HandleMovement()
     {
-        _rigidbody.MovePosition(_rigidbody.position + MovementVector * (Time.fixedDeltaTime * _speedMoveing));
+        _rigidbody.MovePosition(_rigidbody.position + MovementVector * (Time.fixedDeltaTime * _speedCurrrentMoveing));
 
         IsRunningForward = Math.Abs(MovementVector.y) > _speedMoveingMin;
         IsRunningSide = Math.Abs(MovementVector.x) > _speedMoveingMin;
     }
 
     private void GameInput_OnPlayerAttack(object sender, EventArgs args) => _activeWeapon.Weapon.Attack();
+
+    private void GameInput_OnPlayerDash(object sender, EventArgs e)
+    {
+        if (!IsDashing)
+            StartCoroutine(DashRoutine());
+    }
+
+    private IEnumerator DashRoutine()
+    {
+        IsDashing = true;
+        _speedCurrrentMoveing *= _dashSpeedMultiplier;
+        yield return new WaitForSeconds(_dashDuration);
+
+        _speedCurrrentMoveing = _baseSpeedMoveing;
+        IsDashing = false;
+        yield return new WaitForSeconds(_dashCooldown);
+    }
 }
