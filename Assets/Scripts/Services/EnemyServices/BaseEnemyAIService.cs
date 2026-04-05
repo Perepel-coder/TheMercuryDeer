@@ -1,7 +1,8 @@
 using Assets.Scripts.Application.Interfaces.Entity;
 using Assets.Scripts.Application.Interfaces.NpcStates;
 using Assets.Scripts.Application.Interfaces.Weapon;
-using Assets.Scripts.Services.Enemies;
+using Assets.Scripts.DTO;
+using Assets.Scripts.Infrastructure;
 using Assets.Scripts.Services.Enemies.StateHandler;
 using Assets.Scripts.Services.Player;
 using System;
@@ -11,7 +12,8 @@ using UnityEngine.AI;
 
 public abstract partial class BaseEnemyAIService
 {
-    [SerializeField] protected State _currentState = State.Idle;
+    protected State _currentState = State.Roaming;
+    private const float JUMP_POWER = 0.5f;
 
     private float _roamingCurrentTime;
     private Vector3 _lastSteeringTarget;
@@ -20,33 +22,17 @@ public abstract partial class BaseEnemyAIService
     private Collider2D _collider;
 
     protected BaseEntityService _ownerEntity;
+    protected abstract EnemyName Name { get; }
 
-    private const float JUMP_POWER = 0.5f;
+    public EnemyDTO Stats { get; protected set; }
 
-    #region IHasHealth
-    public abstract int MaxHealth { get; }
+    public int MaxHealth => Stats.MaxHealth;
     public int CurrentHealth { get; set; }
-    #endregion
 
     #region state heandlers
     protected IRoamingStateHandler<BaseEnemyAIService> _roamingStateHandler = new BaseRoamingStateHandler();
     protected IChasingStateHandler<BaseEnemyAIService> _chasingStateHandler = new BaseChasingStateHandler();
     protected IAttackingStateHandler<BaseEnemyAIService> _attackingStateHandler = new BaseAttackingStateHandler();
-    #endregion
-
-    #region characteristics
-    public float RoamingDistanceMin { get; protected set; } = 2f;
-    public float RoamingDistanceMax { get; protected set; } = 6f;
-    public float RoamingTimeMax { get; protected set; } = 4f;
-    public float RoamingSpeed { get; protected set; } = 1f;
-
-    public float ChasingDistance { get; protected set; } = 5f;
-    public float ChasingSpeedMultiplier { get; protected set; } = 2f;
-
-    public float AttackingDistance { get; protected set; } = 0.5f;
-    public float AttackRate { get; protected set; } = 2f;
-    public float NextAttackTime { get; protected set; } = 0f;
-    public int InherentDamage { get; protected set; } = 1;
     #endregion
 
     #region inventory
@@ -58,12 +44,9 @@ public abstract partial class BaseEnemyAIService
 public abstract partial class BaseEnemyAIService : MonoBehaviour, IHasState, IHasHealth
 {
     public bool IsRunning => _navMeshAgent.velocity != Vector3.zero;
-    public event EventHandler? OnEnemyAttacked;
+    public event EventHandler OnEnemyAttacked;
     public Vector3 CurrentPoison => transform.position;
     public Vector3 GetTopTransformPosition => new(transform.position.x, _collider.bounds.max.y, transform.position.z);
-
-    public abstract bool IsEnemy { get; }
-    public abstract bool IsChasingEnemy { get; }
 
     public void StateHandler()
     {
@@ -73,7 +56,7 @@ public abstract partial class BaseEnemyAIService : MonoBehaviour, IHasState, IHa
                 _roamingCurrentTime -= Time.deltaTime;
                 if (_roamingCurrentTime < 0f)
                 {
-                    _roamingCurrentTime = RoamingTimeMax;
+                    _roamingCurrentTime = Stats.RoamingTimeMax;
                     _roamingStateHandler.Run(this);
                     _navMeshAgent.SetDestination(_roamingStateHandler.TargetPosition);
                 }
@@ -83,11 +66,11 @@ public abstract partial class BaseEnemyAIService : MonoBehaviour, IHasState, IHa
                 _navMeshAgent.SetDestination(_chasingStateHandler.TargetPosition);
                 break;
             case State.Attacking:
-                if (Time.time > NextAttackTime)
+                if (Time.time > Stats.NextAttackTime)
                 {
                     OnEnemyAttacked?.Invoke(this, EventArgs.Empty);
                     _attackingStateHandler.Run(this);
-                    NextAttackTime = _attackingStateHandler.NextAttackTime;
+                    Stats.NextAttackTime = _attackingStateHandler.NextAttackTime;
                 }
                 break;
         }
@@ -96,11 +79,9 @@ public abstract partial class BaseEnemyAIService : MonoBehaviour, IHasState, IHa
         TrackingDirectionMovement();
     }
 
-    protected virtual bool CheckAttackingState(float distanceToPlayer) =>
-        IsEnemy && distanceToPlayer <= AttackingDistance;
+    protected virtual bool CheckAttackingState(float distanceToPlayer) => distanceToPlayer <= Stats.AttackingDistance;
 
-    protected virtual bool CheckChasingState(float distanceToPlayer) =>
-        IsChasingEnemy && distanceToPlayer <= ChasingDistance;
+    protected virtual bool CheckChasingState(float distanceToPlayer) => distanceToPlayer <= Stats.ChasingDistance;
 
     public void CheckCurrentState()
     {
@@ -128,11 +109,11 @@ public abstract partial class BaseEnemyAIService : MonoBehaviour, IHasState, IHa
             {
                 case State.Chasing:
                     _navMeshAgent.ResetPath();
-                    _navMeshAgent.speed = RoamingSpeed * ChasingSpeedMultiplier;
+                    _navMeshAgent.speed = Stats.RoamingSpeed * Stats.ChasingSpeedMultiplier;
                     break;
                 case State.Roaming:
                     _roamingCurrentTime = 0f;
-                    _navMeshAgent.speed = RoamingSpeed;
+                    _navMeshAgent.speed = Stats.RoamingSpeed;
                     break;
                 case State.Attacking:
                     _navMeshAgent.ResetPath();
@@ -156,7 +137,9 @@ public abstract partial class BaseEnemyAIService : MonoBehaviour, IHasState, IHa
         _rigidbody = GetComponent<Rigidbody2D>();
         _collider = GetComponent<Collider2D>();
 
-        _navMeshAgent.speed = RoamingSpeed;
+        Stats = DatabaseService.EnemyRepository.GetEnemy(Name);
+
+        _navMeshAgent.speed = Stats.RoamingSpeed;
         _navMeshAgent.updateRotation = false;
         _navMeshAgent.updateUpAxis = false;
     }

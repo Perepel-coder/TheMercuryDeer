@@ -20,8 +20,8 @@ namespace Assets.Scripts.Editor
         public static void SeedDefaultPlayer()
         {
             using var connection = new SQLiteConnection(_dbPath);
-            connection.CreateTable<Player>();
 
+            connection.CreateTable<Player>();
             connection.DeleteAll<Player>();
 
             connection.Insert(new Player
@@ -37,18 +37,35 @@ namespace Assets.Scripts.Editor
             Debug.Log($"[DatabaseSeeder] Player seeded. DB path: {_dbPath}");
         }
 
+        [MenuItem("Database/Seed Default Enemies")]
+        public static void SeedDefaultEnemies()
+        {
+            using var connection = new SQLiteConnection(_dbPath);
+
+            connection.CreateTable<Enemy>();
+            connection.DeleteAll<Enemy>();
+
+            connection.Insert(new Enemy
+            {
+                Name = DTO.EnemyName.Amor,
+                AttackingDistance = 2.5f,
+                InherentDamage = 5,
+                MaxHealth = 50
+            });
+
+            Debug.Log($"[DatabaseSeeder] Enemies seeded. DB path: {_dbPath}");
+        }
+
         [MenuItem("Database/Clear All")]
         public static void ClearAll()
         {
             using var connection = new SQLiteConnection(_dbPath);
 
-            if (!TableExists<Player>(connection))
-            {
-                Debug.LogWarning("[DatabaseSeeder] Table 'Player' not found.");
-                return;
-            }
+            if (TableExists<Player>(connection))
+                connection.DeleteAll<Player>();
 
-            connection.DeleteAll<Player>();
+            if (TableExists<Enemy>(connection))
+                connection.DeleteAll<Enemy>();
 
             Debug.Log($"[DatabaseSeeder] All tables cleared. DB path: {_dbPath}");
         }

@@ -10,7 +10,7 @@ namespace Assets.Scripts.Services.Enemies.StateHandler
         public void Run(BaseEnemyAIService enemyAI)
         {
             TargetPosition = enemyAI.CurrentPoison +
-                Utils.GetRandomDirection() * Random.Range(enemyAI.RoamingDistanceMin, enemyAI.RoamingDistanceMax);
+                Utils.GetRandomDirection() * Random.Range(enemyAI.Stats.RoamingDistanceMin, enemyAI.Stats.RoamingDistanceMax);
         }
     }
 }

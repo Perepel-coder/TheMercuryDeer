@@ -1,16 +1,11 @@
-﻿using Assets.Scripts.Services.Enemies;
+﻿using Assets.Scripts.DTO;
 
 public class SeraphimAI : BaseEnemyAIService
 {
-    public override int MaxHealth => 20;
-    public override bool IsChasingEnemy => true;
-
-    public override bool IsEnemy => true;
+    protected override EnemyName Name { get; } = EnemyName.Seraphim;
 
     protected override void Start()
     {
         base.Start();
-
-        _currentState = State.Roaming;
     }
 }

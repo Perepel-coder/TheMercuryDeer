@@ -25,7 +25,7 @@ public class BaseEnemyViewService : View
     {
         _animator.SetBool(AnimatorParameters.IS_RUNNING, _ownerAI.IsRunning);
 
-        _animator.SetFloat(AnimatorParameters.CHASING_SPEED_MULTIPLIER, _ownerAI.ChasingSpeedMultiplier);
+        _animator.SetFloat(AnimatorParameters.CHASING_SPEED_MULTIPLIER, _ownerAI.Stats.ChasingSpeedMultiplier);
     }
 
     protected virtual void OnDestroy()

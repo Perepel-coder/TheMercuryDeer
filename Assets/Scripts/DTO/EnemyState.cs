@@ -1,4 +1,4 @@
-﻿namespace Assets.Scripts.Services.Enemies
+﻿namespace Assets.Scripts.DTO
 {
     public enum State
     {

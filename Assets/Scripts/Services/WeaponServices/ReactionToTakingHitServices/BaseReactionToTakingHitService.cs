@@ -41,7 +41,7 @@ namespace Assets.Scripts.Services.Weapons.ReactionToTakingHit
 
             _currentReaction = Utils.GetRandomEnumValue<Reaction>();
 
-            int amountReaction = Random.Range(0, _ownerAI.InherentDamage + 1);
+            int amountReaction = Random.Range(0, _ownerAI.Stats.InherentDamage + 1);
 
             switch (_currentReaction)
             {

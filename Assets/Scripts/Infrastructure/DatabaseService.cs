@@ -12,6 +12,7 @@ namespace Assets.Scripts.Infrastructure
         public static SQLiteAsyncConnection Connection { get; private set; }
 
         public static IPlayerRepository PlayerRepository { get; private set; }
+        public static IEnemyRepository EnemyRepository { get; private set; }
 
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
         private static void Initialize()
@@ -24,6 +25,7 @@ namespace Assets.Scripts.Infrastructure
 
             Connection = new SQLiteAsyncConnection(dbPath);
             PlayerRepository = new PlayerRepository(Connection);
+            EnemyRepository = new EnemyRepository(Connection);
 
             UnityApplication.quitting += OnApplicationQuitting;
         }
