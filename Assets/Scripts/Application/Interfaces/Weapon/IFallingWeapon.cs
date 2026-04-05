@@ -4,6 +4,6 @@ namespace Assets.Scripts.Application.Interfaces.Weapon
 {
     public interface IFallingWeapon
     {
-        public Vector3 PositionStart { get; set; }
+        public void SetPositionStart(Vector3 targetPosition);
     }
 }

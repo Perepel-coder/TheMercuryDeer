@@ -1,4 +1,4 @@
-﻿namespace Assets.Scripts.DTO
+﻿namespace Assets.Scripts.Enums
 {
     public enum State
     {

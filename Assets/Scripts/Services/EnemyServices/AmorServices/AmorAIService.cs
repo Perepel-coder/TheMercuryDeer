@@ -1,19 +1,17 @@
-using Assets.Scripts.DTO;
+using Assets.Scripts.Enums;
 using Assets.Scripts.Services.Enemies.StateHandler.AmorStateHandler;
 using Assets.Scripts.Services.Weapons.AmorSword;
 using UnityEngine;
 
 public class AmorAIService : BaseEnemyAIService
 {
-    [SerializeField] private float _swordDropHeight = 3f;
-
-    protected override EnemyName Name { get; } = EnemyName.Amor;
+    protected override EnemyTag Name { get; } = EnemyTag.Amor;
 
     protected override void Start()
     {
         base.Start();
 
-        _attackingStateHandler = new AmorAttackingStateHandler((AmorSwordService)ActiveWeapon!.Weapon, _swordDropHeight);
+        _attackingStateHandler = new AmorAttackingStateHandler((AmorSwordService)ActiveWeapon!.Weapon);
     }
 
     protected override bool CheckAttackingState(float distanceToPlayer) =>

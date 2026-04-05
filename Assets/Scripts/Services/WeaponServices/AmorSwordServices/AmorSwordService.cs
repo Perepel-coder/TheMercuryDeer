@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.Application.Interfaces.Weapon;
+using Assets.Scripts.Enums;
 using System;
 using UnityEngine;
 
@@ -6,31 +7,29 @@ namespace Assets.Scripts.Services.Weapons.AmorSword
 {
     public class AmorSwordService : WeaponService, IFallingWeapon, IMainWeapon
     {
-        public override int DamageAmount { get; protected set; } = 10;
+        protected override WeaponTag Tag => WeaponTag.AmorSword;
 
-        public override bool IsContinuousDamage => false;
+        private Vector3 _dropHeightVector;
 
-        public Vector3 PositionStart { get; set; }
+        private Vector3 _positionStart;
+        public void SetPositionStart(Vector3 targetPosition) => _positionStart = targetPosition + _dropHeightVector;
 
-        public event EventHandler? OnFallAttack;
-
-        private void FixedUpdate()
-        {
-
-        }
+        public event EventHandler OnFallAttack;
 
         protected override void Start()
         {
             base.Start();
 
             gameObject.SetActive(false);
+
+            _dropHeightVector = new Vector3(0, Stats.DropHeight, 0);
         }
 
         public override void Attack()
         {
             IsAttacking = true;
             gameObject.SetActive(true);
-            gameObject.transform.position = PositionStart;
+            gameObject.transform.position = _positionStart;
 
             OnFallAttack?.Invoke(this, EventArgs.Empty);
         }

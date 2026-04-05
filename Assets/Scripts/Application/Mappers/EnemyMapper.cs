@@ -10,7 +10,7 @@ namespace Assets.Scripts.Application.Mappers
         public static EnemyDTO ToDTO(this Enemy enemy) => new EnemyDTO
         {
             Id = enemy.Id,
-            Name = enemy.Name,
+            Tag = enemy.Tag,
             RoamingDistanceMin = enemy.RoamingDistanceMin,
             RoamingDistanceMax = enemy.RoamingDistanceMax,
             RoamingTimeMax = enemy.RoamingTimeMax,
@@ -26,7 +26,7 @@ namespace Assets.Scripts.Application.Mappers
         public static Enemy ToModel(this EnemyDTO dto) => new Enemy
         {
             Id = dto.Id,
-            Name = dto.Name,
+            Tag = dto.Tag,
             RoamingDistanceMin = dto.RoamingDistanceMin,
             RoamingDistanceMax = dto.RoamingDistanceMax,
             RoamingTimeMax = dto.RoamingTimeMax,

@@ -1,3 +1,4 @@
+using Assets.Scripts.Enums;
 using Assets.Scripts.Models;
 using SQLite;
 using UnityEditor;
@@ -47,13 +48,65 @@ namespace Assets.Scripts.Editor
 
             connection.Insert(new Enemy
             {
-                Name = DTO.EnemyName.Amor,
+                Tag = EnemyTag.Amor,
                 AttackingDistance = 2.5f,
                 InherentDamage = 5,
                 MaxHealth = 50
             });
 
             Debug.Log($"[DatabaseSeeder] Enemies seeded. DB path: {_dbPath}");
+        }
+
+        [MenuItem("Database/Seed Default Weapons")]
+        public static void SeeddDefaultWeapons()
+        {
+            using var connection = new SQLiteConnection(_dbPath);
+
+            connection.CreateTable<Weapon>();
+            connection.DeleteAll<Weapon>();
+
+            connection.Insert(new Weapon
+            {
+                Tag = WeaponTag.PlayerSword,
+                DamageAmount = 1,
+                HealthAmount = 0,
+                IsContinuousDamage = false,
+                DropHeight = 0f,
+                PlayerId = 1,
+                EnemyId = -1
+            });
+
+            connection.Insert(new Weapon
+            {
+                Tag = WeaponTag.AmorSword,
+                DamageAmount = 10,
+                HealthAmount = 0,
+                IsContinuousDamage = false,
+                DropHeight = 3f,
+                PlayerId = -1,
+                EnemyId = 1
+            });
+
+            connection.Insert(new Weapon
+            {
+                Tag = WeaponTag.BaseReactionToTakingHit,
+                DamageAmount = 0,
+                HealthAmount = 0,
+                IsContinuousDamage = false,
+                DropHeight = 0f,
+                PlayerId = -1,
+                EnemyId = 1
+            });
+
+            Debug.Log($"[DatabaseSeeder] Weapons seeded. DB path: {_dbPath}");
+        }
+
+        [MenuItem("Database/Seed All")]
+        public static void SeedAll()
+        {
+            SeedDefaultPlayer();
+            SeedDefaultEnemies();
+            SeeddDefaultWeapons();
         }
 
         [MenuItem("Database/Clear All")]
@@ -66,6 +119,9 @@ namespace Assets.Scripts.Editor
 
             if (TableExists<Enemy>(connection))
                 connection.DeleteAll<Enemy>();
+
+            if (TableExists<Weapon>(connection))
+                connection.DeleteAll<Weapon>();
 
             Debug.Log($"[DatabaseSeeder] All tables cleared. DB path: {_dbPath}");
         }

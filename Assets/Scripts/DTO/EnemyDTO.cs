@@ -1,9 +1,11 @@
-﻿namespace Assets.Scripts.DTO
+﻿using Assets.Scripts.Enums;
+
+namespace Assets.Scripts.DTO
 {
     public class EnemyDTO
     {
         public int Id { get; set; }
-        public EnemyName Name { get; set; }
+        public EnemyTag Tag { get; set; }
 
         public float RoamingDistanceMin { get; set; } = 2f;
         public float RoamingDistanceMax { get; set; } = 6f;

@@ -2,6 +2,7 @@ using Assets.Scripts.Application.Interfaces.Entity;
 using Assets.Scripts.Application.Interfaces.NpcStates;
 using Assets.Scripts.Application.Interfaces.Weapon;
 using Assets.Scripts.DTO;
+using Assets.Scripts.Enums;
 using Assets.Scripts.Infrastructure;
 using Assets.Scripts.Services.Enemies.StateHandler;
 using Assets.Scripts.Services.Player;
@@ -22,7 +23,7 @@ public abstract partial class BaseEnemyAIService
     private Collider2D _collider;
 
     protected BaseEntityService _ownerEntity;
-    protected abstract EnemyName Name { get; }
+    protected abstract EnemyTag Name { get; }
 
     public EnemyDTO Stats { get; protected set; }
 

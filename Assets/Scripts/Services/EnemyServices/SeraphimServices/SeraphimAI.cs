@@ -1,8 +1,8 @@
-﻿using Assets.Scripts.DTO;
+﻿using Assets.Scripts.Enums;
 
 public class SeraphimAI : BaseEnemyAIService
 {
-    protected override EnemyName Name { get; } = EnemyName.Seraphim;
+    protected override EnemyTag Name { get; } = EnemyTag.Seraphim;
 
     protected override void Start()
     {

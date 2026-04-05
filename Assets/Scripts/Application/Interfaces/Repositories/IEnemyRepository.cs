@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.DTO;
+using Assets.Scripts.Enums;
 using Cysharp.Threading.Tasks;
 using System.Collections.Generic;
 
@@ -8,7 +9,7 @@ namespace Assets.Scripts.Application.Interfaces.Repositories
     {
         public UniTask<List<EnemyDTO>> GetEnemiesAsync();
 
-        public UniTask<EnemyDTO> GetEnemyAsync(EnemyName name);
+        public UniTask<EnemyDTO> GetEnemyAsync(EnemyTag name);
 
         public UniTask<int> DeleteEnemyAsync(EnemyDTO enemy);
 
@@ -18,7 +19,7 @@ namespace Assets.Scripts.Application.Interfaces.Repositories
 
         public List<EnemyDTO> GetEnemies();
 
-        public EnemyDTO GetEnemy(EnemyName name);
+        public EnemyDTO GetEnemy(EnemyTag name);
 
         public int DeleteEnemy(EnemyDTO enemy);
 

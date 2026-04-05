@@ -1,9 +1,9 @@
 ﻿using SQLite;
 
-namespace Assets.Scripts.DTO
+namespace Assets.Scripts.Enums
 {
     [StoreAsText]
-    public enum EnemyName
+    public enum EnemyTag
     {
         Amor,
         Seraphim

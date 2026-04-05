@@ -1,13 +1,13 @@
 ﻿using Assets.Scripts.Paths;
 
-public class SwordSlashViewService : View
+public class PlayerSwordSlashViewService : View
 {
-    private SwordService _sword;
+    private PlayerSwordService _sword;
 
     protected override void Awake()
     {
         base.Awake();
-        _sword = GetComponentInParent<SwordService>();
+        _sword = GetComponentInParent<PlayerSwordService>();
     }
 
     private void Start()

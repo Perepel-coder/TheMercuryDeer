@@ -13,6 +13,8 @@ namespace Assets.Scripts.Infrastructure
 
         public static IPlayerRepository PlayerRepository { get; private set; }
         public static IEnemyRepository EnemyRepository { get; private set; }
+        public static IWeaponRepository WeaponRepository { get; private set; }
+
 
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
         private static void Initialize()
@@ -21,11 +23,14 @@ namespace Assets.Scripts.Infrastructure
 
             var syncConnection = new SQLiteConnection(dbPath);
             syncConnection.CreateTable<Player>();
+            syncConnection.CreateTable<Enemy>();
+            syncConnection.CreateTable<Weapon>();
             syncConnection.Close();
 
             Connection = new SQLiteAsyncConnection(dbPath);
             PlayerRepository = new PlayerRepository(Connection);
             EnemyRepository = new EnemyRepository(Connection);
+            WeaponRepository = new WeaponRepository(Connection);
 
             UnityApplication.quitting += OnApplicationQuitting;
         }

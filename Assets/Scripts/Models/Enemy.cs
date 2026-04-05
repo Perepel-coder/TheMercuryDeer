@@ -1,4 +1,4 @@
-﻿using Assets.Scripts.DTO;
+﻿using Assets.Scripts.Enums;
 using SQLite;
 
 namespace Assets.Scripts.Models
@@ -11,7 +11,7 @@ namespace Assets.Scripts.Models
         public int Id { get; set; }
 
         [Column("Name")]
-        public EnemyName Name { get; set; }
+        public EnemyTag Tag { get; set; }
 
         [Column("RoamingDistanceMin")]
         public float RoamingDistanceMin { get; set; } = 2f;

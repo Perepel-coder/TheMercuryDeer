@@ -1,5 +1,6 @@
 ﻿using Assets.Scripts.Application.Interfaces.Entity;
 using Assets.Scripts.Application.Interfaces.Weapon;
+using Assets.Scripts.Enums;
 using UnityEngine;
 
 namespace Assets.Scripts.Services.Weapons.ReactionToTakingHit
@@ -8,8 +9,6 @@ namespace Assets.Scripts.Services.Weapons.ReactionToTakingHit
     {
         private BaseEnemyAIService _ownerAI;
         private BaseEntityService _ownerEntity;
-
-        public override bool IsContinuousDamage => false;
 
         private enum Reaction
         {
@@ -26,13 +25,12 @@ namespace Assets.Scripts.Services.Weapons.ReactionToTakingHit
             _ownerEntity = GetComponentInParent<BaseEntityService>();
         }
 
-        public override int DamageAmount { get; protected set; } = 0;
-        public virtual int HealthAmount { get; protected set; } = 0;
+        protected override WeaponTag Tag => WeaponTag.BaseReactionToTakingHit;
 
         private void ClearReactions()
         {
-            DamageAmount = 0;
-            HealthAmount = 0;
+            Stats.DamageAmount = 0;
+            Stats.HealthAmount = 0;
         }
 
         public override void Attack()
@@ -45,8 +43,8 @@ namespace Assets.Scripts.Services.Weapons.ReactionToTakingHit
 
             switch (_currentReaction)
             {
-                case Reaction.DealingDamage: DamageAmount = amountReaction; break;
-                case Reaction.HealthRecovery: HealthAmount = amountReaction; break;
+                case Reaction.DealingDamage: Stats.DamageAmount = amountReaction; break;
+                case Reaction.HealthRecovery: Stats.HealthAmount = amountReaction; break;
             }
         }
 
@@ -56,7 +54,7 @@ namespace Assets.Scripts.Services.Weapons.ReactionToTakingHit
 
             if (collision.transform.TryGetComponent(out IDamageable _) &&
                 _currentReaction is Reaction.HealthRecovery)
-                _ownerEntity.RestoreHealth(HealthAmount);
+                _ownerEntity.RestoreHealth(Stats.HealthAmount);
         }
     }
 }
