@@ -176,6 +176,34 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "Inventory",
+            "id": "96ac8f66-7852-4cd5-a73d-cce191a52e4e",
+            "actions": [
+                {
+                    "name": "Open",
+                    "type": "Button",
+                    "id": "ee00b68d-e4a8-4333-adcf-0a3df5c3d16a",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "72bb739b-b4b5-4137-b332-eb302ce20720",
+                    "path": "<Keyboard>/i",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Open",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": []
