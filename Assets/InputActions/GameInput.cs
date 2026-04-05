@@ -12,6 +12,7 @@ public class GameInput : MonoBehaviour
 
     public event EventHandler? OnPlayerAttack;
     public event EventHandler? OnPlayerDash;
+    public event EventHandler? OnPlayerOpenInventory;
 
     private void Awake()
     {
@@ -20,11 +21,12 @@ public class GameInput : MonoBehaviour
         _inputActions = new();
         _inputActions.Enable();
 
-        _inputActions.Combat.Attack.started += PalyerAttackStarted;
+        _inputActions.Combat.Attack.started += PlayerAttackStarted;
         _inputActions.Player.Dash.performed += PlayerDashPerformed;
+        _inputActions.Inventory.Open.started += PlayerOpenInventoryStarted;
     }
 
-    private void PalyerAttackStarted(InputAction.CallbackContext obj)
+    private void PlayerAttackStarted(InputAction.CallbackContext obj)
     {
         OnPlayerAttack?.Invoke(this, EventArgs.Empty);
     }
@@ -32,5 +34,10 @@ public class GameInput : MonoBehaviour
     private void PlayerDashPerformed(InputAction.CallbackContext obj)
     {
         OnPlayerDash?.Invoke(this, EventArgs.Empty);
+    }
+
+    private void PlayerOpenInventoryStarted(InputAction.CallbackContext obj)
+    {
+        OnPlayerOpenInventory?.Invoke(this, EventArgs.Empty);
     }
 }

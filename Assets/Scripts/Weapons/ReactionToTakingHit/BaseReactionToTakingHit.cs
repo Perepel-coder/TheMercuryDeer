@@ -55,7 +55,7 @@ namespace Assets.Scripts.Weapons.ReactionToTakingHit
         {
             base.OnTriggerEnter2D(collision);
 
-            if (collision.transform.TryGetComponent(out IDamageable enemy) &&
+            if (collision.transform.TryGetComponent(out IDamageable _) &&
                 _currentReaction is Reaction.HealthRecovery)
                 _ownerEntity.RestoreHealth(HealthAmount);
         }
