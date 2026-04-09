@@ -22,23 +22,26 @@ namespace Assets.Scripts.Editor
         public static void SeedDefaultPlayer()
         {
             var connection = CreateConnection();
-            var repo = new PlayerRepository(connection);
+            var playerRepo = new PlayerRepository(connection);
+            var weaponRepo = new WeaponRepository(connection);
 
             Task.Run(async () =>
             {
                 await connection.CreateTableAsync<Player>();
-                await connection.DeleteAllAsync<Player>();
+                await connection.CreateTableAsync<Weapon>();
             }).GetAwaiter().GetResult();
 
-            repo.AddPlayer(new PlayerDTO
+            int id = playerRepo.AddPlayer(new PlayerDTO
             {
                 MaxHealth = 100,
                 BaseSpeedMoveing = 3f,
                 SpeedMoveingMin = 0.1f,
                 DashSpeedMultiplier = 4,
                 DashDuration = 0.2f,
-                DashCooldown = 1f
+                DashCooldown = 0.5f
             });
+
+            weaponRepo.AddWeapon(new WeaponDTO { Tag = Tag.PlayerSword, DamageAmount = 1, PlayerId = id });
 
             Task.Run(() => connection.CloseAsync()).GetAwaiter().GetResult();
             Debug.Log($"[DatabaseSeeder] Player seeded. DB path: {_dbPath}");
@@ -48,15 +51,16 @@ namespace Assets.Scripts.Editor
         public static void SeedDefaultEnemies()
         {
             var connection = CreateConnection();
-            var repo = new EnemyRepository(connection);
+            var playerRepo = new EnemyRepository(connection);
+            var weaponRepo = new WeaponRepository(connection);
 
             Task.Run(async () =>
             {
                 await connection.CreateTableAsync<Enemy>();
-                await connection.DeleteAllAsync<Enemy>();
+                await connection.CreateTableAsync<Weapon>();
             }).GetAwaiter().GetResult();
 
-            repo.AddEnemy(new EnemyDTO
+            int id = playerRepo.AddEnemy(new EnemyDTO
             {
                 Tag = EnemyTag.Amor,
                 AttackingDistance = 2.5f,
@@ -64,28 +68,11 @@ namespace Assets.Scripts.Editor
                 MaxHealth = 50
             });
 
+            weaponRepo.AddWeapon(new WeaponDTO { Tag = Tag.AmorSword, DamageAmount = 10, DropHeight = 3f, EnemyId = id });
+            weaponRepo.AddWeapon(new WeaponDTO { Tag = Tag.BaseReactionToTakingHit, EnemyId = id });
+
             Task.Run(() => connection.CloseAsync()).GetAwaiter().GetResult();
             Debug.Log($"[DatabaseSeeder] Enemies seeded. DB path: {_dbPath}");
-        }
-
-        [MenuItem("Database/Seed Default Weapons")]
-        public static void SeedDefaultWeapons()
-        {
-            var connection = CreateConnection();
-            var repo = new WeaponRepository(connection);
-
-            Task.Run(async () =>
-            {
-                await connection.CreateTableAsync<Weapon>();
-                await connection.DeleteAllAsync<Weapon>();
-            }).GetAwaiter().GetResult();
-
-            repo.AddWeapon(new WeaponDTO { Tag = Tag.PlayerSword, DamageAmount = 1, PlayerId = 1 });
-            repo.AddWeapon(new WeaponDTO { Tag = Tag.AmorSword, DamageAmount = 10, DropHeight = 3f, EnemyId = 1 });
-            repo.AddWeapon(new WeaponDTO { Tag = Tag.BaseReactionToTakingHit, EnemyId = 1 });
-
-            Task.Run(() => connection.CloseAsync()).GetAwaiter().GetResult();
-            Debug.Log($"[DatabaseSeeder] Weapons seeded. DB path: {_dbPath}");
         }
 
         [MenuItem("Database/Seed Default Items")]
@@ -122,7 +109,6 @@ namespace Assets.Scripts.Editor
         {
             SeedDefaultPlayer();
             SeedDefaultEnemies();
-            SeedDefaultWeapons();
             SeedDefaultItems();
         }
 

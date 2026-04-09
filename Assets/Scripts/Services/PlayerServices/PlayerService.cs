@@ -20,6 +20,7 @@ namespace Assets.Scripts.Services.Player
     {
         public static PlayerService Instance { get; private set; }
 
+        public bool IsDashing { get; private set; }
         public bool CanDash = true;
 
         public float CurrentHealth { get; set; }
@@ -113,10 +114,12 @@ namespace Assets.Scripts.Services.Player
 
         private async UniTaskVoid DashRoutine()
         {
+            IsDashing = true;
             CanDash = false;
             _stats.SpeedCurrrentMoveing *= _stats.DashSpeedMultiplier;
             await UniTask.Delay(TimeSpan.FromSeconds(_stats.DashDuration));
 
+            IsDashing = false;
             _stats.SpeedCurrrentMoveing = _stats.BaseSpeedMoveing;
             await UniTask.Delay(TimeSpan.FromSeconds(_stats.DashCooldown));
             CanDash = true;
