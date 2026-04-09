@@ -20,10 +20,11 @@ namespace Assets.Scripts.Services.Player
     {
         public static PlayerService Instance { get; private set; }
 
-        public int CurrentHealth { get; set; }
-        public int MaxHealth { get; private set; }
+        public bool CanDash = true;
 
-        public bool IsDashing { get; private set; }
+        public float CurrentHealth { get; set; }
+        public float MaxHealth { get; private set; }
+
         public bool IsRunningForward { get; private set; }
         public bool IsRunningSide { get; private set; }
         public bool IsAttacking => _activeWeapon.Weapon.IsAttacking;
@@ -64,6 +65,20 @@ namespace Assets.Scripts.Services.Player
             PlayerEntityService.Instance.OnDeath += _ownerEntity_OnDeath;
         }
 
+        private void OnDestroy()
+        {
+            GameInput.Instance.OnPlayerAttack -= GameInput_OnPlayerAttack;
+            PlayerEntityService.Instance.OnDeath -= _ownerEntity_OnDeath;
+        }
+
+        private void Update() => MovementVector = GameInput.Instance.PlayerMovementVector;
+
+        private void FixedUpdate()
+        {
+            if (PlayerEntityService.Instance.IsAlive)
+                HandleMovement();
+        }
+
         private void _ownerEntity_OnDeath(object sender, EventArgs e)
         {
             //TODO: add death logic
@@ -80,23 +95,6 @@ namespace Assets.Scripts.Services.Player
             OnDestroy();
         }
 
-        private void OnDestroy()
-        {
-            GameInput.Instance.OnPlayerAttack -= GameInput_OnPlayerAttack;
-            PlayerEntityService.Instance.OnDeath -= _ownerEntity_OnDeath;
-        }
-
-        private void Update()
-        {
-            MovementVector = GameInput.Instance.PlayerMovementVector;
-        }
-
-        private void FixedUpdate()
-        {
-            if (PlayerEntityService.Instance.IsAlive)
-                HandleMovement();
-        }
-
         private void HandleMovement()
         {
             _rigidbody.MovePosition(_rigidbody.position + MovementVector * (Time.fixedDeltaTime * _stats.SpeedCurrrentMoveing));
@@ -109,19 +107,19 @@ namespace Assets.Scripts.Services.Player
 
         private void GameInput_OnPlayerDash(object sender, EventArgs e)
         {
-            if (!IsDashing)
+            if (CanDash)
                 DashRoutine().Forget();
         }
 
         private async UniTaskVoid DashRoutine()
         {
-            IsDashing = true;
+            CanDash = false;
             _stats.SpeedCurrrentMoveing *= _stats.DashSpeedMultiplier;
             await UniTask.Delay(TimeSpan.FromSeconds(_stats.DashDuration));
 
-            IsDashing = false;
             _stats.SpeedCurrrentMoveing = _stats.BaseSpeedMoveing;
             await UniTask.Delay(TimeSpan.FromSeconds(_stats.DashCooldown));
+            CanDash = true;
         }
     }
 }

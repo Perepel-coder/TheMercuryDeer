@@ -2,7 +2,7 @@
 {
     public interface IHasHealth
     {
-        public int CurrentHealth { get; set; }
-        public int MaxHealth { get; }
+        public float CurrentHealth { get; set; }
+        public float MaxHealth { get; }
     }
 }

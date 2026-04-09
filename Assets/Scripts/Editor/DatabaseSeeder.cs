@@ -1,8 +1,13 @@
-using Assets.Scripts.Enums;
+using Assets.Scripts.Application.Repositories;
+using Assets.Scripts.DTO;
 using Assets.Scripts.Models;
 using SQLite;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEditor;
 using UnityEngine;
+using static Assets.Scripts.Enums.EnemyEnums.EnemyDefinitions;
+using static Assets.Scripts.Enums.ItemEnums.ItemDefinitions;
 using UnityApplication = UnityEngine.Application;
 
 namespace Assets.Scripts.Editor
@@ -11,42 +16,47 @@ namespace Assets.Scripts.Editor
     {
         private static string _dbPath => System.IO.Path.Combine(UnityApplication.persistentDataPath, "game.db");
 
-        private static bool TableExists<T>(SQLiteConnection connection)
-        {
-            var tableName = typeof(T).Name;
-            return connection.GetTableInfo(tableName).Count > 0;
-        }
+        private static SQLiteAsyncConnection CreateConnection() => new SQLiteAsyncConnection(_dbPath);
 
         [MenuItem("Database/Seed Default Player")]
         public static void SeedDefaultPlayer()
         {
-            using var connection = new SQLiteConnection(_dbPath);
+            var connection = CreateConnection();
+            var repo = new PlayerRepository(connection);
 
-            connection.CreateTable<Player>();
-            connection.DeleteAll<Player>();
+            Task.Run(async () =>
+            {
+                await connection.CreateTableAsync<Player>();
+                await connection.DeleteAllAsync<Player>();
+            }).GetAwaiter().GetResult();
 
-            connection.Insert(new Player
+            repo.AddPlayer(new PlayerDTO
             {
                 MaxHealth = 100,
                 BaseSpeedMoveing = 3f,
                 SpeedMoveingMin = 0.1f,
                 DashSpeedMultiplier = 4,
                 DashDuration = 0.2f,
-                DashCooldown = 2f
+                DashCooldown = 1f
             });
 
+            Task.Run(() => connection.CloseAsync()).GetAwaiter().GetResult();
             Debug.Log($"[DatabaseSeeder] Player seeded. DB path: {_dbPath}");
         }
 
         [MenuItem("Database/Seed Default Enemies")]
         public static void SeedDefaultEnemies()
         {
-            using var connection = new SQLiteConnection(_dbPath);
+            var connection = CreateConnection();
+            var repo = new EnemyRepository(connection);
 
-            connection.CreateTable<Enemy>();
-            connection.DeleteAll<Enemy>();
+            Task.Run(async () =>
+            {
+                await connection.CreateTableAsync<Enemy>();
+                await connection.DeleteAllAsync<Enemy>();
+            }).GetAwaiter().GetResult();
 
-            connection.Insert(new Enemy
+            repo.AddEnemy(new EnemyDTO
             {
                 Tag = EnemyTag.Amor,
                 AttackingDistance = 2.5f,
@@ -54,51 +64,57 @@ namespace Assets.Scripts.Editor
                 MaxHealth = 50
             });
 
+            Task.Run(() => connection.CloseAsync()).GetAwaiter().GetResult();
             Debug.Log($"[DatabaseSeeder] Enemies seeded. DB path: {_dbPath}");
         }
 
         [MenuItem("Database/Seed Default Weapons")]
-        public static void SeeddDefaultWeapons()
+        public static void SeedDefaultWeapons()
         {
-            using var connection = new SQLiteConnection(_dbPath);
+            var connection = CreateConnection();
+            var repo = new WeaponRepository(connection);
 
-            connection.CreateTable<Weapon>();
-            connection.DeleteAll<Weapon>();
-
-            connection.Insert(new Weapon
+            Task.Run(async () =>
             {
-                Tag = WeaponTag.PlayerSword,
-                DamageAmount = 1,
-                HealthAmount = 0,
-                IsContinuousDamage = false,
-                DropHeight = 0f,
-                PlayerId = 1,
-                EnemyId = -1
-            });
+                await connection.CreateTableAsync<Weapon>();
+                await connection.DeleteAllAsync<Weapon>();
+            }).GetAwaiter().GetResult();
 
-            connection.Insert(new Weapon
-            {
-                Tag = WeaponTag.AmorSword,
-                DamageAmount = 10,
-                HealthAmount = 0,
-                IsContinuousDamage = false,
-                DropHeight = 3f,
-                PlayerId = -1,
-                EnemyId = 1
-            });
+            repo.AddWeapon(new WeaponDTO { Tag = Tag.PlayerSword, DamageAmount = 1, PlayerId = 1 });
+            repo.AddWeapon(new WeaponDTO { Tag = Tag.AmorSword, DamageAmount = 10, DropHeight = 3f, EnemyId = 1 });
+            repo.AddWeapon(new WeaponDTO { Tag = Tag.BaseReactionToTakingHit, EnemyId = 1 });
 
-            connection.Insert(new Weapon
-            {
-                Tag = WeaponTag.BaseReactionToTakingHit,
-                DamageAmount = 0,
-                HealthAmount = 0,
-                IsContinuousDamage = false,
-                DropHeight = 0f,
-                PlayerId = -1,
-                EnemyId = 1
-            });
-
+            Task.Run(() => connection.CloseAsync()).GetAwaiter().GetResult();
             Debug.Log($"[DatabaseSeeder] Weapons seeded. DB path: {_dbPath}");
+        }
+
+        [MenuItem("Database/Seed Default Items")]
+        public static void SeedDefaultItems()
+        {
+            var connection = CreateConnection();
+            var repo = new ItemRepository(connection);
+
+            Task.Run(async () =>
+            {
+                await connection.CreateTableAsync<Item>();
+                await connection.CreateTableAsync<ItemCategory>();
+                await connection.DeleteAllAsync<ItemCategory>();
+                await connection.DeleteAllAsync<Item>();
+            }).GetAwaiter().GetResult();
+
+            repo.AddItem(new ItemDTO
+            {
+                ItemTag = Tag.RedApple,
+                Name = "Красное яблоко",
+                Description = "Просто красное яблоко",
+                Quantity = 1,
+                StatToChange = StatToChange.Health,
+                StatChangePercent = 10,
+                Categories = new List<Category> { Category.Consumable, Category.CraftingMaterial },
+            });
+
+            Task.Run(() => connection.CloseAsync()).GetAwaiter().GetResult();
+            Debug.Log($"[DatabaseSeeder] Items seeded. DB path: {_dbPath}");
         }
 
         [MenuItem("Database/Seed All")]
@@ -106,30 +122,28 @@ namespace Assets.Scripts.Editor
         {
             SeedDefaultPlayer();
             SeedDefaultEnemies();
-            SeeddDefaultWeapons();
+            SeedDefaultWeapons();
+            SeedDefaultItems();
         }
 
         [MenuItem("Database/Clear All")]
         public static void ClearAll()
         {
-            using var connection = new SQLiteConnection(_dbPath);
+            var connection = CreateConnection();
+            Task.Run(() => connection.CloseAsync()).GetAwaiter().GetResult();
 
-            if (TableExists<Player>(connection))
-                connection.DeleteAll<Player>();
-
-            if (TableExists<Enemy>(connection))
-                connection.DeleteAll<Enemy>();
-
-            if (TableExists<Weapon>(connection))
-                connection.DeleteAll<Weapon>();
-
-            Debug.Log($"[DatabaseSeeder] All tables cleared. DB path: {_dbPath}");
+            if (System.IO.File.Exists(_dbPath))
+            {
+                System.IO.File.Delete(_dbPath);
+                Debug.Log($"[DatabaseSeeder] Database deleted. DB path: {_dbPath}");
+            }
+            else
+            {
+                Debug.Log($"[DatabaseSeeder] Database file not found. DB path: {_dbPath}");
+            }
         }
 
         [MenuItem("Database/Show DB Path")]
-        public static void ShowDbPath()
-        {
-            Debug.Log($"[DatabaseSeeder] DB path: {_dbPath}");
-        }
+        public static void ShowDbPath() => Debug.Log($"[DatabaseSeeder] DB path: {_dbPath}");
     }
 }

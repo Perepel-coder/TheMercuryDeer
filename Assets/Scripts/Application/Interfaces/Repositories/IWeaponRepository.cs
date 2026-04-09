@@ -1,6 +1,7 @@
 ﻿using Assets.Scripts.DTO;
 using Cysharp.Threading.Tasks;
 using System.Collections.Generic;
+using static Assets.Scripts.Enums.ItemEnums.ItemDefinitions;
 
 namespace Assets.Scripts.Application.Interfaces.Repositories
 {
@@ -9,8 +10,8 @@ namespace Assets.Scripts.Application.Interfaces.Repositories
         UniTask<List<WeaponDTO>> GetWeaponsAsync();
         List<WeaponDTO> GetWeapons();
 
-        UniTask<WeaponDTO> GetWeaponByTagAsync(Enums.WeaponTag tag);
-        WeaponDTO GetWeaponByTag(Enums.WeaponTag tag);
+        UniTask<WeaponDTO> GetWeaponByTagAsync(Tag tag);
+        WeaponDTO GetWeaponByTag(Tag tag);
 
         UniTask<WeaponDTO> GetWeaponAsync(int id);
         WeaponDTO GetWeapon(int id);

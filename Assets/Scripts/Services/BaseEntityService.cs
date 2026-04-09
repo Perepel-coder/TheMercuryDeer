@@ -6,8 +6,8 @@ public class BaseEntityService : MonoBehaviour, IDamageable, IHealable
 {
     protected IHasHealth _ownerAI;
 
-    public event EventHandler? OnTakedDamage;
-    public event EventHandler? OnDeath;
+    public event EventHandler OnTakedDamage;
+    public event EventHandler OnDeath;
 
     public bool IsAlive { get; private set; } = true;
 
@@ -34,7 +34,7 @@ public class BaseEntityService : MonoBehaviour, IDamageable, IHealable
         DetectDeath();
     }
 
-    public virtual void RestoreHealth(int health)
+    public virtual void RestoreHealth(float health)
     {
         _ownerAI.CurrentHealth += health;
 

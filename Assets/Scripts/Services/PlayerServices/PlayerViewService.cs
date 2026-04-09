@@ -37,7 +37,7 @@ namespace Assets.Scripts.Services.Player
                 _animator.SetFloat(AnimatorParameters.SIDE_RUN_SPEED, GetSideRunSpeed());
                 _animator.SetBool(AnimatorParameters.IS_ATTACKING, PlayerService.Instance.IsAttacking);
 
-                _traceOfDash.emitting = PlayerService.Instance.IsDashing;
+                _traceOfDash.emitting = PlayerService.Instance.CanDash;
             }    
         }
 

@@ -1,5 +1,5 @@
-﻿using Assets.Scripts.Enums;
-using SQLite;
+﻿using SQLite;
+using static Assets.Scripts.Enums.EnemyEnums.EnemyDefinitions;
 
 namespace Assets.Scripts.Models
 {

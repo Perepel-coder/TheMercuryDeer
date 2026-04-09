@@ -2,7 +2,6 @@ using Assets.Scripts.Application.Interfaces.Entity;
 using Assets.Scripts.Application.Interfaces.NpcStates;
 using Assets.Scripts.Application.Interfaces.Weapon;
 using Assets.Scripts.DTO;
-using Assets.Scripts.Enums;
 using Assets.Scripts.Infrastructure;
 using Assets.Scripts.Services.Enemies.StateHandler;
 using Assets.Scripts.Services.Player;
@@ -10,6 +9,7 @@ using System;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
+using static Assets.Scripts.Enums.EnemyEnums.EnemyDefinitions;
 
 public abstract partial class BaseEnemyAIService
 {
@@ -27,8 +27,8 @@ public abstract partial class BaseEnemyAIService
 
     public EnemyDTO Stats { get; protected set; }
 
-    public int MaxHealth => Stats.MaxHealth;
-    public int CurrentHealth { get; set; }
+    public float MaxHealth => Stats.MaxHealth;
+    public float CurrentHealth { get; set; }
 
     #region state heandlers
     protected IRoamingStateHandler<BaseEnemyAIService> _roamingStateHandler = new BaseRoamingStateHandler();
@@ -37,8 +37,8 @@ public abstract partial class BaseEnemyAIService
     #endregion
 
     #region inventory
-    public ActiveWeaponService? ActiveWeapon { get; protected set; }
-    public ActiveWeaponService? ReactionToTakingHit { get; protected set; }
+    public ActiveWeaponService ActiveWeapon { get; protected set; }
+    public ActiveWeaponService ReactionToTakingHit { get; protected set; }
     #endregion
 }
 

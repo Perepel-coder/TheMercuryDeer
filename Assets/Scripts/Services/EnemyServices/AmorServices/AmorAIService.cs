@@ -1,7 +1,7 @@
-using Assets.Scripts.Enums;
 using Assets.Scripts.Services.Enemies.StateHandler.AmorStateHandler;
-using Assets.Scripts.Services.Weapons.AmorSword;
+using Assets.Scripts.Services.InventorySystemServices.ItemServices.WeaponServices.AmorSwordServices;
 using UnityEngine;
+using static Assets.Scripts.Enums.EnemyEnums.EnemyDefinitions;
 
 public class AmorAIService : BaseEnemyAIService
 {

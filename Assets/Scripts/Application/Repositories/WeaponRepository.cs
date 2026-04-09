@@ -1,12 +1,12 @@
 ﻿using Assets.Scripts.Application.Interfaces.Repositories;
 using Assets.Scripts.Application.Mappers;
 using Assets.Scripts.DTO;
-using Assets.Scripts.Enums;
 using Assets.Scripts.Models;
 using Cysharp.Threading.Tasks;
 using SQLite;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using static Assets.Scripts.Enums.ItemEnums.ItemDefinitions;
 
 namespace Assets.Scripts.Application.Repositories
 {
@@ -18,7 +18,7 @@ namespace Assets.Scripts.Application.Repositories
 
         public async UniTask<List<WeaponDTO>> GetWeaponsAsync() => (await _asyncConnection.Table<Weapon>().ToListAsync()).ToDTOList();
 
-        public async UniTask<WeaponDTO> GetWeaponByTagAsync(WeaponTag tag) => (await _asyncConnection.Table<Weapon>().Where(w => w.Tag == tag).FirstOrDefaultAsync()).ToDTO();
+        public async UniTask<WeaponDTO> GetWeaponByTagAsync(Tag tag) => (await _asyncConnection.Table<Weapon>().Where(w => w.Tag == tag).FirstOrDefaultAsync()).ToDTO();
 
         public async UniTask<WeaponDTO> GetWeaponAsync(int id) => (await _asyncConnection.GetAsync<Weapon>(id)).ToDTO();
 
@@ -44,7 +44,7 @@ namespace Assets.Scripts.Application.Repositories
 
         public List<WeaponDTO> GetWeapons() => Task.Run(() => GetWeaponsAsync().AsTask()).GetAwaiter().GetResult();
 
-        public WeaponDTO GetWeaponByTag(WeaponTag tag) => Task.Run(() => GetWeaponByTagAsync(tag).AsTask()).GetAwaiter().GetResult();
+        public WeaponDTO GetWeaponByTag(Tag tag) => Task.Run(() => GetWeaponByTagAsync(tag).AsTask()).GetAwaiter().GetResult();
 
         public WeaponDTO GetWeapon(int id) => Task.Run(() => GetWeaponAsync(id).AsTask()).GetAwaiter().GetResult();
 

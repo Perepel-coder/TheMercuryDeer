@@ -27,7 +27,7 @@ namespace Assets.Scripts.Services.Player
             GameMainCanvasService.HealthSlider.value = _ownerAI.CurrentHealth;
         }
 
-        public override void RestoreHealth(int health)
+        public override void RestoreHealth(float health)
         {
             base.RestoreHealth(health);
 

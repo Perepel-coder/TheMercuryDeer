@@ -1,12 +1,12 @@
 ﻿using Assets.Scripts.Application.Interfaces.Repositories;
 using Assets.Scripts.Application.Mappers;
 using Assets.Scripts.DTO;
-using Assets.Scripts.Enums;
 using Assets.Scripts.Models;
 using Cysharp.Threading.Tasks;
 using SQLite;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using static Assets.Scripts.Enums.EnemyEnums.EnemyDefinitions;
 
 namespace Assets.Scripts.Application.Repositories
 {

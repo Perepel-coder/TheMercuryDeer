@@ -100,6 +100,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: HealthText
       objectReference: {fileID: 0}
+    - target: {fileID: 7036865551714907159, guid: 3021347d2374e0942af7e9ceeffd396b, type: 3}
+      propertyPath: m_Size.x
+      value: 0.77229714
+      objectReference: {fileID: 0}
+    - target: {fileID: 7036865551714907159, guid: 3021347d2374e0942af7e9ceeffd396b, type: 3}
+      propertyPath: m_Size.y
+      value: 0.3996238
+      objectReference: {fileID: 0}
+    - target: {fileID: 7036865551714907159, guid: 3021347d2374e0942af7e9ceeffd396b, type: 3}
+      propertyPath: m_Offset.x
+      value: -0.1499278
+      objectReference: {fileID: 0}
+    - target: {fileID: 7036865551714907159, guid: 3021347d2374e0942af7e9ceeffd396b, type: 3}
+      propertyPath: m_Offset.y
+      value: 0.16916955
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

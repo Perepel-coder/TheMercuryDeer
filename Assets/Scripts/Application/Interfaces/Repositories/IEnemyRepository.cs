@@ -1,7 +1,7 @@
 ﻿using Assets.Scripts.DTO;
-using Assets.Scripts.Enums;
 using Cysharp.Threading.Tasks;
 using System.Collections.Generic;
+using static Assets.Scripts.Enums.EnemyEnums.EnemyDefinitions;
 
 namespace Assets.Scripts.Application.Interfaces.Repositories
 {
