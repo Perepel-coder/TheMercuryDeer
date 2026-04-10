@@ -55,8 +55,8 @@ namespace Assets.Scripts.Services.InventorySystemServices.UI
 
             _itemData = item;
             _itemImage.sprite = item.Sprite;
-            _ItemName.text = item.Name;
-            _ItemDescription.text = item.Description;
+            _ItemName.text = item.Name.ToLower();
+            _ItemDescription.text = item.Description.ToLower();
         }
 
         public void ClearDescription()

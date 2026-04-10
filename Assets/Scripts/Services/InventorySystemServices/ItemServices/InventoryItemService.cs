@@ -57,7 +57,7 @@ namespace Assets.Scripts.Services.InventorySystemServices.ItemServices
                 _radiusInteractionZone;
 
             if (inRange && !_isPlayerInRange)
-                _popUpHintService.Draw("E", Vector2.up);
+                _popUpHintService.Draw("е", Vector2.up);
 
             else if (!inRange && _isPlayerInRange)
                 _popUpHintService.EraseText();
