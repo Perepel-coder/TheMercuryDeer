@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.DTO;
+using Assets.Scripts.Paths;
 using Assets.Scripts.Services.InventorySystemServices.ItemServices;
 using TMPro;
 using UnityEngine;
@@ -25,8 +26,8 @@ namespace Assets.Scripts.Services.InventorySystemServices.UI
 
         private void Awake()
         {
-            _itemImage = transform.Find("Icon").GetComponent<Image>();
-            _quantityText = transform.Find("Quantity").GetComponent<TMP_Text>();
+            _itemImage = transform.Find(GameObjectNames.ICON).GetComponent<Image>();
+            _quantityText = transform.Find(GameObjectNames.QUANTITY).GetComponent<TMP_Text>();
             _defaultIcon = _itemImage.sprite;
         }
 

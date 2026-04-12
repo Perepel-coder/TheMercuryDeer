@@ -26,7 +26,7 @@ namespace Assets.Scripts.Services.InventorySystemServices.ItemServices
 
         protected virtual void Awake()
         {
-            _inventoryManagerService = GameObject.Find("InventoryCanvas").GetComponent<InventoryManagerService>();
+            _inventoryManagerService = GameObject.Find(GameObjectNames.INVENTORY_CANVAS).GetComponent<InventoryManagerService>();
         }
 
         protected virtual void Start()

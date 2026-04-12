@@ -1,8 +1,8 @@
 ﻿using Assets.Scripts.DTO;
+using Assets.Scripts.Paths;
 using System;
 using TMPro;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 namespace Assets.Scripts.Services.InventorySystemServices.UI
@@ -22,9 +22,9 @@ namespace Assets.Scripts.Services.InventorySystemServices.UI
 
         private void Awake()
         {
-            _itemImage = transform.Find("ItemImage").Find("Icon").GetComponent<Image>();
-            _ItemName = transform.Find("ItemDescription").Find("ItemName").GetComponent<TMP_Text>();
-            _ItemDescription = transform.Find("ItemDescription").Find("ItemDescription").GetComponent<TMP_Text>();
+            _itemImage = transform.Find(GameObjectNames.ITEM_IMAGE).Find(GameObjectNames.ICON).GetComponent<Image>();
+            _ItemName = transform.Find(GameObjectNames.ITEM_DESCRIPTION).Find(GameObjectNames.ITEM_NAME).GetComponent<TMP_Text>();
+            _ItemDescription = transform.Find(GameObjectNames.ITEM_DESCRIPTION).Find(GameObjectNames.ITEM_DESCRIPTION).GetComponent<TMP_Text>();
             _useItemButton = GetComponentInChildren<Button>();
         }
 
@@ -41,7 +41,7 @@ namespace Assets.Scripts.Services.InventorySystemServices.UI
 
         private void OnUseItemButtonClicked()
         {
-            if(_itemData == null) return;
+            if (_itemData == null) return;
             _itemData?.UseItem?.Invoke();
 
             OnUseItem?.Invoke(this, EventArgs.Empty);
