@@ -1,25 +1,17 @@
 ﻿using Assets.Scripts.DTO;
 using Assets.Scripts.Infrastructure;
 using Assets.Scripts.Services.Player;
-using UnityEngine;
 using static Assets.Scripts.Enums.ItemEnums.ItemDefinitions;
 
 namespace Assets.Scripts.Services.InventorySystemServices.ItemServices.ConsumableServices
 {
-    public class BaseConsumableService : InventoryItemService
+    public class ConsumableService : BaseItemService
     {
-        [SerializeField] protected Tag _itemTag;
-
         public override ItemDTO ItemData { get; protected set; }
-
-        protected override void Awake()
-        {
-            base.Awake();
-            ItemData = DatabaseService.ItemRepository.GetItemByTag(_itemTag);
-        }
 
         protected override void Start()
         {
+            ItemData = DatabaseService.ItemRepository.GetItemByTag(_itemTag);
             base.Start();
         }
 

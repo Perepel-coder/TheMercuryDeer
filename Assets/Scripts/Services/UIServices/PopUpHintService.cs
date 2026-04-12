@@ -5,7 +5,7 @@ namespace Assets.Scripts.Services.UIServices
 {
     public class PopUpHintService : MonoBehaviour
     {
-        public void Draw<T>(T text, Vector2 direction, float lifetime = 0.5f, bool destroy = true)
+        public void Draw<T>(T text)
         {
             GetComponentInChildren<TMP_Text>().text = text.ToString();
         }

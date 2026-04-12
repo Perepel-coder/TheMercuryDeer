@@ -16,6 +16,7 @@ namespace Assets.Scripts.Enums.ItemEnums
         [StoreAsText]
         public enum Tag
         {
+            None,
             AmorSword,
             PlayerSword,
             BaseReactionToTakingHit,

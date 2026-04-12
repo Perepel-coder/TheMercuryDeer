@@ -5,14 +5,19 @@ using Assets.Scripts.Paths;
 using Assets.Scripts.Services.InventorySystemServices.UI;
 using Assets.Scripts.Services.Player;
 using Assets.Scripts.Services.UIServices;
+using SuperTiled2Unity.Editor;
 using System;
 using UnityEngine;
+using static Assets.Scripts.Enums.ItemEnums.ItemDefinitions;
 
 namespace Assets.Scripts.Services.InventorySystemServices.ItemServices
 {
-    public abstract class InventoryItemService : MonoBehaviour, IInventoryItem
+    public abstract class BaseItemService : MonoBehaviour, IInventoryItem
     {
+        [SerializeField] protected Tag _itemTag = Tag.None;
+
         public abstract ItemDTO ItemData { get; protected set; }
+        protected abstract void UseItem();
 
         protected InventoryManagerService _inventoryManagerService;
         private PopUpHintService _popUpHintService;
@@ -21,20 +26,23 @@ namespace Assets.Scripts.Services.InventorySystemServices.ItemServices
 
         protected virtual void Awake()
         {
-            _popUpHintService = Instantiate(
-                Resources.Load<PopUpHintService>(ResourcePaths.UI.HINT_POP_UP), 
-                transform.position + new Vector3(0, _radiusInteractionZone, 0), 
-                Quaternion.identity);
-
-            _popUpHintService.EraseText();
-
             _inventoryManagerService = GameObject.Find("InventoryCanvas").GetComponent<InventoryManagerService>();
         }
 
         protected virtual void Start()
         {
             ItemData.UseItem = UseItem;
+            ItemData.ItemType = GetType();
+            ItemData.Scale = transform.localScale;
             ItemData.Sprite = GetComponentInChildren<SpriteRenderer>().sprite;
+
+            _popUpHintService = Instantiate(
+                Resources.Load<PopUpHintService>(ResourcePaths.UI.HINT_POP_UP),
+                transform.position + new Vector3(0, _radiusInteractionZone, 0),
+                Quaternion.identity);
+
+            _popUpHintService.EraseText();
+
             GameInput.Instance.OnPlayerInteractWithItem += GameInput_OnPlayerTookItem;
         }
 
@@ -53,11 +61,10 @@ namespace Assets.Scripts.Services.InventorySystemServices.ItemServices
 
         private void CheckHintPopUp()
         {
-            bool inRange = Vector2.Distance(transform.position, PlayerService.Instance.transform.position) <=
-                _radiusInteractionZone;
+            bool inRange = Vector2.Distance(transform.position, PlayerService.Instance.transform.position) <= _radiusInteractionZone;
 
             if (inRange && !_isPlayerInRange)
-                _popUpHintService.Draw("е", Vector2.up);
+                _popUpHintService.Draw("е");
 
             else if (!inRange && _isPlayerInRange)
                 _popUpHintService.EraseText();
@@ -69,10 +76,24 @@ namespace Assets.Scripts.Services.InventorySystemServices.ItemServices
         {
             if (!_isPlayerInRange) return;
 
-            if(_inventoryManagerService.AddItemToInventory(ItemData))
+            if (_inventoryManagerService.AddItemToInventory(ItemData))
                 Destroy(gameObject);
         }
 
-        protected virtual void UseItem() => Debug.Log($"Невозможно использовать предмет");
+        public void SetItemTag(Tag tag) => _itemTag = tag;
+
+        public static void CreateItem(ItemDTO itemData)
+        {
+            GameObject gameObject = new(itemData.ItemTag.ToString());
+            GameObject gameObjectView = new($"{itemData.ItemTag.ToString()}View");
+            gameObject.AddChildWithUniqueName(gameObjectView);
+
+            gameObject.AddComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
+            (gameObject.AddComponent(itemData.ItemType) as BaseItemService).SetItemTag(itemData.ItemTag);
+            gameObjectView.AddComponent<SpriteRenderer>().sprite = itemData.Sprite;
+
+            gameObject.transform.localScale = itemData.Scale;
+            gameObject.transform.position = PlayerService.Instance.transform.position + Utils.GetRandomDirection(2f);
+        }
     }
 }

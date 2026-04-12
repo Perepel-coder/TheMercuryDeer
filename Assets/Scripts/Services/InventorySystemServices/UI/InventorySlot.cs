@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.DTO;
+using Assets.Scripts.Services.InventorySystemServices.ItemServices;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -51,7 +52,7 @@ namespace Assets.Scripts.Services.InventorySystemServices.UI
             if (needDrawSlot) DrawSlot();
         }
 
-        public void DelItemFromSlot(int quantity = 1, bool needDrawSlot = true)
+        private void DelItemFromSlot(int quantity = 1, bool needDrawSlot = true)
         {
             if (ItemData == null) return;
 
@@ -62,7 +63,7 @@ namespace Assets.Scripts.Services.InventorySystemServices.UI
             else if (needDrawSlot) DrawSlot();
         }
 
-        public void ClearSlot()
+        private void ClearSlot()
         {
             ItemData = null;
             _itemImage.sprite = _defaultIcon;
@@ -81,6 +82,14 @@ namespace Assets.Scripts.Services.InventorySystemServices.UI
         {
             if (pointerEventData.button == PointerEventData.InputButton.Left)
                 _inventoryDescriptionPanel.DrawDescription(ItemData);
+
+            if (pointerEventData.button == PointerEventData.InputButton.Right && ItemData != null)
+            {
+                for (int i = 0; i < ItemData.Quantity; i++)
+                    BaseItemService.CreateItem(ItemData);
+
+                ClearSlot();
+            }
         }
     }
 }

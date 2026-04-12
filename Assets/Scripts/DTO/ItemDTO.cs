@@ -1,5 +1,4 @@
-﻿using NUnit.Framework.Interfaces;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 using static Assets.Scripts.Enums.ItemEnums.ItemDefinitions;
@@ -19,5 +18,9 @@ namespace Assets.Scripts.DTO
         public List<Category> Categories { get; set; }
 
         public Action UseItem { get; set; }
+
+        public Type ItemType { get; set; }
+
+        public Vector3 Scale { get; set; }
     }
 }

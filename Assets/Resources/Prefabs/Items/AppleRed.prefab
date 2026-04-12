@@ -101,6 +101,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2096789383735903716}
   - component: {fileID: 4338916067658415212}
+  - component: {fileID: 8907401713825153335}
   m_Layer: 0
   m_Name: AppleRed
   m_TagString: Untagged
@@ -136,4 +137,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b325b51d793fbc4488cce668b3b544a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Assets.Scripts.Services.ItemServices.ConsumableServices.BaseConsumableService
-  _itemTag: 3
+  _itemTag: 4
+--- !u!50 &8907401713825153335
+Rigidbody2D:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7183700236875859026}
+  m_BodyType: 2
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
