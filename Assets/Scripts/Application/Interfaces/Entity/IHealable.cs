@@ -2,6 +2,6 @@
 {
     public interface IHealable
     {
-        public void RestoreHealth(int health);
+        public void RestoreHealth(float health);
     }
 }

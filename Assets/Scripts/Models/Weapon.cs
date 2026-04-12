@@ -1,5 +1,5 @@
-﻿using Assets.Scripts.Enums;
-using SQLite;
+﻿using SQLite;
+using static Assets.Scripts.Enums.ItemEnums.ItemDefinitions;
 
 namespace Assets.Scripts.Models
 {
@@ -11,7 +11,7 @@ namespace Assets.Scripts.Models
         public int Id { get; set; }
 
         [Column("Tag")]
-        public WeaponTag Tag { get; set; }
+        public Tag Tag { get; set; }
 
         [Column("HealthAmount")]
         public int HealthAmount { get; set; }

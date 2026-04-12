@@ -1,11 +1,11 @@
-﻿using Assets.Scripts.Enums;
+﻿using static Assets.Scripts.Enums.ItemEnums.ItemDefinitions;
 
 namespace Assets.Scripts.DTO
 {
     public class WeaponDTO
     {
         public int Id { get; set; }
-        public WeaponTag Tag { get; set; }
+        public Tag Tag { get; set; }
         public int HealthAmount { get; set; }
         public int DamageAmount { get; set; }
         public bool IsContinuousDamage { get; set; }

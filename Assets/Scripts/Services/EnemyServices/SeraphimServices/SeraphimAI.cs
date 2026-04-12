@@ -1,4 +1,4 @@
-﻿using Assets.Scripts.Enums;
+﻿using static Assets.Scripts.Enums.EnemyEnums.EnemyDefinitions;
 
 public class SeraphimAI : BaseEnemyAIService
 {

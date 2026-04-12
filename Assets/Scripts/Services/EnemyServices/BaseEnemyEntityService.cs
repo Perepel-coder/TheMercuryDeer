@@ -34,7 +34,7 @@ namespace Assets.Scripts.Services.Enemies
             base.TakeDamage(damage, enemyPosition);
         }
 
-        public override void RestoreHealth(int health)
+        public override void RestoreHealth(float health)
         {
             Instantiate(_popUpHealth, _ownerAI.GetTopTransformPosition, Quaternion.identity)
                 .DrawDamage(health, Vector2.one);

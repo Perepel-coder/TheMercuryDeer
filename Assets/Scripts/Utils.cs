@@ -6,9 +6,9 @@ namespace Assets.Scripts
 {
     public static class Utils
     {
-        public static Vector3 GetRandomDirection()
+        public static Vector3 GetRandomDirection(float magnitude = 1f)
         {
-            Vector2 randomDirection = Random.insideUnitCircle.normalized;
+            Vector2 randomDirection = Random.insideUnitCircle.normalized * magnitude;
             return new Vector3(randomDirection.x, randomDirection.y, 0f);
         }
 
@@ -17,5 +17,7 @@ namespace Assets.Scripts
             var values = Enum.GetValues(typeof(T));
             return (T)values.GetValue(Random.Range(0, values.Length));
         }
+
+        public static float GetPercentage(float value, float percentage) => value * (percentage / 100f);
     }
 }

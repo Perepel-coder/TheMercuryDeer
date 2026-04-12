@@ -12,6 +12,7 @@
             public const string HEALTH_SLIDER = PATH_TO_UI_PREFABS + "HealthSlider";
             public const string DAMAGE_POP_UP = PATH_TO_UI_PREFABS + "PopUpDamage";
             public const string HEALTH_POP_UP = PATH_TO_UI_PREFABS + "PopUpHealth";
+            public const string HINT_POP_UP = PATH_TO_UI_PREFABS + "PopUpHint";
         }
 
         public static class Materials
