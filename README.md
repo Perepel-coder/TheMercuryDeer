@@ -14,6 +14,7 @@
 - Вспышка белым цветом на спрайте при получении урона
 - Эффекты разрушения объектов окружения
 - Всплывающие цифры урона над целью
+- Инвентарь: подбор предметов, использование расходников, выброс предметов
 
 ---
 
@@ -45,6 +46,8 @@ git clone https://github.com/Perepel-coder/TheMercuryDeer.git
 | `Dash` (настраивается в Input Actions) | Рывок |
 | ЛКМ | Атака |
 | Мышь | Направление атаки |
+| `E` | Подобрать предмет |
+| `I` / кнопка инвентаря | Открыть / закрыть инвентарь |
 
 ---
 
@@ -57,19 +60,22 @@ Assets/Scripts/
 ├── Application/
 │   ├── Interfaces/       # IHasHealth, IDamageable, IHealable, IStateHandler, IRepository …
 │   ├── Mappers/          # PlayerMapper, EnemyMapper, WeaponMapper
-│   └── Repositories/     # PlayerRepository, EnemyRepository, WeaponRepository
+│   └── Repositories/     # PlayerRepository, EnemyRepository, WeaponRepository, ItemRepository
 ├── Infrastructure/
 │   └── DatabaseService   # SQLite-инициализация; предоставляет типизированные репозитории
-├── Models/               # SQLite-net модели таблиц (Player, Enemy, Weapon)
+├── Models/               # SQLite-net модели таблиц (Player, Enemy, Weapon, Item, ItemCategory)
 ├── DTO/                  # Runtime объекты передачи данных
 ├── Services/
-│   ├── PlayerServices/   # PlayerService, PlayerEntityService, PlayerViewService
-│   ├── EnemyServices/    # BaseEnemyAIService, обработчики состояний, конкретные сервисы врагов
-│   ├── WeaponServices/   # ActiveWeaponService, PlayerSwordService, AmorSwordService …
-│   ├── UIServices/       # GameMainCanvasService, PopUpDamageService
-│   └── VisualEffectServices/ # FlashBlinkService, BaseDestructibleObjectService, DestructionHandlerService
-├── Enums/                # EnemyTag, WeaponTag
-└── Paths/                # AnimatorParameters, AnimationPaths, ResourcePaths (строковые константы)
+│   ├── PlayerServices/        # PlayerService, PlayerEntityService, PlayerViewService
+│   ├── EnemyServices/         # BaseEnemyAIService, обработчики состояний, конкретные сервисы врагов
+│   ├── WeaponServices/        # ActiveWeaponService, PlayerSwordService, AmorSwordService …
+│   ├── InventorySystemServices/
+│   │   ├── UI/                # InventoryManagerService, InventorySlotsPanel, InventorySlot, InventoryDescriptionPanel
+│   │   └── ItemServices/      # BaseItemService, ConsumableService, WeaponService
+│   ├── UIServices/            # GameMainCanvasService, PopUpDamageService, PopUpHintService
+│   └── VisualEffectServices/  # FlashBlinkService, BaseDestructibleObjectService, DestructionHandlerService
+├── Enums/                     # EnemyDefinitions, ItemDefinitions (Category, Tag, StatToChange)
+└── Paths/                     # AnimatorParameters, AnimationPaths, ResourcePaths (строковые константы)
 ```
 
 ### Постоянное хранение данных
@@ -121,6 +127,41 @@ Roaming → Chasing → Attacking
 
 ---
 
+## 🎒 Система инвентаря
+
+Инвентарь открывается и закрывается горячей клавишей. При открытии игра ставится на паузу (`Time.timeScale = 0`), боевой ввод отключается.
+
+### UI-компоненты
+
+| Компонент | Описание |
+|-----------|----------|
+| `InventoryManagerService` | Центральный контроллер: открытие/закрытие окна, добавление предметов в слоты |
+| `InventorySlotsPanel` | Контейнер слотов; поиск пустого слота или слота с тем же `ItemTag` (стекинг) |
+| `InventorySlot` | Один слот: иконка, счётчик количества (макс. **10**); ЛКМ — открыть описание, ПКМ — выбросить все предметы из слота на сцену |
+| `InventoryDescriptionPanel` | Панель справа: иконка, название, описание предмета и кнопка **«Использовать»** |
+
+### Предметы на сцене
+
+| Класс | Описание |
+|-------|----------|
+| `BaseItemService` | Абстрактный базовый класс предмета в мире: зона взаимодействия (`1 unit`), всплывающая подсказка `«е»`, подбор по кнопке `E` (`OnPlayerInteractWithItem`) |
+| `ConsumableService` | Расходуемый предмет (пример: **RedApple**): при использовании восстанавливает процент от максимального HP игрока |
+| `WeaponService` | Предмет-оружие в мире |
+
+### Категории и теги предметов
+
+```
+Category   : Weapon | Armor | Consumable | CraftingMaterial
+Tag        : AmorSword | PlayerSword | BaseReactionToTakingHit | RedApple | None
+StatToChange: Health
+```
+
+### Данные предметов
+
+Параметры каждого предмета (название, описание, изменяемая характеристика, процент изменения, категории) хранятся в таблице `Item` базы данных SQLite и загружаются через `ItemRepository.GetItemByTag(tag)`.
+
+---
+
 ## ✨ Визуальные эффекты
 
 | Сервис | Эффект |
@@ -154,7 +195,7 @@ Roaming → Chasing → Attacking
 ```
 The Mercury Deer/
 ├── Assets/
-│   ├── InputActions/        # Сгенерированные классы GameInput и InputActions
+│   ├── InputActions/        # GameInput и InputActions
 │   ├── Resources/
 │   │   └── Sprites/         # Спрайт-листы (Amor, Player, Environment)
 │   ├── Scenes/              # Сцены игры (0.unity …)
@@ -168,5 +209,13 @@ The Mercury Deer/
 
 ## 📌 Статус проекта
 
-Проект находится в активной разработке.  
-Текущий фокус: система инвентаря
+Проект находится в активной разработке.
+
+| Система | Статус |
+|---------|--------|
+| Движение и рывок игрока | ✅ Готово |
+| Атака мечом | ✅ Готово |
+| ИИ врагов (FSM) | ✅ Готово |
+| Визуальные эффекты | ✅ Готово |
+| Система оружия | ✅ Готово |
+| Система инвентаря | ✅ Готово |
