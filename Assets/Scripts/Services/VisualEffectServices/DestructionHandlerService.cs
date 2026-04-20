@@ -1,6 +1,6 @@
 ﻿using System;
 using UnityEngine;
-using static Assets.Scripts.Paths.ResourcePaths;
+using static Assets.Scripts.Constans.Paths.ResourcePaths;
 
 namespace Assets.Scripts.Services.VisualEffects
 {

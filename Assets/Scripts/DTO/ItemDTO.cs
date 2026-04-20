@@ -1,26 +1,43 @@
-﻿using System;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using System.Collections.Generic;
 using static Assets.Scripts.Enums.ItemEnums.ItemDefinitions;
 
 namespace Assets.Scripts.DTO
 {
     public class ItemDTO
     {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public Tag ItemTag { get; set; }
-        public Sprite Sprite { get; set; }
-        public string Description { get; set; }
-        public int Quantity { get; set; }
-        public StatToChange StatToChange { get; set; }
-        public float StatChangePercent { get; set; }
-        public List<Category> Categories { get; set; }
+        public int Id { get; }
+        public string Name { get; }
+        public Tag ItemTag { get; }
+        public string Description { get; }
+        public StatToChange StatToChange { get; }
+        public float StatChangePercent { get; }
+        public List<Category> Categories { get; }
 
-        public Action UseItem { get; set; }
+        public ItemDTO(
+            string name,
+            Tag itemTag,
+            string description,
+            StatToChange statToChange,
+            float statChangePercent,
+            List<Category> categories)
+        {
+            Name = name;
+            ItemTag = itemTag;
+            StatToChange = statToChange;
+            StatChangePercent = statChangePercent;
+            Categories = categories;
+        }
 
-        public Type ItemType { get; set; }
-
-        public Vector3 Scale { get; set; }
+        public ItemDTO(
+            int id,
+            string name,
+            Tag itemTag,
+            string description,
+            StatToChange statToChange,
+            float statChangePercent,
+            List<Category> categories) : this(name, itemTag, description, statToChange, statChangePercent, categories)
+        {
+            Id = id;
+        }
     }
 }

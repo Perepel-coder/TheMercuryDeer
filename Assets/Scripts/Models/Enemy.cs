@@ -4,12 +4,8 @@ using static Assets.Scripts.Enums.EnemyEnums.EnemyDefinitions;
 namespace Assets.Scripts.Models
 {
     [Table("Enemy")]
-    public class Enemy
+    public class Enemy : BaseModel
     {
-        [PrimaryKey, AutoIncrement]
-        [Column("Id")]
-        public int Id { get; set; }
-
         [Column("Name")]
         public EnemyTag Tag { get; set; }
 

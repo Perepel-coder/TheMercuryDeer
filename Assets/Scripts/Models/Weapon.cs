@@ -4,12 +4,8 @@ using static Assets.Scripts.Enums.ItemEnums.ItemDefinitions;
 namespace Assets.Scripts.Models
 {
     [Table("Weapon")]
-    public class Weapon
+    public class Weapon : BaseModel
     {
-        [PrimaryKey, AutoIncrement]
-        [Column("Id")]
-        public int Id { get; set; }
-
         [Column("Tag")]
         public Tag Tag { get; set; }
 

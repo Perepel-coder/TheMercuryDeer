@@ -1,5 +1,4 @@
-﻿using Assets.Scripts.DTO;
-using Assets.Scripts.Paths;
+﻿using Assets.Scripts.Constans.Paths;
 using System;
 using TMPro;
 using UnityEngine;
@@ -9,8 +8,6 @@ namespace Assets.Scripts.Services.InventorySystemServices.UI
 {
     public class InventoryDescriptionPanel : MonoBehaviour
     {
-        private ItemDTO _itemData;
-
         private Sprite _defaultIcon;
 
         private Image _itemImage;
@@ -39,29 +36,19 @@ namespace Assets.Scripts.Services.InventorySystemServices.UI
             _useItemButton.onClick.RemoveListener(OnUseItemButtonClicked);
         }
 
-        private void OnUseItemButtonClicked()
-        {
-            if (_itemData == null) return;
-            _itemData?.UseItem?.Invoke();
+        private void OnUseItemButtonClicked() => OnUseItem?.Invoke(this, EventArgs.Empty);
 
-            OnUseItem?.Invoke(this, EventArgs.Empty);
-        }
-
-        public void DrawDescription(ItemDTO item)
+        public void DrawDescription(Sprite sprite, string itemName, string itemDesription)
         {
             ClearDescription();
 
-            if (item == null) return;
-
-            _itemData = item;
-            _itemImage.sprite = item.Sprite;
-            _ItemName.text = item.Name.ToLower();
-            _ItemDescription.text = item.Description.ToLower();
+            _itemImage.sprite = sprite;
+            _ItemName.text = itemName.ToLower();
+            _ItemDescription.text = itemDesription.ToLower();
         }
 
         public void ClearDescription()
         {
-            _itemData = null;
             _itemImage.sprite = _defaultIcon;
             _ItemName.text = string.Empty;
             _ItemDescription.text = string.Empty;

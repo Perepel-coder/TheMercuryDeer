@@ -1,8 +1,7 @@
-using Assets.Scripts.Application.Repositories;
 using Assets.Scripts.DTO;
+using Assets.Scripts.Infrastructure.Repositories;
 using Assets.Scripts.Models;
 using SQLite;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEditor;
 using UnityEngine;
@@ -75,41 +74,11 @@ namespace Assets.Scripts.Editor
             Debug.Log($"[DatabaseSeeder] Enemies seeded. DB path: {_dbPath}");
         }
 
-        [MenuItem("Database/Seed Default Items")]
-        public static void SeedDefaultItems()
-        {
-            var connection = CreateConnection();
-            var repo = new ItemRepository(connection);
-
-            Task.Run(async () =>
-            {
-                await connection.CreateTableAsync<Item>();
-                await connection.CreateTableAsync<ItemCategory>();
-                await connection.DeleteAllAsync<ItemCategory>();
-                await connection.DeleteAllAsync<Item>();
-            }).GetAwaiter().GetResult();
-
-            repo.AddItem(new ItemDTO
-            {
-                ItemTag = Tag.RedApple,
-                Name = "Красное яблоко",
-                Description = "Просто красное яблоко",
-                Quantity = 1,
-                StatToChange = StatToChange.Health,
-                StatChangePercent = 10,
-                Categories = new List<Category> { Category.Consumable, Category.CraftingMaterial },
-            });
-
-            Task.Run(() => connection.CloseAsync()).GetAwaiter().GetResult();
-            Debug.Log($"[DatabaseSeeder] Items seeded. DB path: {_dbPath}");
-        }
-
         [MenuItem("Database/Seed All")]
         public static void SeedAll()
         {
             SeedDefaultPlayer();
             SeedDefaultEnemies();
-            SeedDefaultItems();
         }
 
         [MenuItem("Database/Clear All")]

@@ -3,13 +3,8 @@
 namespace Assets.Scripts.Models
 {
     [Table("Player")]
-    public class Player
+    public class Player : BaseModel
     {
-        [PrimaryKey, AutoIncrement]
-        [Column("Id")]
-        public int Id { get; set; }
-
-
         [Column("MaxHealth")]
         public int MaxHealth { get; set; }
 

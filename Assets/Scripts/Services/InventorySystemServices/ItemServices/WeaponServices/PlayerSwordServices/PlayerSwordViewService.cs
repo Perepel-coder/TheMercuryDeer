@@ -1,4 +1,4 @@
-﻿using Assets.Scripts.Paths;
+﻿using Assets.Scripts.Constans.Paths;
 
 public class PlayerSwordViewService : View
 {

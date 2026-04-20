@@ -1,5 +1,5 @@
 using Assets.InputActions;
-using Assets.Scripts.Paths;
+using Assets.Scripts.Constans.Paths;
 using UnityEngine;
 
 namespace Assets.Scripts.Services.Player

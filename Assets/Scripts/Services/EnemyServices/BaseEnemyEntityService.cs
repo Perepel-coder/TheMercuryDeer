@@ -1,4 +1,4 @@
-﻿using Assets.Scripts.Paths;
+﻿using Assets.Scripts.Constans.Paths;
 using Assets.Scripts.Services.UI;
 using UnityEngine;
 

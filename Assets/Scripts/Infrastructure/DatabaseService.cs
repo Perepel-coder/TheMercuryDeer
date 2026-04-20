@@ -1,5 +1,5 @@
 using Assets.Scripts.Application.Interfaces.Repositories;
-using Assets.Scripts.Application.Repositories;
+using Assets.Scripts.Infrastructure.Repositories;
 using Assets.Scripts.Models;
 using SQLite;
 using UnityEngine;
@@ -34,7 +34,6 @@ namespace Assets.Scripts.Infrastructure
             PlayerRepository = new PlayerRepository(Connection);
             EnemyRepository = new EnemyRepository(Connection);
             WeaponRepository = new WeaponRepository(Connection);
-            ItemRepository = new ItemRepository(Connection);
 
             UnityApplication.quitting += OnApplicationQuitting;
         }

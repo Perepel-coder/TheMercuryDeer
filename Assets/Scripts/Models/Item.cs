@@ -4,11 +4,8 @@ using static Assets.Scripts.Enums.ItemEnums.ItemDefinitions;
 namespace Assets.Scripts.Models
 {
     [Table("Item")]
-    public class Item
+    public class Item : BaseModel
     {
-        [Column("Id"), PrimaryKey, AutoIncrement]
-        public int Id { get; set; }
-
         [Column("Name")]
         public string Name { get; set; }
 
@@ -17,9 +14,6 @@ namespace Assets.Scripts.Models
 
         [Column("Description")]
         public string Description { get; set; }
-
-        [Column("Quantity")]
-        public int Quantity { get; set; }
 
         [Column("StatToChange")]
         public StatToChange StatToChange { get; set; }

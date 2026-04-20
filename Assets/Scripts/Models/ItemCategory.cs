@@ -4,11 +4,8 @@ using static Assets.Scripts.Enums.ItemEnums.ItemDefinitions;
 namespace Assets.Scripts.Models
 {
     [Table("ItemCategory")]
-    public class ItemCategory
+    public class ItemCategory : BaseModel
     {
-        [Column("Id"), PrimaryKey, AutoIncrement]
-        public int Id { get; set; }
-
         [Column("ItemId")]
         public int ItemId { get; set; }
 
