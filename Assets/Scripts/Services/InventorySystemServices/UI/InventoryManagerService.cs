@@ -1,11 +1,11 @@
 ﻿using Assets.InputActions;
-using Assets.Scripts.Constans.Paths;
+using Assets.Scripts.Constants.Paths;
 using Assets.Scripts.ScriptableObjects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using static Assets.Scripts.Enums.ItemEnums.ItemDefinitions;
+using static Assets.Scripts.Constants.ItemDefinitions;
 
 namespace Assets.Scripts.Services.InventorySystemServices.UI
 {
@@ -31,17 +31,16 @@ namespace Assets.Scripts.Services.InventorySystemServices.UI
         private void OnDestroy()
         {
             GameInput.Instance.OnPlayerOpenInventory -= GameInput_OnPlayerOpenInventory;
-            foreach(var slot in _inventorySlots)
-            {
+
+            foreach (var slot in _inventorySlots)
                 slot.OnUseItem -= _inventorySlot_OnUseItem;
-            }
         }
 
         private void InitialInventorySlots(InventoryDescriptionPanel descriptionPanel)
         {
-            for(int index = 0; index < _inventorySlots.Count; index++)
+            for (int index = 0; index < _inventorySlots.Count; index++)
             {
-                var slot= _inventorySlots[index];
+                var slot = _inventorySlots[index];
                 slot.Initialize(index, descriptionPanel);
                 slot.OnUseItem += _inventorySlot_OnUseItem;
             }
@@ -49,7 +48,7 @@ namespace Assets.Scripts.Services.InventorySystemServices.UI
 
         private InventorySlot GetEmptySlot() => _inventorySlots?.FirstOrDefault(slot => slot.IsEmpty);
 
-        public InventorySlot GetSlotByItemTag(Tag itemTag) => _inventorySlots?.FirstOrDefault(slot => !slot.IsEmpty && slot.ItemTag == itemTag);
+        public InventorySlot GetSlotByItemTag(ItemTag itemTag) => _inventorySlots?.FirstOrDefault(slot => !slot.IsEmpty && slot.ItemTag == itemTag);
 
         private void GameInput_OnPlayerOpenInventory(object sender, EventArgs e)
         {
@@ -77,7 +76,7 @@ namespace Assets.Scripts.Services.InventorySystemServices.UI
         /// </summary>
         /// <param name="itemData"></param>
         /// <returns></returns>
-        public bool AddItemToInventory(Tag itemTag)
+        public bool AddItemToInventory(ItemTag itemTag)
         {
             InventorySlot slot = GetSlotByItemTag(itemTag) ?? GetEmptySlot();
             ItemDataSO item = Resources.Load<ItemDataSO>($"{ResourcePaths.ScriptableObjects.PATH_TO_ITEMS}{itemTag}");

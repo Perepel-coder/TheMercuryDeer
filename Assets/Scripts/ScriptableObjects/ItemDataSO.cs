@@ -1,14 +1,14 @@
 ﻿using Assets.Scripts.Services.Player;
 using System.Collections.Generic;
 using UnityEngine;
-using static Assets.Scripts.Enums.ItemEnums.ItemDefinitions;
+using static Assets.Scripts.Constants.ItemDefinitions;
 
 namespace Assets.Scripts.ScriptableObjects
 {
     [CreateAssetMenu(fileName = "Item Data SO", menuName = "Item Data SO")]
     public class ItemDataSO : ScriptableObject
     {
-        [SerializeField] private Tag _itemTag;
+        [SerializeField] private ItemTag _tag;
         [SerializeField] private string _name;
         [SerializeField] private Sprite _sprite;
         [SerializeField] private Vector3 _spriteScale = new Vector3(1, 1, 1);
@@ -18,7 +18,7 @@ namespace Assets.Scripts.ScriptableObjects
         [SerializeField][TextArea(3, 5)] private string _description;
 
         public string Name => _name;
-        public Tag ItemTag => _itemTag;
+        public ItemTag Tag => _tag;
         public string Description => _description;
         public StatToChange StatToChange => _statToChange;
         public float StatChangePercent => _statChangePercent;

@@ -1,4 +1,4 @@
-﻿using Assets.Scripts.Constans.Paths;
+﻿using Assets.Scripts.Constants.Paths;
 using System;
 using TMPro;
 using UnityEngine;

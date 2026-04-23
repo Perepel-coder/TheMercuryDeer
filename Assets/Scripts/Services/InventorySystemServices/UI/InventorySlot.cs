@@ -1,12 +1,11 @@
-﻿using Assets.Scripts.Constans.Paths;
+﻿using Assets.Scripts.Constants.Paths;
 using Assets.Scripts.ScriptableObjects;
-using Assets.Scripts.Services.InventorySystemServices.ItemServices;
 using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
-using static Assets.Scripts.Enums.ItemEnums.ItemDefinitions;
+using static Assets.Scripts.Constants.ItemDefinitions;
 
 namespace Assets.Scripts.Services.InventorySystemServices.UI
 {
@@ -25,7 +24,7 @@ namespace Assets.Scripts.Services.InventorySystemServices.UI
         public event EventHandler OnUseItem;
 
         public int InventorySlotIndex { get; private set; }
-        public Tag ItemTag => InventoryItemData?.ItemTag ?? Tag.None;
+        public ItemTag ItemTag => InventoryItemData?.Tag ?? ItemTag.None;
         public bool IsEmpty => InventoryItemData == null;
         public bool IsFull => _quantity >= MAX_QUANTITY_IN_SLOT;
 
@@ -92,18 +91,22 @@ namespace Assets.Scripts.Services.InventorySystemServices.UI
 
         public void OnPointerClick(PointerEventData pointerEventData)
         {
-            if (pointerEventData.button == PointerEventData.InputButton.Left)
-                _inventoryDescriptionPanel.DrawDescription(
-                    InventoryItemData.Sprite,
-                    InventoryItemData.Name,
-                    InventoryItemData.Description);
+            if (InventoryItemData == null) return;
 
-            if (pointerEventData.button == PointerEventData.InputButton.Right && InventoryItemData != null)
+            switch (pointerEventData.button)
             {
-                for (int i = 0; i < _quantity; i++)
-                    ItemService.CreateItem(InventoryItemData);
+                case PointerEventData.InputButton.Left:
+                    _inventoryDescriptionPanel.DrawDescription(
+                        InventoryItemData.Sprite,
+                        InventoryItemData.Name,
+                        InventoryItemData.Description);
+                    break;
+                case PointerEventData.InputButton.Right:
+                    for (int i = 0; i < _quantity; i++)
+                        ItemService.CreateItem(InventoryItemData);
 
-                ClearSlot();
+                    ClearSlot();
+                    break;
             }
         }
     }

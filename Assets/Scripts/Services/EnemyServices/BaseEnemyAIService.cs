@@ -1,15 +1,15 @@
-using Assets.Scripts.Application.Interfaces.Entity;
-using Assets.Scripts.Application.Interfaces.NpcStates;
-using Assets.Scripts.Application.Interfaces.Weapon;
-using Assets.Scripts.DTO;
-using Assets.Scripts.Infrastructure;
+using Assets.Scripts.Constants.Paths;
+using Assets.Scripts.Interfaces.Entity;
+using Assets.Scripts.Interfaces.NpcStates;
+using Assets.Scripts.Interfaces.Weapon;
+using Assets.Scripts.ScriptableObjects;
 using Assets.Scripts.Services.Enemies.StateHandler;
 using Assets.Scripts.Services.Player;
 using System;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
-using static Assets.Scripts.Enums.EnemyEnums.EnemyDefinitions;
+using static Assets.Scripts.Constants.EnemyDefinitions;
 
 public abstract partial class BaseEnemyAIService
 {
@@ -17,15 +17,17 @@ public abstract partial class BaseEnemyAIService
     private const float JUMP_POWER = 0.5f;
 
     private float _roamingCurrentTime;
+    private float _nextAttackTime;
     private Vector3 _lastSteeringTarget;
+
     private NavMeshAgent _navMeshAgent;
     private Rigidbody2D _rigidbody;
     private Collider2D _collider;
 
     protected BaseEntityService _ownerEntity;
-    protected abstract EnemyTag Name { get; }
+    protected abstract EnemyTag EnemyTag { get; }
 
-    public EnemyDTO Stats { get; protected set; }
+    public EnemyDataSO Stats { get; private set; }
 
     public float MaxHealth => Stats.MaxHealth;
     public float CurrentHealth { get; set; }
@@ -49,6 +51,29 @@ public abstract partial class BaseEnemyAIService : MonoBehaviour, IHasState, IHa
     public Vector3 CurrentPoison => transform.position;
     public Vector3 GetTopTransformPosition => new(transform.position.x, _collider.bounds.max.y, transform.position.z);
 
+    protected virtual void Awake()
+    {
+        _navMeshAgent = GetComponent<NavMeshAgent>();
+        _rigidbody = GetComponent<Rigidbody2D>();
+        _collider = GetComponent<Collider2D>();
+
+        Stats = Resources.Load<EnemyDataSO>($"{ResourcePaths.ScriptableObjects.PATH_TO_ENEMIES}{EnemyTag}");
+
+        _navMeshAgent.speed = Stats.RoamingSpeed;
+        _navMeshAgent.updateRotation = false;
+        _navMeshAgent.updateUpAxis = false;
+    }
+
+    protected virtual void Start()
+    {
+        _ownerEntity = GetComponent<BaseEntityService>();
+
+        var weapons = GetComponentsInChildren<ActiveWeaponService>();
+
+        ActiveWeapon = weapons.SingleOrDefault(w => w.Weapon is IMainWeapon);
+        ReactionToTakingHit = weapons.SingleOrDefault(w => w.Weapon is IDamageReaction);
+    }
+
     public void StateHandler()
     {
         switch (_currentState)
@@ -67,11 +92,11 @@ public abstract partial class BaseEnemyAIService : MonoBehaviour, IHasState, IHa
                 _navMeshAgent.SetDestination(_chasingStateHandler.TargetPosition);
                 break;
             case State.Attacking:
-                if (Time.time > Stats.NextAttackTime)
+                if (Time.time > _nextAttackTime)
                 {
                     OnEnemyAttacked?.Invoke(this, EventArgs.Empty);
                     _attackingStateHandler.Run(this);
-                    Stats.NextAttackTime = _attackingStateHandler.NextAttackTime;
+                    _nextAttackTime = _attackingStateHandler.NextAttackTime;
                 }
                 break;
         }
@@ -130,29 +155,6 @@ public abstract partial class BaseEnemyAIService : MonoBehaviour, IHasState, IHa
 
             _currentState = newState;
         }
-    }
-
-    protected virtual void Awake()
-    {
-        _navMeshAgent = GetComponent<NavMeshAgent>();
-        _rigidbody = GetComponent<Rigidbody2D>();
-        _collider = GetComponent<Collider2D>();
-
-        Stats = DatabaseService.EnemyRepository.GetEnemy(Name);
-
-        _navMeshAgent.speed = Stats.RoamingSpeed;
-        _navMeshAgent.updateRotation = false;
-        _navMeshAgent.updateUpAxis = false;
-    }
-
-    protected virtual void Start()
-    {
-        _ownerEntity = GetComponent<BaseEntityService>();
-
-        var weapons = GetComponentsInChildren<ActiveWeaponService>();
-
-        ActiveWeapon = weapons.SingleOrDefault(w => w.Weapon is IMainWeapon);
-        ReactionToTakingHit = weapons.SingleOrDefault(w => w.Weapon is IDamageReaction);
     }
 
     private void Update() => StateHandler();

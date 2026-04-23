@@ -9,8 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4634955620283213547}
-  - component: {fileID: 5469327432175524342}
   - component: {fileID: 739091868429560997}
+  - component: {fileID: 2649678789413999480}
   m_Layer: 0
   m_Name: AmorSword
   m_TagString: Untagged
@@ -34,18 +34,6 @@ Transform:
   - {fileID: 8113213839649883335}
   m_Father: {fileID: 8208292042997628058}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5469327432175524342
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 139647772041969046}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a9e5acf7323336d4e8c1e4bfdaf020ec, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Assets.Scripts.Weapons.AmorSword.AmorSword
 --- !u!60 &739091868429560997
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -99,6 +87,18 @@ PolygonCollider2D:
       - {x: 0.49648833, y: -1.8267622}
       - {x: 0.4977957, y: -0.4993555}
   m_UseDelaunayMesh: 0
+--- !u!114 &2649678789413999480
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 139647772041969046}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b8ce6f78d942954b980b941771e09b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Assets.Scripts.Services.WeaponServices.AmorSwordService
 --- !u!1 &1056901420414402285
 GameObject:
   m_ObjectHideFlags: 0
@@ -281,7 +281,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4107cfdfc2e8f8c49b711d5d7e770130, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _currentState: 0
 --- !u!114 &5270228837228923737
 MonoBehaviour:
   m_ObjectHideFlags: 0

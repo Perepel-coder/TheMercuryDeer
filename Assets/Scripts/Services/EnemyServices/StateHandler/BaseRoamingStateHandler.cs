@@ -1,4 +1,4 @@
-﻿using Assets.Scripts.Application.Interfaces.NpcStates;
+﻿using Assets.Scripts.Interfaces.NpcStates;
 using UnityEngine;
 
 namespace Assets.Scripts.Services.Enemies.StateHandler
