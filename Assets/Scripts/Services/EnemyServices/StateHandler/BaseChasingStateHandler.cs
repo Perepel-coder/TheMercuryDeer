@@ -1,4 +1,4 @@
-﻿using Assets.Scripts.Application.Interfaces.NpcStates;
+﻿using Assets.Scripts.Interfaces.NpcStates;
 using Assets.Scripts.Services.Player;
 using UnityEngine;
 

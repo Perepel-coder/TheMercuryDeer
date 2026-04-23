@@ -1,5 +1,5 @@
-﻿using Assets.Scripts.Services.InventorySystemServices.ItemServices.WeaponServices.AmorSwordServices;
-using Assets.Scripts.Services.Player;
+﻿using Assets.Scripts.Services.Player;
+using Assets.Scripts.Services.WeaponServices;
 
 namespace Assets.Scripts.Services.Enemies.StateHandler.AmorStateHandler
 {

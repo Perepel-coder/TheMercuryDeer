@@ -1,28 +1,33 @@
-﻿using Assets.Scripts.DTO;
-using Assets.Scripts.Paths;
-using Assets.Scripts.Services.InventorySystemServices.ItemServices;
+﻿using Assets.Scripts.Constants.Paths;
+using Assets.Scripts.ScriptableObjects;
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using static Assets.Scripts.Constants.ItemDefinitions;
 
 namespace Assets.Scripts.Services.InventorySystemServices.UI
 {
     public class InventorySlot : MonoBehaviour, IPointerClickHandler
     {
         private const int MAX_QUANTITY_IN_SLOT = 10;
+
         private Sprite _defaultIcon;
-
-        private InventoryDescriptionPanel _inventoryDescriptionPanel;
-
         private Image _itemImage;
         private TMP_Text _quantityText;
+        private InventoryDescriptionPanel _inventoryDescriptionPanel;
 
-        public ItemDTO ItemData { get; private set; }
+        private int _quantity;
+        public ItemDataSO InventoryItemData { get; private set; }
 
-        public bool IsEmpty => ItemData == null;
-        public bool IsFull => ItemData?.Quantity >= MAX_QUANTITY_IN_SLOT;
-        public bool IsSelected { get; set; }
+        public event EventHandler OnUseItem;
+
+        public int InventorySlotIndex { get; private set; }
+        public ItemTag ItemTag => InventoryItemData?.Tag ?? ItemTag.None;
+        public bool IsEmpty => InventoryItemData == null;
+        public bool IsFull => _quantity >= MAX_QUANTITY_IN_SLOT;
+
 
         private void Awake()
         {
@@ -37,36 +42,33 @@ namespace Assets.Scripts.Services.InventorySystemServices.UI
                 _inventoryDescriptionPanel.OnUseItem -= _inventoryDescriptionPanel_OnUseItem;
         }
 
-        public void Initialize(InventoryDescriptionPanel descriptionPanel)
+        public void Initialize(int inventorySlotIndex, InventoryDescriptionPanel descriptionPanel)
         {
+            InventorySlotIndex = inventorySlotIndex;
             _inventoryDescriptionPanel = descriptionPanel;
             _inventoryDescriptionPanel.OnUseItem += _inventoryDescriptionPanel_OnUseItem;
         }
 
-        private void _inventoryDescriptionPanel_OnUseItem(object sender, System.EventArgs e) => DelItemFromSlot();
-
-        public void AddItemToSlot(ItemDTO item, bool needDrawSlot = true)
+        private void _inventoryDescriptionPanel_OnUseItem(object sender, EventArgs e)
         {
-            if (ItemData == null) ItemData = item;
-            else ItemData.Quantity += item.Quantity;
-
-            if (needDrawSlot) DrawSlot();
+            OnUseItem?.Invoke(this, EventArgs.Empty);
+            DelItemFromSlot();
         }
 
         private void DelItemFromSlot(int quantity = 1, bool needDrawSlot = true)
         {
-            if (ItemData == null) return;
+            if (InventoryItemData == null) return;
 
-            ItemData.Quantity -= quantity;
+            _quantity -= quantity;
 
-            if (ItemData.Quantity <= 0) ClearSlot();
-
+            if (_quantity <= 0) ClearSlot();
             else if (needDrawSlot) DrawSlot();
         }
 
         private void ClearSlot()
         {
-            ItemData = null;
+            InventoryItemData = null;
+            _quantity = 0;
             _itemImage.sprite = _defaultIcon;
             _quantityText.text = string.Empty;
 
@@ -75,21 +77,36 @@ namespace Assets.Scripts.Services.InventorySystemServices.UI
 
         private void DrawSlot()
         {
-            _itemImage.sprite = ItemData.Sprite;
-            _quantityText.text = ItemData.Quantity.ToString();
+            _itemImage.sprite = InventoryItemData.Sprite;
+            _quantityText.text = _quantity.ToString();
+        }
+
+        public void AddItemToSlot(ItemDataSO itemData, bool needDrawSlot = true)
+        {
+            if (InventoryItemData == null) InventoryItemData = itemData;
+            _quantity++;
+
+            if (needDrawSlot) DrawSlot();
         }
 
         public void OnPointerClick(PointerEventData pointerEventData)
         {
-            if (pointerEventData.button == PointerEventData.InputButton.Left)
-                _inventoryDescriptionPanel.DrawDescription(ItemData);
+            if (InventoryItemData == null) return;
 
-            if (pointerEventData.button == PointerEventData.InputButton.Right && ItemData != null)
+            switch (pointerEventData.button)
             {
-                for (int i = 0; i < ItemData.Quantity; i++)
-                    BaseItemService.CreateItem(ItemData);
+                case PointerEventData.InputButton.Left:
+                    _inventoryDescriptionPanel.DrawDescription(
+                        InventoryItemData.Sprite,
+                        InventoryItemData.Name,
+                        InventoryItemData.Description);
+                    break;
+                case PointerEventData.InputButton.Right:
+                    for (int i = 0; i < _quantity; i++)
+                        ItemService.CreateItem(InventoryItemData);
 
-                ClearSlot();
+                    ClearSlot();
+                    break;
             }
         }
     }

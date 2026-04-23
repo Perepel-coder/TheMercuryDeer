@@ -1,4 +1,4 @@
-﻿using Assets.Scripts.Application.Interfaces.Entity;
+﻿using Assets.Scripts.Interfaces.Entity;
 using System;
 using UnityEngine;
 
@@ -6,7 +6,8 @@ public class BaseEntityService : MonoBehaviour, IDamageable, IHealable
 {
     protected IHasHealth _ownerAI;
 
-    public event EventHandler OnTakedDamage;
+    public event EventHandler<(int damage, Vector3? enemyPosition)> OnTakedDamage;
+    public event EventHandler<float> OnRestoreHealth;
     public event EventHandler OnDeath;
 
     public bool IsAlive { get; private set; } = true;
@@ -27,7 +28,7 @@ public class BaseEntityService : MonoBehaviour, IDamageable, IHealable
 
     public virtual void TakeDamage(int damage, Vector3? enemyPosition = null)
     {
-        OnTakedDamage?.Invoke(this, EventArgs.Empty);
+        OnTakedDamage?.Invoke(this, (damage, enemyPosition));
 
         _ownerAI.CurrentHealth -= damage;
 
@@ -36,6 +37,8 @@ public class BaseEntityService : MonoBehaviour, IDamageable, IHealable
 
     public virtual void RestoreHealth(float health)
     {
+        OnRestoreHealth?.Invoke(this, health);
+
         _ownerAI.CurrentHealth += health;
 
         if (_ownerAI.CurrentHealth > _ownerAI.MaxHealth)

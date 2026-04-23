@@ -1,4 +1,4 @@
-﻿using Assets.Scripts.Application.Interfaces.Entity;
+﻿using Assets.Scripts.Interfaces.Entity;
 using UnityEngine;
 
 namespace Assets.Scripts.Services.VisualEffects
@@ -26,7 +26,7 @@ namespace Assets.Scripts.Services.VisualEffects
 
         private void OnDestroy() => _damageableObject.OnTakedDamage -= _damageableObject_OnTakedDamage;
 
-        private void _damageableObject_OnTakedDamage(object sender, System.EventArgs e) => StartBlinking();
+        private void _damageableObject_OnTakedDamage(object sender, (int damage, Vector3? enemyPosition) e) => StartBlinking();
 
         private void Update()
         {

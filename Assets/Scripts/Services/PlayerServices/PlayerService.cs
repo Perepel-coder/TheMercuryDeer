@@ -1,23 +1,22 @@
 using Assets.InputActions;
-using Assets.Scripts.Application.Interfaces.Entity;
-using Assets.Scripts.DTO;
-using Assets.Scripts.Infrastructure;
+using Assets.Scripts.Constants;
+using Assets.Scripts.Constants.Paths;
+using Assets.Scripts.Interfaces.Entity;
+using Assets.Scripts.ScriptableObjects;
 using Cysharp.Threading.Tasks;
 using System;
-using System.Linq;
 using UnityEngine;
 
 namespace Assets.Scripts.Services.Player
 {
-    [SelectionBase]
-    public partial class PlayerService
-    {
-        private PlayerDTO _stats;
-        private ActiveWeaponService _activeWeapon;
-        private Rigidbody2D _rigidbody;
-    }
     public partial class PlayerService : MonoBehaviour, IHasHealth
     {
+        [SerializeField] private PlayerDefinitions _tag;
+
+        private PlayerStatsDataSO _stats;
+        private ActiveWeaponService _activeWeapon;
+        private Rigidbody2D _rigidbody;
+
         public static PlayerService Instance { get; private set; }
 
         public bool IsDashing { get; private set; }
@@ -34,6 +33,8 @@ namespace Assets.Scripts.Services.Player
 
         public Vector2 MovementVector { get; private set; }
 
+        private float _speedCurrrentMoveing;
+
 
         private void Awake()
         {
@@ -46,9 +47,9 @@ namespace Assets.Scripts.Services.Player
 
         private void Start()
         {
-            _stats = DatabaseService.PlayerRepository.GetPlayers().FirstOrDefault();
+            _stats = Resources.Load<PlayerStatsDataSO>($"{ResourcePaths.ScriptableObjects.PATH_TO_PLAYER_DATA}{_tag}");
 
-            if(_stats == null)
+            if (_stats == null)
             {
                 Debug.LogError("No player stats found in database!");
                 return;
@@ -56,7 +57,7 @@ namespace Assets.Scripts.Services.Player
 
             MaxHealth = _stats.MaxHealth;
 
-            _stats.SpeedCurrrentMoveing = _stats.BaseSpeedMoveing;
+            _speedCurrrentMoveing = _stats.BaseSpeedMoving;
 
             _activeWeapon = GetComponentInChildren<ActiveWeaponService>();
             _activeWeapon.UseFollowMousePosition = true;
@@ -89,7 +90,7 @@ namespace Assets.Scripts.Services.Player
             foreach (var c in GetComponentsInChildren<Collider2D>())
                 c.enabled = false;
 
-            _stats.SpeedCurrrentMoveing = _stats.SpeedMoveingMin;
+            _speedCurrrentMoveing = _stats.SpeedMovingMin;
 
             _activeWeapon.UseFollowMousePosition = false;
 
@@ -98,10 +99,10 @@ namespace Assets.Scripts.Services.Player
 
         private void HandleMovement()
         {
-            _rigidbody.MovePosition(_rigidbody.position + MovementVector * (Time.fixedDeltaTime * _stats.SpeedCurrrentMoveing));
+            _rigidbody.MovePosition(_rigidbody.position + MovementVector * (Time.fixedDeltaTime * _speedCurrrentMoveing));
 
-            IsRunningForward = Math.Abs(MovementVector.y) > _stats.SpeedMoveingMin;
-            IsRunningSide = Math.Abs(MovementVector.x) > _stats.SpeedMoveingMin;
+            IsRunningForward = Math.Abs(MovementVector.y) > _stats.SpeedMovingMin;
+            IsRunningSide = Math.Abs(MovementVector.x) > _stats.SpeedMovingMin;
         }
 
         private void GameInput_OnPlayerAttack(object sender, EventArgs args) => _activeWeapon.Weapon.Attack();
@@ -116,11 +117,11 @@ namespace Assets.Scripts.Services.Player
         {
             IsDashing = true;
             CanDash = false;
-            _stats.SpeedCurrrentMoveing *= _stats.DashSpeedMultiplier;
+            _speedCurrrentMoveing *= _stats.DashSpeedMultiplier;
             await UniTask.Delay(TimeSpan.FromSeconds(_stats.DashDuration));
 
             IsDashing = false;
-            _stats.SpeedCurrrentMoveing = _stats.BaseSpeedMoveing;
+            _speedCurrrentMoveing = _stats.BaseSpeedMoving;
             await UniTask.Delay(TimeSpan.FromSeconds(_stats.DashCooldown));
             CanDash = true;
         }
